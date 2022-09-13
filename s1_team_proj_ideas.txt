@@ -1,0 +1,21 @@
+Team members:
+
+Brian Elder
+Pedro Damian Marta
+Preston Feagan
+Skyler Landess
+Stage 0 Team Leader: 
+
+Project Ideas:
+
+Portales Theater App: For last semester, our team developed a website that can manage the registration of users, 
+so they can purchase tickets and select seats for plays on a “Theater in Los Portales”.
+This idea is a continuation of that project by designing an android application for the Theater System so users can easily register, 
+sign in and purchase their tickets from an app designed specifically for mobile. 
+
+Website link: https://portales-theatre.42web.io/
+
+LinguaReader: A eBook reader to assist language learners by providing a simplistic way 
+to look-up words with a touch of their finger and having the ability to save those same words in the same app, 
+so they can review later in a flashcard system that utilizes space repetition to make easier the arduous task of 
+remembering new words in a foreign language. 
