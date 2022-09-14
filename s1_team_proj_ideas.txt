@@ -18,3 +18,7 @@ LinguaReader: A eBook reader to assist language learners by providing a simplist
 to look-up words with a touch of their finger and having the ability to save those same words in the same app, 
 so they can review later in a flashcard system that utilizes space repetition to make easier the arduous task of 
 remembering new words in a foreign language. 
+
+
+Dog Shelter App: By filling out a questionnaire, the app shows the “perfect” selection of dogs based on the answers the user has given.
+It will include also all the current dogs available and an about us page. 
