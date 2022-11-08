@@ -14,7 +14,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class AboutFragment extends Fragment {
-
+    /**
+     * Author(s): (add your name if you modify and/or add to the code)
+     * Class (school): CS458
+     * Class name: AboutFragment
+     * Purpose: Shows information about the developer team and the website
+     * Date Modified: 11/07/2022 9:47 pm
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,18 +1,20 @@
 package com.example.losportalestheatre;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+/**
+ * Author(s): (add your name if you modify and/or add to the code)
+ * Class (school): CS458
+ * Class name: CartFragment
+ * Purpose: Fragment for the Cart where the customer can see the tickets they want to purchase
+ * Date Modified: 11/07/2022 9:47 pm
+ */
 
 public class CartFragment extends Fragment {
     private API api; //we initialize the API class for API related operations

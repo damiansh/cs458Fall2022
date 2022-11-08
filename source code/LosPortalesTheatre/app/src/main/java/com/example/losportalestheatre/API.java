@@ -16,7 +16,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
-
+/**
+ * Author(s): Pedro Damian Marta (add your name if you modify and/or add to the code)
+ * Class (school): CS458
+ * Class name: API
+ * Purpose: The API class handles all the operations related to the REST API
+ * Date Modified: 11/07/2022 9:47 pm
+ */
 public class API extends ViewModel {
     //Live Data Variables
     private MutableLiveData<Boolean> currentLogged; //variable to set if the user is logged
@@ -393,6 +399,10 @@ public class API extends ViewModel {
 
         //Set the login session to false if it's set as true
         if(currentLogged.getValue()) currentLogged.setValue(Boolean.FALSE);
+
+        //Inform the user with a toast message
+        Toast.makeText(current, "Logged out!", Toast.LENGTH_SHORT).show();
+
 
     }
 }

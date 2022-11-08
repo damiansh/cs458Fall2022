@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link TicketsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Author(s): (add your name if you modify and/or add to the code)
+ * Class (school): CS458
+ * Class name: TicketFragment
+ * Purpose: Fragment for the Tickets, where the customer can see their previous purchases
+ * Date Modified: 11/07/2022 9:47 pm
  */
 public class TicketsFragment extends Fragment {
 

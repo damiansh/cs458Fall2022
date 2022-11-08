@@ -13,7 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+/**
+ * Author(s): Pedro Damian Marta Rubio (add your name if you modify and/or add to the code)
+ * Class (school): CS458
+ * Class name: RegistrationFragment
+ * Purpose: Fragment for the registration, where the customer can register into the system
+ * Date Modified: 11/07/2022 9:47 pm
+ */
 public class RegistrationFragment extends Fragment{
     private API api; //we initialize the API class for API related operations
     private View registrationView; ///view of the login frame

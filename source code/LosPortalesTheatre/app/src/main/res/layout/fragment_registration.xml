@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Layout by Pedro Damian Marta Rubio-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -150,7 +151,9 @@
                     android:id="@+id/button_register"
                     android:text="@string/register"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/navyBlueVariant"
+                    android:textColor="@color/white">
 
                 </Button>
 
@@ -159,6 +162,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:backgroundTint="@color/navyBlueVariant"
+                    android:textColor="@color/white"
                     android:text="@string/clear_form">
 
                 </Button>

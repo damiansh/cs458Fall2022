@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navyBlue">#041e42</color>
     <color name="navyBlueVariant">#073778</color>
+    <color name="playCardColor">#343434</color>
     <color name="errorColor">#ff0000</color>
 
 

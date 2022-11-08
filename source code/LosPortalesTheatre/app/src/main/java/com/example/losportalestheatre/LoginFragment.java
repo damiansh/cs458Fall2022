@@ -11,7 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+/**
+ * Author(s): Pedro Damian Marta Rubio (add your name if you modify and/or add to the code)
+ * Class (school): CS458
+ * Class name: LoginFragment
+ * Purpose: Fragment for the login, where the customer can login with its credentials
+ * Date Modified: 11/07/2022 9:47 pm
+ */
 public class LoginFragment extends Fragment{
     private API api;
     private View loginView; ///view of the login frame
@@ -40,7 +46,7 @@ public class LoginFragment extends Fragment{
     }
     private View.OnClickListener registerButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrationFragment()).commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrationFragment()).commit();
         }
     };
 

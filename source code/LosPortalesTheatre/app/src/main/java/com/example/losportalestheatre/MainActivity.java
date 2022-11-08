@@ -18,9 +18,15 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
-https://androidknowledge.com/navigation-drawer-android-studio/#stepbystep-implementation
+/**
+ * Author(s): Pedro Damian Marta Rubio(add your name if you modify and/or add to the code)
+ * Code build with the help of https://androidknowledge.com/navigation-drawer-android-studio/#stepbystep-implementation
+ * Class (school): CS458
+ * Class name: MainActivity
+ * Purpose: It's the Main Activity, handles the NavigationView and the fragments.
+ * Date Modified: 11/07/2022 9:47 pm
  */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     private DrawerLayout drawerLayout;
     private API api; //we initialize the API class for API related operations

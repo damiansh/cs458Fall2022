@@ -19,6 +19,8 @@
     <string name="phone_number">Phone Number</string>
     <string name="clear_form">Clear Form</string>
     <string name="upcoming_plays">Upcoming Plays</string>
+    <string name="play_name">Play Name</string>
+    <string name="play_description">Play description</string>
 
 
 </resources>
