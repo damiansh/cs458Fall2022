@@ -58,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //get the local key
         try{
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                    "secret_shared_prefs",
+                    "LosPortalesTheatreKey",
                     masterKeyAlias,
                     this,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             try{
                 String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
                 SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                        "secret_shared_prefs",
+                        "LosPortalesTheatreKey",
                         masterKeyAlias,
                         this,
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

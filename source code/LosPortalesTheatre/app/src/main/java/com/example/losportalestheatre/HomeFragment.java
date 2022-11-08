@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         api = new ViewModelProvider(requireActivity()).get(API.class);
 
         //We get the upcoming plays
-        api.getUpcomingPlays(getContext());
+        api.getUpcomingPlays(requireActivity());
         api.checkPlays().observe(getViewLifecycleOwner(), upcoming->{
             //get the loading bar and set to visible
             ProgressBar loading = homeView.findViewById(R.id.playLoading);
