@@ -13,10 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
-
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Author(s): Pedro Damian Marta Rubio(add your name if you modify and/or add to the code)
@@ -49,33 +46,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
+           navigationView.setCheckedItem(R.id.nav_home);
         }
 
         //get the ViewModel for the API
         api =  new ViewModelProvider(this).get(API.class);
 
-        //get the local key
-        try{
-            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        //Get and set local key
+        String currentKey = getLocalKey();
+        if(!currentKey.equals("none")) api.verifyKey(currentKey,this);
 
-            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                    "LosPortalesTheatreKey",
-                    masterKeyAlias,
-                    this,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            );
 
-            //read local key
-            String currentKey= sharedPreferences.getString("key", "none");
-            if(!currentKey.equals("none")) api.verifyKey(currentKey,this);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        // Create the observers which updates the UI.
+        // Create the observers which updates the menu.
         //For login status
         api.isLogged().observe(this, logged->{
             if(logged){
@@ -91,37 +73,71 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         //for customer key change (login)
-        api.getCustomerKey().observe(this, key->{
-            //shared preferences with encryption for security
-            try{
-                String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-                SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                        "LosPortalesTheatreKey",
-                        masterKeyAlias,
-                        this,
-                        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                );
-
-                // storing the new key
-                sharedPreferences
-                        .edit()
-                        .putString("key", key)
-                        .apply();
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-            //we send the user back to home if a key change is detected
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-        });
-
+        api.getCustomerKey().observe(this, this::updateKey);
 
     }
 
+    /**
+     * updateKey(): Method to store with encryption the key into the device
+     * @param  key to be stored into the device
+     */
+    private void updateKey(String key){
+        //shared preferences with encryption for security
+        try{
+            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                    String.valueOf(R.string.PortalesKeyName),
+                    masterKeyAlias,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
 
-    //Behavior when a item is selected in the menu, basically it is the navigation for the app
+            // storing the new key
+            sharedPreferences
+                    .edit()
+                    .putString(String.valueOf(R.string.PortalesKeyIdentifier), key)
+                    .apply();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        //we send the user back to home if a key change is detected
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+    }
+
+    /**
+     * getLocalKey(): Access the encrypted key in the device and if found stores into the API class
+     * @return currentKey the key found in the device or none if it wasn't found
+     */
+    private String getLocalKey(){
+        //get the local key
+        try{
+            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                    String.valueOf(R.string.PortalesKeyName),
+                    masterKeyAlias,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+
+            //read local key
+            return  sharedPreferences.getString(String.valueOf(R.string.PortalesKeyIdentifier), "none");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return "none";
+    }
+
+    /**
+     * onNavigationItemSelected(): Opens the fragment selected in the menu
+     * @param item from the menu selected
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

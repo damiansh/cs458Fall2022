@@ -44,17 +44,23 @@ public class LoginFragment extends Fragment{
         // Inflate the layout for this fragment
         return loginView;
     }
-    private View.OnClickListener registerButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrationFragment()).commit();
-        }
+
+    /**
+     * registerButtonListener(): button listener for register button
+     */
+    private final View.OnClickListener registerButtonListener = v -> {
+        //send the customer to the register fragment
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrationFragment()).commit();
     };
 
-    private View.OnClickListener loginButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            //The startLogin is executed to initiate the login process
-            startLogin();
-        }
+    /**
+     * loginButtonListener(): button listener for login button
+     */
+    private final View.OnClickListener loginButtonListener = v -> {
+        //disable button to avoid accidental second touch
+        v.setEnabled(false);
+        //The startLogin is executed to initiate the login process
+        startLogin();
     };
 
     /**

@@ -3,6 +3,7 @@ package com.example.losportalestheatre;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,12 +11,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
 /**
  * Author(s): Pedro Damian Marta (add your name if you modify and/or add to the code)
  * Class (school): CS458
@@ -27,7 +29,7 @@ public class API extends ViewModel {
     //Live Data Variables
     private MutableLiveData<Boolean> currentLogged; //variable to set if the user is logged
     private MutableLiveData<String> upcomingResponse; //data with upcoming plays
-    private MutableLiveData<String> customerKey; //variable with the custom key assigneed to the user
+    private MutableLiveData<String> customerKey; //variable with the custom key assigned to the user
 
     //user information
     private int customerID;
@@ -45,6 +47,14 @@ public class API extends ViewModel {
      */
     public String getEmail(){
         return customerEmail;
+    }
+
+    /**
+     * getEmail(): returns the customer id
+     * @return customerID
+     */
+    public int getCustomerID(){
+        return customerID;
     }
 
     /**
@@ -95,7 +105,7 @@ public class API extends ViewModel {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                 //assign new value to the upcoming plays but check if is not already stored
-                    if(!upcomingResponse.getValue().equals(response)) upcomingResponse.setValue(response);
+                    if(!Objects.equals(upcomingResponse.getValue(), response)) upcomingResponse.setValue(response);
                 }
                 , error -> upcomingResponse.setValue("Error trying to connect to the server"));
 
@@ -189,6 +199,8 @@ public class API extends ViewModel {
      * @param mode mode is used to select the handler
      */
     public void apiPOST(String URL, JSONObject jsonBody, Activity context, ProgressBar loading, int mode) {
+        //we reset the post response just in case
+        postResponse = "reset";
         //We make visible the loading view
         if(loading!=null) loading.setVisibility(View.VISIBLE);
         //We create the request using Volley
@@ -209,12 +221,7 @@ public class API extends ViewModel {
         })  {
             @Override
             public byte[] getBody() {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                    return null;
-                }
+                return requestBody.getBytes(StandardCharsets.UTF_8);
             }
         };
         queue.add(stringRequest);
@@ -267,6 +274,11 @@ public class API extends ViewModel {
 
                 //Set the loading bar visibility to gone
                 loading.setVisibility(View.GONE);
+
+
+                //get the login button and enable it again
+                Button loginButton = current.findViewById(R.id.button_login);
+                loginButton.setEnabled(true);
             }
             else if(status.equals("loggedIn")){
                 //get the key from the JSON
@@ -296,10 +308,8 @@ public class API extends ViewModel {
             //We get the loading bar in the login view
             ProgressBar loading = current.findViewById(R.id.registerLoading);
 
-
-            //Regardless of outcome we get the message and status
+            //Regardless of outcome we get the message
             String message = register.getString("message");
-
 
             //Get the text view for message and set the result message
             TextView registerMessage = current.findViewById(R.id.textview_registrationMessage);
@@ -312,6 +322,12 @@ public class API extends ViewModel {
             //Clear fields if successful
             if(status.equals("confirmedEmail")) current.findViewById(R.id.button_clear).callOnClick();
 
+            //make available the register button if registration is not successful
+            if(status.contains("signupError")){
+                //get the register button and enable it again
+                Button registerButton = current.findViewById(R.id.button_register);
+                registerButton.setEnabled(true);
+            }
 
 
         }catch(JSONException e){
@@ -342,7 +358,7 @@ public class API extends ViewModel {
 
 
                 //check if logging is already toggled
-                if(!currentLogged.getValue()) {
+                if(Boolean.FALSE.equals(currentLogged.getValue())) {
                     //Update Menu email and name
                     TextView menuName = current.findViewById(R.id.textview_menu_name);
                     TextView menuEmail = current.findViewById(R.id.textview_menu_email);
@@ -358,14 +374,14 @@ public class API extends ViewModel {
 
                 //Successful login, so we set the customer key
                 //But we first check if it is the same key, to avoid repeating
-                if(!customerKey.getValue().equals(tmpKey)) customerKey.setValue(tmpKey);
+                if(!Objects.equals(customerKey.getValue(), tmpKey)) customerKey.setValue(tmpKey);
 
 
 
             }
             else{
                 //Set the login session to false if it's set as true
-                if(currentLogged.getValue()) currentLogged.setValue(Boolean.FALSE);
+                if(Boolean.TRUE.equals(currentLogged.getValue())) currentLogged.setValue(Boolean.FALSE);
 
             }
         }
@@ -390,19 +406,17 @@ public class API extends ViewModel {
         //Reset the menu name and email
         TextView menuName = current.findViewById(R.id.textview_menu_name);
         TextView menuEmail = current.findViewById(R.id.textview_menu_email);
-        menuName.setText("Los Portales Theatre Guest");
-        menuEmail.setText("losportalestheatre@gmail.com");
+        menuName.setText(R.string.GuestNamePlaceHolder);
+        menuEmail.setText(R.string.losportales_email);
 
         //finally set the custom key to none, the tmpKey as well just in case
         customerKey.setValue("none");
         tmpKey = null;
 
         //Set the login session to false if it's set as true
-        if(currentLogged.getValue()) currentLogged.setValue(Boolean.FALSE);
+        if(Boolean.TRUE.equals(currentLogged.getValue())) currentLogged.setValue(Boolean.FALSE);
 
         //Inform the user with a toast message
         Toast.makeText(current, "Logged out!", Toast.LENGTH_SHORT).show();
-
-
     }
 }

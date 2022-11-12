@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textview_upcomingPlays"
         android:layout_width="wrap_content"
@@ -17,15 +16,21 @@
         android:textColor="@color/navyBlue"
         android:textSize="40sp"
         android:textStyle="bold" />
-
-
-    <ScrollView
-        android:id="@+id/scrollViewUpcoming"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/fragmentRefresher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_height="match_parent"
         android:layout_below="@+id/textview_upcomingPlays">
-    </ScrollView>
+
+        <ScrollView
+            android:id="@+id/scrollViewUpcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <ProgressBar
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textview_upcomingPlays"
