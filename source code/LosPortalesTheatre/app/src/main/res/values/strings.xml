@@ -21,6 +21,11 @@
     <string name="upcoming_plays">Upcoming Plays</string>
     <string name="play_name">Play Name</string>
     <string name="play_description">Play description</string>
+    <string name="select_play">Select play</string>
+    <string name="PortalesKeyName">LosPortalesTheatreKey</string>
+    <string name="PortalesKeyIdentifier">key</string>
+    <string name="GuestNamePlaceHolder">Los Portales Theatre Guest</string>
+    <string name="losportales_email">losportalestheatre@gmail.com</string>
 
 
 </resources>

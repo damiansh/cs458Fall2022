@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,8 @@ import java.time.format.DateTimeFormatter;
 public class HomeFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View homeView; ///view of the login frame
+    private ProgressBar loading;
+
 
 
     @Override
@@ -47,76 +51,109 @@ public class HomeFragment extends Fragment {
         //get the ViewModel for the API
         api = new ViewModelProvider(requireActivity()).get(API.class);
 
+        //get the loading bar and set to visible
+        loading = homeView.findViewById(R.id.playLoading);
+        loading.setVisibility(View.VISIBLE);
+
+
+        /*
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        SwipeRefreshLayout fragmentRefresher = homeView.findViewById(R.id.fragmentRefresher);
+        fragmentRefresher.setOnRefreshListener(
+                () -> {
+                    // This method performs the actual data-refresh operation.
+                    playRefresh();
+                    fragmentRefresher.setRefreshing(false);
+                }
+        );
+
         //We get the upcoming plays
         api.getUpcomingPlays(requireActivity());
-        api.checkPlays().observe(getViewLifecycleOwner(), upcoming->{
-            //get the loading bar and set to visible
-            ProgressBar loading = homeView.findViewById(R.id.playLoading);
-            loading.setVisibility(View.VISIBLE);
-
-            //find the scroll view
-            ScrollView scrollview = homeView.findViewById(R.id.scrollViewUpcoming);
-            scrollview.removeAllViews(); //we reset it just in case to avoid crashes
+        api.checkPlays().observe(getViewLifecycleOwner(), this::createPlays);
 
 
-            if(upcoming.equals("null")){
-                loading.setVisibility(View.GONE);
-                return;
-            }
-            //We create the relative layout for the plays
-            RelativeLayout playContainer = new RelativeLayout(requireActivity());
-            RelativeLayout.LayoutParams playContainerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            playContainer.setLayoutParams(playContainerParams);
-
-            try{
-                JSONArray upcomingPlays = new JSONArray(upcoming);
-                View former = scrollview;
-                for(int i=0;i<upcomingPlays.length();i++){
-                    JSONObject play = upcomingPlays.getJSONObject(i);
-                    //Extract play info from the object
-                    int playID = Integer.parseInt(play.getString("play_id"));
-                    String playTitle = play.getString("play_title");
-                    String playDesc = play.getString("short_desc");
-                    String startTime = play.getString("stime");
-                    String endTime = play.getString("etime");
-                    String playURL = play.getString("pURL");
-
-                    //Create the play card
-                    RelativeLayout playCard = generatePlayCard(playID, playTitle, playDesc, startTime, endTime, playURL);
-                    RelativeLayout.LayoutParams playCardParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    playCardParams.setMargins(0,16,0,0);
-
-                    //generate id for the play card
-                    playCard.setId(View.generateViewId());
-
-                    //We add rules
-                    playCardParams.addRule(RelativeLayout.BELOW,former.getId());
-                    playCardParams.addRule(RelativeLayout.CENTER_HORIZONTAL,1);
-
-                    //set the params
-                    playCard.setLayoutParams(playCardParams);
-
-                    //We add the playCard to the scroll View/playContainer
-                    playContainer.addView(playCard);
-
-                    //we set the former text view
-                    former = playCard;
-
-                }
-                //if we get here, they were loaded, so we hide the loading bar again
-                loading.setVisibility(View.GONE);
-
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            //we add the playContainer to the scroll view
-            scrollview.addView(playContainer);
-        });
         // Inflate the layout for this fragment
         return homeView;
     }
 
+
+    /**
+     * createPlays(): starts the creation of the plays
+     * @param upcoming string with the plays JSON
+     */
+    private void createPlays(String upcoming){
+        //find the scroll view
+        ScrollView scrollview = homeView.findViewById(R.id.scrollViewUpcoming);
+        scrollview.removeAllViews(); //we reset it just in case to avoid crashes
+
+
+        if(upcoming.equals("null") || upcoming.equals("")){
+            return;
+        }
+
+        //We create the relative layout for the plays
+        RelativeLayout playContainer = new RelativeLayout(requireActivity());
+        RelativeLayout.LayoutParams playContainerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        playContainer.setLayoutParams(playContainerParams);
+
+        try{
+            JSONArray upcomingPlays = new JSONArray(upcoming);
+            View former = scrollview;
+            for(int i=0;i<upcomingPlays.length();i++){
+                JSONObject play = upcomingPlays.getJSONObject(i);
+                //Extract play info from the object
+                int playID = Integer.parseInt(play.getString("play_id"));
+                String playTitle = play.getString("play_title");
+                String playDesc = play.getString("short_desc");
+                String startTime = play.getString("stime");
+                String endTime = play.getString("etime");
+                String playURL = play.getString("pURL");
+
+                //Create the play card
+                RelativeLayout playCard = generatePlayCard(playID, playTitle, playDesc, startTime, endTime, playURL);
+                RelativeLayout.LayoutParams playCardParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                playCardParams.setMargins(0,16,0,0);
+
+                //generate id for the play card
+                playCard.setId(View.generateViewId());
+
+                //We add rules
+                playCardParams.addRule(RelativeLayout.BELOW,former.getId());
+                playCardParams.addRule(RelativeLayout.CENTER_HORIZONTAL,1);
+
+                //set the params
+                playCard.setLayoutParams(playCardParams);
+
+                //We add the playCard to the scroll View/playContainer
+                playContainer.addView(playCard);
+
+                //we set the former text view
+                former = playCard;
+
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        //we add the playContainer to the scroll view
+        scrollview.addView(playContainer);
+
+        //if we get here, they were loaded, so we hide the loading bar again
+        loading.setVisibility(View.GONE);
+    }
+
+    /**
+     * generatePlayCard(): generates the views for the play card
+     * @param playID id to identify the play
+     * @param playTitle title of the play
+     * @param playDesc description of the play
+     * @param startTime start time of the play
+     * @param endTime ending time of the play
+     * @param pURL url of the img
+     * @return RelativeLayout returns the layout with the plays
+     */
     public RelativeLayout generatePlayCard(int playID, String playTitle, String playDesc, String startTime, String endTime, String pURL){
         LayoutInflater inflater = LayoutInflater.from(requireActivity());
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.play_card, null, false);
@@ -127,12 +164,12 @@ public class HomeFragment extends Fragment {
 
         //Get date and start time
         LocalDateTime dateTime = LocalDateTime.parse(startTime, formatter);
-        String playDate = dateTime.toLocalDate().format(dateFormat).toString();
-        startTime = dateTime.toLocalTime().format(timeFormat).toString();
+        String playDate = dateTime.toLocalDate().format(dateFormat);
+        startTime = dateTime.toLocalTime().format(timeFormat);
 
         //Get date and start time
         dateTime = LocalDateTime.parse(endTime, formatter);
-        endTime = dateTime.toLocalTime().format(timeFormat).toString();
+        endTime = dateTime.toLocalTime().format(timeFormat);
 
         //create string for play time
         String playTime = String.format("%s - %s",startTime,endTime);
@@ -153,16 +190,15 @@ public class HomeFragment extends Fragment {
 
         //change button if logged
         if(Boolean.TRUE.equals(api.isLogged().getValue())){
-            playButton.setText("Select play");
-            playButton.setTag(playTitle);
+            playButton.setText(R.string.select_play);
+            playButton.setTag(playID);
 
         }
 
         //get the imageView
         ImageView playImage = layout.findViewById(R.id.playCardImage);
         String url = "https://portales-theatre.site/images/plays/" + pURL;
-
-        int placeholder = requireActivity().getResources().getIdentifier("placeholder", "drawable", requireActivity().getPackageName());
+        int placeholder = R.drawable.placeholder;
         //set the image to the one online
         Glide.with(this)
                 .load(url)
@@ -176,15 +212,25 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private View.OnClickListener playButtonListener = new View.OnClickListener() {
-        public void onClick(View playButton) {
-            if(playButton.getTag()!=null){
-                Toast.makeText(requireActivity(), playButton.getTag().toString(), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            //if not logged in, send them to the login page
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
-
+    /**
+     * playButtonListener: listener for the play button
+     */
+    private final View.OnClickListener playButtonListener = playButton -> {
+        if(playButton.getTag()!=null){
+            Toast.makeText(requireActivity(), playButton.getTag().toString(), Toast.LENGTH_SHORT).show();
+            return;
         }
+        //if not logged in, send them to the login page
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+
     };
+
+
+    /**
+     * playRefresh(): refresh the plays by asking again for upcoming plays
+     */
+    private void playRefresh(){
+        //We ask again for the upcoming plays
+        api.getUpcomingPlays(requireActivity());
+    }
 }

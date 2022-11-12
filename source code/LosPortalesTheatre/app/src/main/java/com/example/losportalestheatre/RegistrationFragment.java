@@ -1,12 +1,8 @@
 package com.example.losportalestheatre;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,42 +42,45 @@ public class RegistrationFragment extends Fragment{
         return registrationView;
     }
 
-    private View.OnClickListener registerButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            //start register
-            startRegistration();
-        }
+    /**
+     * registerButtonListener(): button listener for register button
+     */
+    private final View.OnClickListener registerButtonListener = v -> {
+        //disable button to avoid accidental second touch
+        v.setEnabled(false);
+        //start register
+        startRegistration();
     };
 
-    private View.OnClickListener clearButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            //This method clears all the views in the registration form
+    /**
+     * clearButtonListener(): button listener for clear button
+     */
+    private final View.OnClickListener clearButtonListener = v -> {
+        //This method clears all the views in the registration form
 
-            //Get Edit Texts
-            EditText email = registrationView.findViewById(R.id.email);
-            EditText password = registrationView.findViewById(R.id.password);
-            EditText pswRepeat = registrationView.findViewById(R.id.pswRepeat);
-            EditText firstName = registrationView.findViewById(R.id.fName);
-            EditText lastName = registrationView.findViewById(R.id.lName);
-            EditText birthday = registrationView.findViewById(R.id.birthday);
-            EditText phone = registrationView.findViewById(R.id.phone);
+        //Get Edit Texts
+        EditText email = registrationView.findViewById(R.id.email);
+        EditText password = registrationView.findViewById(R.id.password);
+        EditText pswRepeat = registrationView.findViewById(R.id.pswRepeat);
+        EditText firstName = registrationView.findViewById(R.id.fName);
+        EditText lastName = registrationView.findViewById(R.id.lName);
+        EditText birthday = registrationView.findViewById(R.id.birthday);
+        EditText phone = registrationView.findViewById(R.id.phone);
 
-            //set them to blank
-            email.setText("");
-            password.setText("");
-            pswRepeat.setText("");
-            firstName.setText("");
-            lastName.setText("");
-            birthday.setText("");
-            phone.setText("");
+        //set them to blank
+        email.setText("");
+        password.setText("");
+        pswRepeat.setText("");
+        firstName.setText("");
+        lastName.setText("");
+        birthday.setText("");
+        phone.setText("");
 
-        }
     };
 
     /**
      * startRegistration(): initiates the process to login the customer into their account
      *
-     * @return void
      */
     private void startRegistration(){
         //Get the email and password edit text
