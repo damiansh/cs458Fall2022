@@ -7,12 +7,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TicketsFragment">
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textview_TicketsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tickets fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/navyBlue"/>
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="Tickets"
+        android:textColor="@color/navyBlue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/ticketsScrollView"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textview_TicketsTitle"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/temporalTicketContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tickets Fragment"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:textSize="15sp"
+                android:textColor="@color/navyBlue"/>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 </RelativeLayout>

@@ -232,5 +232,8 @@ public class HomeFragment extends Fragment {
     private void playRefresh(){
         //We ask again for the upcoming plays
         api.getUpcomingPlays(requireActivity());
+
+        //we check if still logged in
+        api.verifyKey(api.getCustomerKey().getValue(),requireActivity());
     }
 }

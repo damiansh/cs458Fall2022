@@ -1,5 +1,6 @@
 package com.example.losportalestheatre;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -13,9 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.internal.NavigationMenuItemView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -31,12 +35,15 @@ public class API extends ViewModel {
     private MutableLiveData<String> upcomingResponse; //data with upcoming plays
     private MutableLiveData<String> customerKey; //variable with the custom key assigned to the user
 
-    //user information
+    //user data
     private int customerID;
     private String customerEmail;
     private String fName;
     private String lName;
+    private MutableLiveData<JSONObject> cart; //data with cart
+    private MutableLiveData<JSONObject> transactions; //data with the transactions
 
+    //tmp data
     private String postResponse; //for the temporal response of the post calls
     private String tmpKey; //a temporal and non verified key is stored here
 
@@ -50,12 +57,21 @@ public class API extends ViewModel {
     }
 
     /**
-     * getEmail(): returns the customer id
+     * getCustomerID(): returns the customer id
      * @return customerID
      */
     public int getCustomerID(){
         return customerID;
     }
+
+    /**
+     * getCustomerGivenName(): returns the customer given name
+     * @return givenName
+     */
+    public String getCustomerGivenName(){
+        return fName;
+    }
+
 
     /**
      * isLogged(): returns the logged status
@@ -82,13 +98,58 @@ public class API extends ViewModel {
     }
 
     /**
+     * getCart():gets the cart
+     * @return JSONObject cart: is the json object with the cart content
+     */
+    public MutableLiveData<JSONObject> getCart(){
+        if (cart==null){
+            cart = new MutableLiveData<>();
+            try{
+                //We create the JSON Object
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("status", -1);
+                jsonBody.put("count", 0);
+
+                cart.setValue(jsonBody);
+
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return cart;
+    }
+
+    /**
+     * getTransactions():gets the transaction object
+     * @return JSONObject transactions: is the json object with the cart content
+     */
+    public MutableLiveData<JSONObject> getTransactions(){
+        if (transactions==null){
+            transactions = new MutableLiveData<>();
+            try{
+                //We create the JSON Object
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("status", -1);
+                jsonBody.put("count", 0);
+
+                transactions.setValue(jsonBody);
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return transactions;
+    }
+
+    /**
      * getCustomerKey(): gets the customer key
      * @return String customerKey: the customer key used for auth operations
      */
     public MutableLiveData<String> getCustomerKey(){
         if (customerKey==null){
             customerKey = new MutableLiveData<>();
-            customerKey.setValue("");
+            customerKey.setValue("none");
         }
         return customerKey;
     }
@@ -105,9 +166,9 @@ public class API extends ViewModel {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                 //assign new value to the upcoming plays but check if is not already stored
-                    if(!Objects.equals(upcomingResponse.getValue(), response)) upcomingResponse.setValue(response);
+                    if(!Objects.equals(checkPlays().getValue(), response)) checkPlays().setValue(response);
                 }
-                , error -> upcomingResponse.setValue("Error trying to connect to the server"));
+                , error -> checkPlays().setValue("Error trying to connect to the server"));
 
         queue.add(stringRequest);
 
@@ -190,6 +251,44 @@ public class API extends ViewModel {
         }
 
     }
+
+
+    /**
+     * startCartRequest(): starts the cart Request
+     * @param context is the current getActivity
+     */
+    public void startCartRequest(Activity context){
+        String URL = "https://portales-theatre.site/includes/api-cart.php";
+        try{
+            //We create the JSON Object with the login information
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("key", getCustomerKey().getValue());
+            apiPOST(URL, jsonBody, context, null,3);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * startTransactionsRequest(): starts the cart Request
+     * @param context is the current getActivity
+     */
+    public void startTransactionsRequest(Activity context){
+        String URL = "https://portales-theatre.site/includes/api-transactions.php";
+        try{
+            //We create the JSON Object with the login information
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("key", getCustomerKey().getValue());
+            apiPOST(URL, jsonBody, context, null,4);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     /**
      * apiPOST(): sends a JSON through the post to an API
      * @param URL of the API
@@ -228,25 +327,7 @@ public class API extends ViewModel {
 
     }
 
-    /**
-     * handlerSelector(): assigns the correct handler depending on the mode
-     * @param mode 0=login,
-     * @param current is the current getActivity
-     */
-    public void handlerSelector(int mode, Activity current) {
-        switch (mode) {
-            case 0: //Login Handler
-                loginHandler(current);
-                break;
-            case 1: //Key verification handler
-                verifyHandler(current);
-                break;
-            case 2: //Registration mode
-                registerHandler(current);
-                break;
 
-        }
-    }
     /**
      * loginHandler(): handles the response from the login
      * @param current is the current getActivity
@@ -356,34 +437,106 @@ public class API extends ViewModel {
                 //Welcome message
                 String welcome = String.format("Welcome %s %s",fName,lName);
 
+                //Successful login, so we set the customer key
+                //But we first check if it is the same key, to avoid repeating
+                if(!Objects.equals(getCustomerKey().getValue(), tmpKey)) getCustomerKey().setValue(tmpKey);
 
                 //check if logging is already toggled
-                if(Boolean.FALSE.equals(currentLogged.getValue())) {
+                if(Boolean.FALSE.equals(isLogged().getValue())) {
                     //Update Menu email and name
                     TextView menuName = current.findViewById(R.id.textview_menu_name);
                     TextView menuEmail = current.findViewById(R.id.textview_menu_email);
                     menuName.setText(String.format("%s %s",fName,lName));
                     menuEmail.setText(customerEmail);
 
+                    //get the transactions for the user
+                    startTransactionsRequest(current);
+
                     //Set login to true
-                    currentLogged.setValue(Boolean.TRUE);
+                    isLogged().setValue(Boolean.TRUE);
                     //Toast to give the welcome to the customer
                     Toast.makeText(current, welcome, Toast.LENGTH_SHORT).show();
+
                 }
 
-
-                //Successful login, so we set the customer key
-                //But we first check if it is the same key, to avoid repeating
-                if(!Objects.equals(customerKey.getValue(), tmpKey)) customerKey.setValue(tmpKey);
-
-
+                //get the cart
+                startCartRequest(current);
 
             }
             else{
                 //Set the login session to false if it's set as true
-                if(Boolean.TRUE.equals(currentLogged.getValue())) currentLogged.setValue(Boolean.FALSE);
+                if(Boolean.TRUE.equals(isLogged().getValue())) logout(current);
 
             }
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    /**
+     * cartHandler(): handles the response from the login
+     * @param current is the current getActivity
+     */
+    @SuppressLint("RestrictedApi")
+    public void cartHandler(Activity current) {
+        try{
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+            //Get the status
+            int status = response.getInt("status"); //we assign the status as int
+
+            //if the status is 0, the user is not authorized so we stop
+            if(status==0){
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(),current);
+                return;
+            }
+
+            //Get cart count
+            int count = response.getInt("count"); //we assign the count as int
+
+            //if the user is authorized then assign the car
+            getCart().postValue(response);
+            //update the menu with the cart count
+            NavigationMenuItemView cartMenu  =  current.findViewById(R.id.nav_cart);
+            cartMenu.setTitle(String.format(Locale.getDefault(),"Count (%d)",count));
+
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * transactionHandler(): handles the response from the login
+     * @param current is the current getActivity
+     */
+    public void transactionHandler(Activity current) {
+        try{
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+            //Get the status
+            int status = response.getInt("status"); //we assign the status as int
+
+            //if the status is 0, the user is not authorized so we stop
+            if(status==0){
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(),current);
+                return;
+            }
+
+            //if the user is authorized then assign transaction Data
+            getTransactions().postValue(response);
+
         }
         catch(JSONException e){
             e.printStackTrace();
@@ -410,13 +563,91 @@ public class API extends ViewModel {
         menuEmail.setText(R.string.losportales_email);
 
         //finally set the custom key to none, the tmpKey as well just in case
-        customerKey.setValue("none");
+        getCustomerKey().setValue("none");
         tmpKey = null;
 
         //Set the login session to false if it's set as true
-        if(Boolean.TRUE.equals(currentLogged.getValue())) currentLogged.setValue(Boolean.FALSE);
+        if(Boolean.TRUE.equals(isLogged().getValue())) isLogged().setValue(Boolean.FALSE);
 
         //Inform the user with a toast message
         Toast.makeText(current, "Logged out!", Toast.LENGTH_SHORT).show();
     }
+
+
+    /**
+     * handlerSelector(): assigns the correct handler depending on the mode
+     * @param mode 0=login,
+     * @param current is the current getActivity
+     */
+    public void handlerSelector(int mode, Activity current) {
+        switch (mode) {
+            case 0: //Login Handler
+                loginHandler(current);
+                break;
+            case 1: //Key verification handler
+                verifyHandler(current);
+                break;
+            case 2: //Registration mode
+                registerHandler(current);
+                break;
+            case 3: //Cart Mode
+                cartHandler(current);
+                break;
+            case 4: //Transactions Mode
+                transactionHandler(current);
+                break;
+        }
+    }
+
+
+    /**
+     * seatRowCol(): converts the seatNumber to the format Row Letter Col Number {A1,B2,ETC.}
+     * @param number the number of the seat from 1 to 96
+     * @return seatRowCol Format
+     */
+    public String seatRowCol(int number) {
+        if(number<=12){
+            return "A" + number;
+        }
+
+        else if(number<=24){
+            int seatN  = number-(12);
+            return "B" + seatN;
+
+        }
+
+        else if(number<=36){
+            int seatN  = number-(12*2);
+            return "C" + seatN;
+        }
+
+        else if(number<=48){
+            int seatN  = number-(12*3);
+            return "D" + seatN;
+
+        }
+
+        else if(number<=60){
+            int seatN  = number-(12*4);
+            return "E" + seatN;
+        }
+
+        else if(number<=72){
+            int seatN  = number-(12*5);
+            return "F" + seatN;
+        }
+
+        else if(number<=84){
+            int seatN  = number-(12*6);
+            return "G" + seatN;
+        }
+
+        else if(number<=96){
+            int seatN = number-(12*7);
+            return "H" + seatN;
+        }
+
+        return "Invalid seat";
+    }
+
 }
