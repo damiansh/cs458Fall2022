@@ -1,11 +1,11 @@
 package com.example.losportalestheatre;
 
+import static java.lang.String.*;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 import android.view.MenuItem;
+
 
 /**
  * Author(s): Pedro Damian Marta Rubio(add your name if you modify and/or add to the code)
@@ -64,11 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //The guest menu is cleared and the one for customers is loaded
                 navigationView.getMenu().clear();
                 navigationView.inflateMenu(R.menu.nav_menu);
+                navigationView.setCheckedItem(R.id.nav_home);
+
             }
             else{
                 //The customer menu is cleared and the guest menu is loaded
                 navigationView.getMenu().clear();
                 navigationView.inflateMenu(R.menu.nav_menu_guest);
+                navigationView.setCheckedItem(R.id.nav_home);
             }
         });
 
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try{
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                    String.valueOf(R.string.PortalesKeyName),
+                    valueOf(R.string.PortalesKeyName),
                     masterKeyAlias,
                     this,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // storing the new key
             sharedPreferences
                     .edit()
-                    .putString(String.valueOf(R.string.PortalesKeyIdentifier), key)
+                    .putString(valueOf(R.string.PortalesKeyIdentifier), key)
                     .apply();
 
         }catch(Exception e){
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
 
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                    String.valueOf(R.string.PortalesKeyName),
+                    valueOf(R.string.PortalesKeyName),
                     masterKeyAlias,
                     this,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             );
 
             //read local key
-            return  sharedPreferences.getString(String.valueOf(R.string.PortalesKeyIdentifier), "none");
+            return  sharedPreferences.getString(valueOf(R.string.PortalesKeyIdentifier), "none");
 
         }catch(Exception e){
             e.printStackTrace();
@@ -142,15 +146,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
+                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_cart:
+                api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
                 break;
             case R.id.nav_ticket:
+                api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
                 break;
             case R.id.nav_about:
+                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 break;
             case R.id.nav_login:
@@ -167,6 +175,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

@@ -7,12 +7,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CartFragment">
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textview_CartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cart fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/navyBlue"/>
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="Shopping Cart"
+        android:textColor="@color/navyBlue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/cartScrollView"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textview_CartTitle"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/temporalCartContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tickets Fragment"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:textSize="15sp"
+                android:textColor="@color/navyBlue"/>
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>
