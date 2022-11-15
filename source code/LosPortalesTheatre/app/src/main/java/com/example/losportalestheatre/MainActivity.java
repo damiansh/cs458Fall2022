@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
+                if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_cart:
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
                 break;
             case R.id.nav_about:
-                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
+                if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 break;
             case R.id.nav_login:
@@ -179,9 +180,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) { //handles on back when drawer is open
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if (seatPlan != null && seatPlan.isVisible()) { //handles on back pressed when in seat plan
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+        else {
             super.onBackPressed();
         }
     }
