@@ -1,11 +1,9 @@
 package com.example.losportalestheatre;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import org.json.JSONArray;
@@ -44,7 +41,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //We get the context for the login view
+        //We get the context for the home view
         homeView = inflater.inflate(R.layout.fragment_home,container,false);
 
 
@@ -72,6 +69,7 @@ public class HomeFragment extends Fragment {
         //We get the upcoming plays
         api.getUpcomingPlays(requireActivity());
         api.checkPlays().observe(getViewLifecycleOwner(), this::createPlays);
+
 
 
         // Inflate the layout for this fragment
@@ -212,12 +210,14 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+
     /**
      * playButtonListener: listener for the play button
      */
     private final View.OnClickListener playButtonListener = playButton -> {
         if(playButton.getTag()!=null){
-            Toast.makeText(requireActivity(), playButton.getTag().toString(), Toast.LENGTH_SHORT).show();
+            api.requestPlaySeatInfo(requireActivity(), Integer.parseInt(playButton.getTag().toString()));
             return;
         }
         //if not logged in, send them to the login page

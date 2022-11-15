@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.android.volley.Request;
@@ -34,6 +36,8 @@ public class API extends ViewModel {
     private MutableLiveData<Boolean> currentLogged; //variable to set if the user is logged
     private MutableLiveData<String> upcomingResponse; //data with upcoming plays
     private MutableLiveData<String> customerKey; //variable with the custom key assigned to the user
+    private MutableLiveData<JSONObject> playSeatInfo; //variable with the play seat info
+
 
     //user data
     private int customerID;
@@ -44,7 +48,6 @@ public class API extends ViewModel {
     private MutableLiveData<JSONObject> transactions; //data with the transactions
 
     //tmp data
-    private String postResponse; //for the temporal response of the post calls
     private String tmpKey; //a temporal and non verified key is stored here
 
 
@@ -140,6 +143,30 @@ public class API extends ViewModel {
             }
         }
         return transactions;
+    }
+
+
+    /**
+     * getPlaySeatInfo():gets the play seat info
+     * @return JSONObject playSeatInfo: is the json object with the cart content
+     */
+    public MutableLiveData<JSONObject> getPlaySeatInfo(){
+        if (playSeatInfo==null){
+            playSeatInfo = new MutableLiveData<>();
+            try{
+                //We create the JSON Object
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("status", -1);
+                jsonBody.put("count", 0);
+
+                playSeatInfo.setValue(jsonBody);
+
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return playSeatInfo;
     }
 
     /**
@@ -289,6 +316,29 @@ public class API extends ViewModel {
 
     }
 
+
+
+    /**
+     * requestPlaySeatInfo(): request the play seat info by id
+     * @param context is the current getActivity
+     * @param playID the id of the play selected
+     */
+    public void requestPlaySeatInfo(Activity context, int playID){
+        String URL = "https://portales-theatre.site/includes/api-seats.php";
+        try{
+            //We create the JSON Object with the POST request
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("playID", playID);
+
+            //get the loading bar from home
+            ProgressBar loading = context.findViewById(R.id.playLoading);
+            apiPOST(URL, jsonBody, context, loading,5);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * apiPOST(): sends a JSON through the post to an API
      * @param URL of the API
@@ -298,8 +348,6 @@ public class API extends ViewModel {
      * @param mode mode is used to select the handler
      */
     public void apiPOST(String URL, JSONObject jsonBody, Activity context, ProgressBar loading, int mode) {
-        //we reset the post response just in case
-        postResponse = "reset";
         //We make visible the loading view
         if(loading!=null) loading.setVisibility(View.VISIBLE);
         //We create the request using Volley
@@ -307,16 +355,12 @@ public class API extends ViewModel {
         final String requestBody = jsonBody.toString();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, response -> {
-            //Set the post response
-            postResponse = response;
             //start handler selector
-            handlerSelector(mode,context);
+            handlerSelector(mode,context,response);
 
         }, error -> {
             //Set the loading bar visibility to gone
             if(loading!=null) loading.setVisibility(View.GONE);
-            //Set the post response
-            postResponse = error.toString();
         })  {
             @Override
             public byte[] getBody() {
@@ -331,8 +375,9 @@ public class API extends ViewModel {
     /**
      * loginHandler(): handles the response from the login
      * @param current is the current getActivity
+     * @param postResponse the response from the api
      */
-    public void loginHandler(Activity current) {
+    public void loginHandler(Activity current, String postResponse) {
         try{
             //Convert the response to JSON
             JSONObject login = new JSONObject(postResponse);
@@ -377,8 +422,9 @@ public class API extends ViewModel {
     /**
      * registerHandler(): handles the response from the login
      * @param current is the current getActivity
+     * @param postResponse the response from the api
      */
-    public void registerHandler(Activity current) {
+    public void registerHandler(Activity current, String postResponse) {
         try{
             //Convert the response to JSON
             JSONObject register = new JSONObject(postResponse);
@@ -418,8 +464,9 @@ public class API extends ViewModel {
     /**
      * verifyHandler(): handles the response from the login
      * @param current is the current getActivity
+     * @param postResponse the response from the api
      */
-    public void verifyHandler(Activity current) {
+    public void verifyHandler(Activity current, String postResponse) {
         try{
             //Convert the response to JSON
             JSONObject response = new JSONObject(postResponse);
@@ -480,9 +527,10 @@ public class API extends ViewModel {
     /**
      * cartHandler(): handles the response from the login
      * @param current is the current getActivity
+     * @param postResponse the response from the api
      */
     @SuppressLint("RestrictedApi")
-    public void cartHandler(Activity current) {
+    public void cartHandler(Activity current, String postResponse) {
         try{
             //Convert the response to JSON
             JSONObject response = new JSONObject(postResponse);
@@ -518,8 +566,9 @@ public class API extends ViewModel {
     /**
      * transactionHandler(): handles the response from the login
      * @param current is the current getActivity
+     * @param postResponse the response from the api
      */
-    public void transactionHandler(Activity current) {
+    public void transactionHandler(Activity current, String postResponse) {
         try{
             //Convert the response to JSON
             JSONObject response = new JSONObject(postResponse);
@@ -536,6 +585,36 @@ public class API extends ViewModel {
 
             //if the user is authorized then assign transaction Data
             getTransactions().postValue(response);
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * playSeatInfoHandler(): handles the response from the request for play seat info
+     * @param current  is the current getActivity
+     * @param postResponse is the response from the POST request
+     */
+    public void playSeatInfoHandler(FragmentActivity current, String postResponse) {
+        try{
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+            //get the status and confirm that data available
+            int status = response.getInt("status");
+            if(status!=1){
+                Toast.makeText(current, "Not available, try again later please.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //assign the play info
+            getPlaySeatInfo().postValue(response);
+
+            //open the seat fragment
+            current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SeatFragment(),"SeatPlan").commit();
 
         }
         catch(JSONException e){
@@ -579,22 +658,25 @@ public class API extends ViewModel {
      * @param mode 0=login,
      * @param current is the current getActivity
      */
-    public void handlerSelector(int mode, Activity current) {
+    public void handlerSelector(int mode, Activity current, String postResponse) {
         switch (mode) {
             case 0: //Login Handler
-                loginHandler(current);
+                loginHandler(current,postResponse);
                 break;
             case 1: //Key verification handler
-                verifyHandler(current);
+                verifyHandler(current,postResponse);
                 break;
             case 2: //Registration mode
-                registerHandler(current);
+                registerHandler(current,postResponse);
                 break;
             case 3: //Cart Mode
-                cartHandler(current);
+                cartHandler(current,postResponse);
                 break;
             case 4: //Transactions Mode
-                transactionHandler(current);
+                transactionHandler(current,postResponse);
+                break;
+            case 5: //Transactions Mode
+                playSeatInfoHandler((FragmentActivity) current, postResponse);
                 break;
         }
     }
