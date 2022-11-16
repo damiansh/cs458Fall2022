@@ -11,10 +11,10 @@
     <color name="navyBlueVariant">#073778</color>
     <color name="playCardColor">#343434</color>
     <color name="errorColor">#ff0000</color>
-    <color name="seatAvailable">#6c757d</color>
+    <color name="seatAvailable">#b1b1b1</color>
     <color name="seatSelected">#88B407</color>
     <color name="seatSold">#ff0000</color>
-    <color name="seatReserved">#000</color>
+    <color name="seatReserved">#535353</color>
 
 
 

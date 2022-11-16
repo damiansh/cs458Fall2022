@@ -187,6 +187,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (seatPlan != null && seatPlan.isVisible()) { //handles on back pressed when in seat plan
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            //Reset the action bar title to app name
+            getSupportActionBar().setTitle(R.string.app_name);
+
         }
         else {
             super.onBackPressed();

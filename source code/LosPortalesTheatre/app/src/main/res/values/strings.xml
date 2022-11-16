@@ -26,6 +26,8 @@
     <string name="PortalesKeyIdentifier">key</string>
     <string name="GuestNamePlaceHolder">Los Portales Theatre Guest</string>
     <string name="losportales_email">losportalestheatre@gmail.com</string>
+    <item type="id" name="seatPrice" />
+    <item type="id" name="seatNumber" />
 
 
 </resources>
