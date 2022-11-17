@@ -17,7 +17,7 @@ import java.util.Locale;
  * Class (school): CS458
  * Class name: TicketFragment
  * Purpose: Fragment for the Tickets, where the customer can see their previous purchases
- * Date Modified: 11/12/2022 9:47 pm
+ * Date Modified: 11/16/2022 9:47 pm
  */
 public class TicketsFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
