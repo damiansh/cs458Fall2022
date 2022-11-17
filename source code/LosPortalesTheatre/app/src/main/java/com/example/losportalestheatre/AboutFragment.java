@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * Class (school): CS458
  * Class name: AboutFragment
  * Purpose: Shows information about the developer team and the website
- * Date Modified:
+ * Date Modified: 11/16/2022
  */
 
 public class AboutFragment extends Fragment {
