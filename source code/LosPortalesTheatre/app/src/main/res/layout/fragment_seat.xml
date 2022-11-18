@@ -1,33 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Layout by add your name here if you work on this
+Pedro Damian Marta Rubio
 -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SeatFragment">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/seatPlayImage"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".SeatFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ImageView>
-    <include layout="@layout/play_details"
-        android:layout_width="match_parent"
-        android:id="@+id/playCardLayout"
-        android:layout_below="@+id/seatPlayImage"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/seatPlayImageCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/seatPlayImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/addToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/seatPlayImage"
+                    android:layout_alignEnd="@+id/seatPlayImage"
+                    android:backgroundTint="@color/navyBlueVariant"
+                    android:textColor="@color/white"
+                    android:text="Add to Cart"/>
 
 
-    <include layout="@layout/seating_plan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/playCardLayout"/>
+                <Button
+                    android:id="@+id/goBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/seatPlayImage"
+                    android:layout_alignStart="@+id/seatPlayImage"
+                    android:backgroundTint="@color/navyBlueVariant"
+                    android:textColor="@color/white"
+                    android:text="Go Back"/>
+            </RelativeLayout>
 
-</RelativeLayout>
-</ScrollView>
+
+            <include layout="@layout/play_details"
+                android:layout_width="match_parent"
+                android:id="@+id/playCardLayout"
+                android:layout_below="@id/seatPlayImageCard"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+
+            <include layout="@layout/seating_plan"
+                android:id="@+id/seatGraphPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/playCardLayout"/>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/seatGraphPlan"
+                    app:cardBackgroundColor="@color/playCardColor"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:text="Total: "/>
+
+                        <TextView
+                            android:id="@+id/textview_seatTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:text="$0.00"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:text="Seat #: "/>
+
+                        <TextView
+                            android:id="@+id/textview_selectedSeats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:text=""/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/loadingBar"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
