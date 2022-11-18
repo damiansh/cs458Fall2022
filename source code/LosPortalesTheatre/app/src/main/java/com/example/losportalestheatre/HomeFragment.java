@@ -1,6 +1,10 @@
 package com.example.losportalestheatre;
 
 import android.os.Bundle;
+
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -80,7 +84,7 @@ public class HomeFragment extends Fragment {
      */
     private void createPlays(String upcoming){
         //find the scroll view
-        ScrollView scrollview = homeView.findViewById(R.id.scrollViewUpcoming);
+        NestedScrollView scrollview = homeView.findViewById(R.id.scrollViewUpcoming);
         scrollview.removeAllViews(); //we reset it just in case to avoid crashes
 
 
@@ -90,7 +94,7 @@ public class HomeFragment extends Fragment {
 
         //We create the relative layout for the plays
         RelativeLayout playContainer = new RelativeLayout(requireActivity());
-        RelativeLayout.LayoutParams playContainerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams playContainerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         playContainer.setLayoutParams(playContainerParams);
 
         try{
@@ -107,9 +111,8 @@ public class HomeFragment extends Fragment {
                 String playURL = play.getString("pURL");
 
                 //Create the play card
-                RelativeLayout playCard = generatePlayCard(playID, playTitle, playDesc, startTime, endTime, playURL);
-                RelativeLayout.LayoutParams playCardParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                playCardParams.setMargins(0,16,0,0);
+                CardView playCard = generatePlayCard(playID, playTitle, playDesc, startTime, endTime, playURL);
+                RelativeLayout.LayoutParams playCardParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
                 //generate id for the play card
                 playCard.setId(View.generateViewId());
@@ -147,11 +150,10 @@ public class HomeFragment extends Fragment {
      * @param startTime start time of the play
      * @param endTime ending time of the play
      * @param pURL url of the img
-     * @return RelativeLayout returns the layout with the plays
+     * @return CardView returns the layout with the plays
      */
-    public RelativeLayout generatePlayCard(int playID, String playTitle, String playDesc, String startTime, String endTime, String pURL){
-        LayoutInflater inflater = LayoutInflater.from(requireActivity());
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.play_card, null, false);
+    public CardView generatePlayCard(int playID, String playTitle, String playDesc, String startTime, String endTime, String pURL){
+        CardView layout = (CardView) View.inflate(requireActivity(), R.layout.play_card, null);
         //Format date patterns
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");

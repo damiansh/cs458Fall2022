@@ -202,7 +202,7 @@ public class API extends ViewModel {
      * @param context is the current getActivity
      */
     public void sendLoginInfo(String email, String password, Activity context){
-        String URL = apiURL + "/includes/includes/api-login.php";
+        String URL = apiURL + "/includes/api-login.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
