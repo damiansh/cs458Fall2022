@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().clear();
                 navigationView.inflateMenu(R.menu.nav_menu);
                 navigationView.setCheckedItem(R.id.nav_home);
-
             }
             else{
                 //The customer menu is cleared and the guest menu is loaded
@@ -145,6 +144,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //reset bar title
+        Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
+
+        if (seatPlan != null && seatPlan.isVisible()) { //handles on back pressed when in seat plan
+            //Reset the action bar title to app name
+            getSupportActionBar().setTitle(R.string.app_name);
+
+        }
         switch (item.getItemId()) {
             case R.id.nav_home:
                 if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);

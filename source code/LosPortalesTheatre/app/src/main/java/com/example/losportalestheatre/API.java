@@ -3,12 +3,16 @@ package com.example.losportalestheatre;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,8 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.internal.NavigationMenuItemView;
-
+import com.google.android.material.navigation.NavigationView;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +29,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Author(s): Pedro Damian Marta (add your name if you modify and/or add to the code)
+ * Author(s): Pedro Damian Marta
  * Class (school): CS458
  * Class name: API
  * Purpose: The API class handles all the operations related to the REST API
@@ -40,7 +44,6 @@ public class API extends ViewModel {
 
 
     //user data
-    private int customerID;
     private String customerEmail;
     private String fName;
     private String lName;
@@ -50,22 +53,8 @@ public class API extends ViewModel {
     //tmp data
     private String tmpKey; //a temporal and non verified key is stored here
 
-
-    /**
-     * getEmail(): returns the email
-     * @return email
-     */
-    public String getEmail(){
-        return customerEmail;
-    }
-
-    /**
-     * getCustomerID(): returns the customer id
-     * @return customerID
-     */
-    public int getCustomerID(){
-        return customerID;
-    }
+    //current play id
+    public int currentPlayID =0;
 
     /**
      * getCustomerGivenName(): returns the customer given name
@@ -340,6 +329,29 @@ public class API extends ViewModel {
 
 
     /**
+     * addToCart(): adds the received seats as json to the cart
+     * @param context is the current getActivity
+     * @param seats to be added to the cart
+     */
+    public void addToCart(Activity context, String seats){
+        String URL = "https://portales-theatre.site/includes/api-addToCart.php";
+        try{
+            //We create the JSON Object with the POST request
+            JSONObject jsonBody = new JSONObject();
+            JSONArray jsonArray = new JSONArray(seats);
+            jsonBody.put("key", getCustomerKey().getValue());
+            jsonBody.put("seats", jsonArray);
+
+            //get the loading bar from home
+            ProgressBar loading = context.findViewById(R.id.loadingBar);
+            apiPOST(URL, jsonBody, context, loading,6);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
      * apiPOST(): sends a JSON through the post to an API
      * @param URL of the API
      * @param jsonBody the json to be sent
@@ -476,7 +488,6 @@ public class API extends ViewModel {
             //check the status, if 1 is a valid session
             if(status==1){
                 //We get the other variables
-                customerID = Integer.parseInt(response.getString("userID"));
                 customerEmail = response.getString("userEmail");
                 fName = response.getString("userFN");
                 lName = response.getString("userLN");
@@ -499,15 +510,15 @@ public class API extends ViewModel {
                     //get the transactions for the user
                     startTransactionsRequest(current);
 
+                    //get the cart
+                    startCartRequest(current);
+
                     //Set login to true
                     isLogged().setValue(Boolean.TRUE);
                     //Toast to give the welcome to the customer
                     Toast.makeText(current, welcome, Toast.LENGTH_SHORT).show();
 
                 }
-
-                //get the cart
-                startCartRequest(current);
 
             }
             else{
@@ -538,8 +549,8 @@ public class API extends ViewModel {
             //Get the status
             int status = response.getInt("status"); //we assign the status as int
 
-            //if the status is 0, the user is not authorized so we stop
-            if(status==0){
+            //if the status is not 1, the user is not authorized so we stop
+            if(status!=1){
                 //We initiate the verify key process
                 verifyKey(getCustomerKey().getValue(),current);
                 return;
@@ -551,7 +562,8 @@ public class API extends ViewModel {
             //if the user is authorized then assign the car
             getCart().postValue(response);
             //update the menu with the cart count
-            NavigationMenuItemView cartMenu  =  current.findViewById(R.id.nav_cart);
+            NavigationView navigationView = current.findViewById(R.id.nav_view);
+            MenuItem cartMenu = navigationView.getMenu().findItem(R.id.nav_cart);
             cartMenu.setTitle(String.format(Locale.getDefault(),"Count (%d)",count));
 
 
@@ -576,8 +588,8 @@ public class API extends ViewModel {
             //Get the status
             int status = response.getInt("status"); //we assign the status as int
 
-            //if the status is 0, the user is not authorized so we stop
-            if(status==0){
+            //if the status is not 1, the user is not authorized so we stop
+            if(status!=1){
                 //We initiate the verify key process
                 verifyKey(getCustomerKey().getValue(),current);
                 return;
@@ -604,10 +616,24 @@ public class API extends ViewModel {
             //Convert the response to JSON
             JSONObject response = new JSONObject(postResponse);
 
-            //get the status and confirm that data available
+            //if status is not 1, the data was not found
             int status = response.getInt("status");
             if(status!=1){
-                Toast.makeText(current, "Not available, try again later please.", Toast.LENGTH_SHORT).show();
+                //Create Alert
+                AlertDialog alertMessage = new AlertDialog.Builder(current)
+                        .create();
+                alertMessage.setCancelable(false);
+                alertMessage.setTitle("Alert");
+                alertMessage.setMessage("We are experimenting issues, please try later.");
+                alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
+                    //close alert
+                    alertMessage.cancel();
+
+                    //refresh home fragment
+                    current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+                });
+                alertMessage.show();
                 return;
             }
             //assign the play info
@@ -624,13 +650,71 @@ public class API extends ViewModel {
 
     }
 
+
+    /**
+     * addToCartHandler(): handles the response from the request for play seat info
+     * @param current  is the current getActivity
+     * @param postResponse is the response from the POST request
+     */
+    public void addToCartHandler(Activity current, String postResponse) {
+        try{
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+
+            //if status is not 1, the user is not authorized or there was a problem getting the data
+            int status = response.getInt("status");
+            if(status!=1){
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(),current);
+                return;
+            }
+
+            //get the variables available and unavailable
+            String message = response.getString("message");
+
+            //update cart
+            startCartRequest(current);
+
+            //UPDATE PLAY INFO
+            requestPlaySeatInfo(current, currentPlayID);
+
+            //Create Alert
+            AlertDialog alertMessage = new AlertDialog.Builder(current)
+                    .create();
+            alertMessage.setCancelable(false);
+            alertMessage.setTitle("Alert");
+            alertMessage.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+            alertMessage.setButton(DialogInterface.BUTTON_POSITIVE,"Go to your cart", (dialog, which) -> {
+                //reset bar title
+                ((AppCompatActivity)current).getSupportActionBar().setTitle(R.string.app_name);
+
+                //go to the cart
+                ((FragmentActivity)current).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+
+            });
+            alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
+                //close
+                alertMessage.cancel();
+
+            });
+            alertMessage.show();
+
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
     /**
      * logout(): logouts the user
      * @param current is the current getActivity
      */
     public void logout(Activity current){
         //Reset the user variables
-        customerID = 0;
         customerEmail = null;
         fName = null;
         lName = null;
@@ -677,6 +761,9 @@ public class API extends ViewModel {
                 break;
             case 5: //Transactions Mode
                 playSeatInfoHandler((FragmentActivity) current, postResponse);
+                break;
+            case 6: //Transactions Mode
+                addToCartHandler(current, postResponse);
                 break;
         }
     }
