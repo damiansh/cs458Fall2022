@@ -35,6 +35,8 @@
     <string name="Total_Text">Total: </string>
     <string name="checkout_text">Checkout</string>
     <string name="tickets_fragment_Text">Tickets Fragment</string>
-
-
+    <item type="id" name="seatPrice" />
+    <item type="id" name="seatNumber" />
+    <item type="id" name="seatStatus" />
+    <item type="id" name="seatTicketID" />
 </resources>
