@@ -35,8 +35,6 @@ public class HomeFragment extends Fragment {
     private View homeView; ///view of the login frame
     private ProgressBar loading;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +73,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return homeView;
     }
-
 
     /**
      * createPlays(): starts the creation of the plays
@@ -195,7 +192,7 @@ public class HomeFragment extends Fragment {
 
         //get the imageView
         ImageView playImage = layout.findViewById(R.id.playCardImage);
-        String url = "https://portales-theatre.site/images/plays/" + pURL;
+        String url = api.getAPIUrl() + "/images/plays/" + pURL;
         int placeholder = R.drawable.placeholder;
         //set the image to the one online
         Glide.with(this)
@@ -209,8 +206,6 @@ public class HomeFragment extends Fragment {
         return layout;
 
     }
-
-
 
     /**
      * playButtonListener: listener for the play button

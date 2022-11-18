@@ -23,7 +23,7 @@ import android.view.MenuItem;
  * Class (school): CS458
  * Class name: MainActivity
  * Purpose: It's the Main Activity, handles the NavigationView and the fragments.
- * Date Modified: 11/07/2022 9:47 pm
+ * Date Modified: 11/01/2022 9:47 pm
  */
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {

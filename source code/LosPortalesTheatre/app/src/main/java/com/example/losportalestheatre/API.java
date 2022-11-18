@@ -33,28 +33,35 @@ import java.util.Objects;
  * Class (school): CS458
  * Class name: API
  * Purpose: The API class handles all the operations related to the REST API
- * Date Modified: 11/07/2022 9:47 pm
+ * Date Modified: 11/18/2022 8:39 AM
  */
+
 public class API extends ViewModel {
     //Live Data Variables
     private MutableLiveData<Boolean> currentLogged; //variable to set if the user is logged
     private MutableLiveData<String> upcomingResponse; //data with upcoming plays
     private MutableLiveData<String> customerKey; //variable with the custom key assigned to the user
     private MutableLiveData<JSONObject> playSeatInfo; //variable with the play seat info
-
-
+    //url for the api
+    private final String apiURL = "https://portales-theatre.site";
     //user data
     private String customerEmail;
     private String fName;
     private String lName;
     private MutableLiveData<JSONObject> cart; //data with cart
     private MutableLiveData<JSONObject> transactions; //data with the transactions
-
     //tmp data
     private String tmpKey; //a temporal and non verified key is stored here
-
     //current play id
     public int currentPlayID =0;
+
+    /**
+     * getAPIUrl(): returns the customer given name
+     * @return apiURL, the address where the api is hosted
+     */
+    public String getAPIUrl(){
+        return apiURL;
+    }
 
     /**
      * getCustomerGivenName(): returns the customer given name
@@ -170,15 +177,13 @@ public class API extends ViewModel {
         return customerKey;
     }
 
-
-
     /**
      * getUpcomingPlays(): calls the API Upcoming to get all the upcoming plays from the website
      * @param context of the activity
      */
     public void getUpcomingPlays(Context context){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="https://portales-theatre.site/includes/api-upcoming.php";
+        String url = apiURL + "/includes/api-upcoming.php";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                 //assign new value to the upcoming plays but check if is not already stored
@@ -197,7 +202,7 @@ public class API extends ViewModel {
      * @param context is the current getActivity
      */
     public void sendLoginInfo(String email, String password, Activity context){
-        String URL = "https://portales-theatre.site/includes/api-login.php";
+        String URL = apiURL + "/includes/includes/api-login.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
@@ -224,7 +229,7 @@ public class API extends ViewModel {
      * @param context is the current getActivity
      */
     public void sendRegisterInfo(String email, String password, String pswR, String firstName, String lastName, String birth, String tel, Activity context){
-        String URL = "https://portales-theatre.site/includes/api-register.php";
+        String URL = apiURL + "/includes/api-register.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
@@ -251,7 +256,7 @@ public class API extends ViewModel {
      * @param context is the current getActivity
      */
     public void verifyKey(String key, Activity context){
-        String URL = "https://portales-theatre.site/includes/api-verify.php";
+        String URL = apiURL + "/includes/api-verify.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
@@ -268,13 +273,12 @@ public class API extends ViewModel {
 
     }
 
-
     /**
      * startCartRequest(): starts the cart Request
      * @param context is the current getActivity
      */
     public void startCartRequest(Activity context){
-        String URL = "https://portales-theatre.site/includes/api-cart.php";
+        String URL = apiURL + "/includes/api-cart.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
@@ -292,7 +296,7 @@ public class API extends ViewModel {
      * @param context is the current getActivity
      */
     public void startTransactionsRequest(Activity context){
-        String URL = "https://portales-theatre.site/includes/api-transactions.php";
+        String URL = apiURL + "/includes/api-transactions.php";
         try{
             //We create the JSON Object with the login information
             JSONObject jsonBody = new JSONObject();
@@ -305,15 +309,13 @@ public class API extends ViewModel {
 
     }
 
-
-
     /**
      * requestPlaySeatInfo(): request the play seat info by id
      * @param context is the current getActivity
      * @param playID the id of the play selected
      */
     public void requestPlaySeatInfo(Activity context, int playID){
-        String URL = "https://portales-theatre.site/includes/api-seats.php";
+        String URL = apiURL + "/includes/api-seats.php";
         try{
             //We create the JSON Object with the POST request
             JSONObject jsonBody = new JSONObject();
@@ -327,14 +329,13 @@ public class API extends ViewModel {
         }
     }
 
-
     /**
      * addToCart(): adds the received seats as json to the cart
      * @param context is the current getActivity
      * @param seats to be added to the cart
      */
     public void addToCart(Activity context, String seats){
-        String URL = "https://portales-theatre.site/includes/api-addToCart.php";
+        String URL = apiURL + "/includes/api-addToCart.php";
         try{
             //We create the JSON Object with the POST request
             JSONObject jsonBody = new JSONObject();
@@ -349,7 +350,6 @@ public class API extends ViewModel {
             e.printStackTrace();
         }
     }
-
 
     /**
      * apiPOST(): sends a JSON through the post to an API
@@ -382,7 +382,6 @@ public class API extends ViewModel {
         queue.add(stringRequest);
 
     }
-
 
     /**
      * loginHandler(): handles the response from the login
@@ -431,6 +430,7 @@ public class API extends ViewModel {
             e.printStackTrace();
         }
     }
+
     /**
      * registerHandler(): handles the response from the login
      * @param current is the current getActivity
@@ -473,6 +473,7 @@ public class API extends ViewModel {
             e.printStackTrace();
         }
     }
+
     /**
      * verifyHandler(): handles the response from the login
      * @param current is the current getActivity
@@ -533,7 +534,6 @@ public class API extends ViewModel {
 
 
     }
-
 
     /**
      * cartHandler(): handles the response from the login
