@@ -49,8 +49,10 @@ public class SeatFragment extends Fragment {
         //sett listeners for add and go back buttons
         seatView.findViewById(R.id.addToCart).setOnClickListener(addToCart);
         seatView.findViewById(R.id.goBack).setOnClickListener(goBackHome);
+
         //execute the method to generate the seat plan
         loadViews();
+
         // Inflate the layout for this fragment
         return seatView;
     }
@@ -65,7 +67,6 @@ public class SeatFragment extends Fragment {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
     };
-
 
     /**
      * addToCartListener: listener for the add to cart button
@@ -86,8 +87,6 @@ public class SeatFragment extends Fragment {
     };
 
 
-
-
     /**
      * loadViews(): loads the views for the SeatFragment
      */
@@ -97,7 +96,7 @@ public class SeatFragment extends Fragment {
             JSONObject playInfo = api.getPlaySeatInfo().getValue().getJSONObject("playInfo");
             api.currentPlayID = Integer.parseInt(playInfo.getString("play_id")); //assign the current play id
             String playTitle = playInfo.getString("play_title");
-            String playImageURL = "https://portales-theatre.site/images/plays/" + playInfo.getString("pURL");
+            String playImageURL = api.getAPIUrl() + "/images/plays/" + playInfo.getString("pURL");
             String playDesc = playInfo.getString("long_desc");
             String startTime = playInfo.getString("stime");
             String endTime = playInfo.getString("etime");
@@ -213,7 +212,6 @@ public class SeatFragment extends Fragment {
             int ticketID = Integer.parseInt(seat.getTag(R.id.seatTicketID).toString());
             int status = Integer.parseInt(seat.getTag(R.id.seatStatus).toString());
 
-
             //the seat is checked
             if(seatCheckBox.isChecked()){
                 //we cannot add more than 10 seats
@@ -278,12 +276,5 @@ public class SeatFragment extends Fragment {
         }catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
-
     };
-
-
 }
