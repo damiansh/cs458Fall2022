@@ -1,107 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Layout by Pedro Damian Marta Rubio-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardBackgroundColor="@color/playCardColor"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp"
+    app:cardMaxElevation="2dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/playCardColor"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="2dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/playCardImage"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/playTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/playCardImage"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/play_name"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/playCardImage"
-                android:layout_width="wrap_content"
-                android:layout_height="220dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/placeholder" />
-
-            <TextView
-                android:id="@+id/playTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/playCardImage"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="@string/play_name"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/playDateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_below="@+id/playTitle"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/playDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="00/00/2022"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/playTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="Time of the play"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/playDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@+id/playTitle"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/playDesc"
+                android:id="@+id/playDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/playDateTime"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
                 android:gravity="center"
-                android:text="@string/play_description"
+                android:text="00/00/2022"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                />
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/playButton"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/playTime"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/playDesc"
-                android:backgroundTint="@color/navyBlueVariant"
-                android:text="Login"
-                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="Time of the play"
                 android:textColor="@color/white"
-                android:textStyle="bold">
-            </Button>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
+        </LinearLayout>
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/playDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/playDateTime"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="@string/play_description"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            />
 
-
-
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+        <Button
+            android:id="@+id/playButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/playDesc"
+            android:backgroundTint="@color/navyBlueVariant"
+            android:text="Login"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold">
+        </Button>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
