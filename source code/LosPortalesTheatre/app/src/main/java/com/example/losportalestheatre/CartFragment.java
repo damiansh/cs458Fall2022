@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.Locale;
 
 /**
@@ -23,9 +24,11 @@ import java.util.Locale;
 public class CartFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View cartView;
+
     Double tax=0.00;
     Double beforeTax=0.00;
     Double total=0.00;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,7 @@ public class CartFragment extends Fragment {
 
         //set cart view
         setUpCart();
+
 
         // Inflate the layout for this fragment
         return cartView;
@@ -55,7 +59,9 @@ public class CartFragment extends Fragment {
         //temporal view for example
         //this is just an example, feel free to modify the layout and the variable name
         TextView temporal = cartView.findViewById(R.id.temporalCartContent);
-
+        TextView BeforeTaxText = cartView.findViewById(R.id.textView_TotalBeforeTax);
+        TextView totalText = cartView.findViewById(R.id.textView_Total);
+        TextView TaxText = cartView.findViewById(R.id.textView_Tax);
 
         try{
             //get cart data
@@ -65,6 +71,13 @@ public class CartFragment extends Fragment {
             int count = cart.getInt("count");
             if(count==0){
                 temporal.setText("Empty Cart");
+                beforeTax=0.00;
+                tax=0.00;
+                total =0.00;
+
+                BeforeTaxText.setText(String.format("Total before tax: $ %.2f", beforeTax));
+                TaxText.setText(String.format("Estimated tax to be collected: $ %.2f", tax));
+                totalText.setText(String.format("Total: $ %.2f",total));
                 return;
             }
             //get the cart content array
@@ -82,10 +95,20 @@ public class CartFragment extends Fragment {
 
                 //get the cart item data
                 int ticketNumber = Integer.parseInt(cartItem.getString("ticket_id"));
+                //get the cost item data
+                double cost= Double.parseDouble(cartItem.getString("cost"));
                 //get the seat number in the format Letter Row + seat number
                 String seatNumber = api.seatRowCol(Integer.parseInt(cartItem.getString("seat_number")));
                 String playTitle = cartItem.getString("play_title");
-                test = String.format(Locale.getDefault(),"%sTicket Number: %d, Seat Number: %s  Play Title: %s]\n",test,ticketNumber,seatNumber,playTitle);
+                test = String.format(Locale.getDefault(),"%s %s: %s  $%.2f \n",test,seatNumber,playTitle,cost);
+
+                beforeTax=beforeTax+ cost;
+                tax=(beforeTax*0.0825);
+                total =beforeTax+tax;
+
+                BeforeTaxText.setText(String.format("Total before tax: $ %.2f", beforeTax));
+                TaxText.setText(String.format("Estimated tax to be collected: $ %.2f", tax));
+                totalText.setText(String.format("Total: $ %.2f",total));
             }
 
             //example of setting content in the cart
