@@ -37,6 +37,19 @@
                 android:gravity="center_horizontal"
                 android:textSize="15sp"
                 android:textColor="@color/navyBlue"/>
+
+            <Button
+                android:id="@+id/printButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/temporalTicketContent"
+                android:backgroundTint="@color/navyBlueVariant"
+                android:text="Print Tickets"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </Button>
+
         </RelativeLayout>
 
     </ScrollView>
