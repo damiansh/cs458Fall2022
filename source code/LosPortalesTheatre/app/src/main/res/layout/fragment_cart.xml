@@ -14,10 +14,108 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:text="Shopping Cart"
+        android:text="@string/shopping_cart"
         android:textColor="@color/navyBlue"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_Tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="240dp"
+        android:gravity="center_horizontal"
+        android:text="@string/tickets"
+        android:textColor="@color/navyBlue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_OrderSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="180dp"
+        android:text="@string/order_summary"
+        android:textColor="@color/navyBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_TimeLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center_horizontal"
+        android:text="@string/timelimit_text"
+        android:textColor="@color/navyBlue"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_TotalBeforeTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="-1dp"
+        android:text="@string/total_before_tax"
+        android:textColor="@color/navyBlue"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_Tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/Tax_text"
+        android:textColor="@color/navyBlue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/textView_Total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/Total_Text"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/Button_Checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="240dp"
+        android:text="@string/checkout_text"
+        android:textSize="20sp" />
+
 
     <ScrollView
         android:id="@+id/cartScrollView"
@@ -32,7 +130,7 @@
                 android:id="@+id/temporalCartContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tickets Fragment"
+                android:text="@string/tickets_fragment_Text"
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:textSize="15sp"
@@ -40,4 +138,5 @@
         </RelativeLayout>
 
     </ScrollView>
+
 </RelativeLayout>

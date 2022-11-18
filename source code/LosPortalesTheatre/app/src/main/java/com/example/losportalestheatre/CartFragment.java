@@ -23,6 +23,9 @@ import java.util.Locale;
 public class CartFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View cartView;
+    Double tax=0.00;
+    Double beforeTax=0.00;
+    Double total=0.00;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +39,6 @@ public class CartFragment extends Fragment {
 
         //set cart view
         setUpCart();
-
 
         // Inflate the layout for this fragment
         return cartView;
@@ -53,6 +55,7 @@ public class CartFragment extends Fragment {
         //temporal view for example
         //this is just an example, feel free to modify the layout and the variable name
         TextView temporal = cartView.findViewById(R.id.temporalCartContent);
+
 
         try{
             //get cart data
