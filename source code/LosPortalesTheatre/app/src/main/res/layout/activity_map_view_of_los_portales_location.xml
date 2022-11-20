@@ -1,0 +1,72 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		aboutus_fragment
+     *	@date 		Sunday 20th of November 2022 12:03:56 AM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/mapviewoflosportales"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+
+            <RelativeLayout android:id="@+id/page_mapviewoflosportales_ek1"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View
+                    android:id="@+id/_bg__mapviewoflosportales_ek2"
+                    android:layout_width="360dp"
+                    android:layout_height="800dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/_bg__mapviewoflosportales_ek2_shape" />
+
+
+                <RelativeLayout android:id="@+id/component_2"
+                    android:layout_marginTop="385dp"
+                    android:layout_marginStart="180dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView android:id="@+id/ellipse_1"
+                        android:src="@drawable/ellipse_1"
+                        android:contentDescription="ellipse_1"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="10dp"
+                        android:layout_height="15dp" />
+
+                    <View   android:id="@+id/ellipse_2"
+                        android:background="@drawable/ellipse_2_shape"
+                        android:layout_marginStart="2.86dp"
+                        android:layout_marginTop="1.77dp"
+                        android:layout_width="6.14dp"
+                        android:layout_height="5.43dp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</HorizontalScrollView>

@@ -12,5 +12,18 @@
     <color name="playCardColor">#343434</color>
     <color name="errorColor">#ff0000</color>
 
+    <!-- aboutus_fragment colors -->
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="_bg__aboutus_fragment_ek2_color">#FFFFFF</color>
+    <color name="grayrectanglebrian_7_color">#D9D9D9</color>
+    <color name="brian_is_a_computer_science_student_at_enmu__he_enjoys_learning_new_techniques_and_technologies_and_constantly_strives_to_improve_his_abilities__the_los_portales_theatre_app_has_been_a_significant_project_and_has_pushed_him_to_develop_new_skill_sets__color">#000000</color>
+    <color name="skylerbluerect_color">#555A81</color>
+    <color name="rectangle_2_ek1_color">#9DA7FF</color>
+    <color name="line_1_color">#000210</color>
+    <color name="ellipse_2_color">#F9E7E7</color>
+
 
 </resources>
