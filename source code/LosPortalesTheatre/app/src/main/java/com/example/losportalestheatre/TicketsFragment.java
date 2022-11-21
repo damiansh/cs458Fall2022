@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -22,7 +26,8 @@ import java.util.Locale;
 public class TicketsFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View ticketsView;
-
+    private Spinner spinnerTicket;
+    ArrayList<String> outputDataList  = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,12 +70,13 @@ public class TicketsFragment extends Fragment {
 
             //get the transactions content array
             JSONArray transactionsContent = transactions.getJSONArray("transactionData");
-
+            int lengthJsonArr = transactionsContent.length();
             //here you are going to write your code for the tickets
             //the following is just an example how to iterate through the array
             //feel free to change variables
             //remember you had to add seats using the website if the seating plan is not done in the app
             String test = "";
+
             //iterate with a loop
             for(int i=0;i<count;i++){
                 //get the JSON Object
@@ -83,10 +89,16 @@ public class TicketsFragment extends Fragment {
 
                 test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f]\n",test,transactionNumber,transactionDate,orderTotal);
             }
-
+            outputDataList.add(test);
             //example of setting content in the cart
             temporal.setText(test);
 
+            this.spinnerTicket = (Spinner) ticketsView.findViewById(R.id.spinnerTicket);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,
+                    outputDataList );
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerTicket.setAdapter(adapter);
 
         } catch (JSONException e){
             e.printStackTrace();
