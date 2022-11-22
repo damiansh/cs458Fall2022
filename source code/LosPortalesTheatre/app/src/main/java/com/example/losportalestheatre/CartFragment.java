@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
@@ -71,10 +73,12 @@ public class CartFragment extends Fragment {
             int count = cart.getInt("count");
             if(count==0){
                 temporal.setText("Empty Cart");
+                //shows the cost when cart is empty
                 beforeTax=0.00;
                 tax=0.00;
                 total =0.00;
 
+                String startTime = cart.getString("stime");
                 BeforeTaxText.setText(String.format("Total before tax: $ %.2f", beforeTax));
                 TaxText.setText(String.format("Estimated tax to be collected: $ %.2f", tax));
                 totalText.setText(String.format("Total: $ %.2f",total));
@@ -97,11 +101,21 @@ public class CartFragment extends Fragment {
                 int ticketNumber = Integer.parseInt(cartItem.getString("ticket_id"));
                 //get the cost item data
                 double cost= Double.parseDouble(cartItem.getString("cost"));
+
+                //gets the date
+                String startTime = cartItem.getString("stime");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("m");
+                LocalDateTime date = LocalDateTime.parse(startTime,formatter);
+                String playDate = date.toLocalDate().format(dateFormat);
+
                 //get the seat number in the format Letter Row + seat number
                 String seatNumber = api.seatRowCol(Integer.parseInt(cartItem.getString("seat_number")));
                 String playTitle = cartItem.getString("play_title");
-                test = String.format(Locale.getDefault(),"%s %s: %s  $%.2f \n",test,seatNumber,playTitle,cost);
+                test = String.format(Locale.getDefault(),"%s %s: %s %s $%.2f \n",test,seatNumber,playTitle,playDate,cost);
 
+                //adds up the total cost
                 beforeTax=beforeTax+ cost;
                 tax=(beforeTax*0.0825);
                 total =beforeTax+tax;
