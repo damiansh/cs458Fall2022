@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 >
 
+
                 <View
                     android:id="@+id/_bg__mapviewoflosportales_ek2"
                     android:layout_width="360dp"
@@ -39,7 +40,6 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/_bg__mapviewoflosportales_ek2_shape" />
-
 
                 <RelativeLayout android:id="@+id/component_2"
                     android:layout_marginTop="385dp"
