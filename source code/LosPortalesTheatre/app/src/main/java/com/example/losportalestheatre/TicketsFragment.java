@@ -27,6 +27,7 @@ public class TicketsFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View ticketsView;
     private Spinner spinnerTicket;
+    private String ticket;
     ArrayList<String> outputDataList  = new ArrayList<String>();
 
     @Override
@@ -56,7 +57,7 @@ public class TicketsFragment extends Fragment {
         //temporal view for example
         //this is just an example, feel free to modify the layout and the variable name
         TextView temporal = ticketsView.findViewById(R.id.temporalTicketContent);
-
+        this.spinnerTicket = (Spinner) ticketsView.findViewById(R.id.spinnerTicket);
         try{
             //get cart data
             JSONObject transactions = api.getTransactions().getValue();
@@ -87,13 +88,15 @@ public class TicketsFragment extends Fragment {
                 String transactionDate = transaction.getString("transaction_date");
                 double orderTotal = Double.parseDouble(transaction.getString("order_total"));
 
-                test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f]\n",test,transactionNumber,transactionDate,orderTotal);
+                test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f\n",test,transactionNumber,transactionDate,orderTotal);
+                ticket = "Transaction Number: " + transactionNumber + " Transaction Date: " + transactionDate +  " Order Total: " + orderTotal;
+                outputDataList.add(ticket);
             }
-            outputDataList.add(test);
-            //example of setting content in the cart
-            temporal.setText(test);
 
-            this.spinnerTicket = (Spinner) ticketsView.findViewById(R.id.spinnerTicket);
+            //example of setting content in the cart
+            //temporal.setText(test);
+
+
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                     android.R.layout.simple_spinner_item,
                     outputDataList );
