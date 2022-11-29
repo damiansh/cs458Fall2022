@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -17,12 +21,14 @@ import java.util.Locale;
  * Class (school): CS458
  * Class name: TicketFragment
  * Purpose: Fragment for the Tickets, where the customer can see their previous purchases
- * Date Modified: 11/12/2022 9:47 pm
+ * Date Modified: 11/16/2022 9:47 pm
  */
 public class TicketsFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View ticketsView;
-
+    private Spinner spinnerTicket;
+    private String ticket;
+    ArrayList<String> outputDataList  = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +57,7 @@ public class TicketsFragment extends Fragment {
         //temporal view for example
         //this is just an example, feel free to modify the layout and the variable name
         TextView temporal = ticketsView.findViewById(R.id.temporalTicketContent);
-
+        this.spinnerTicket = (Spinner) ticketsView.findViewById(R.id.spinnerTicket);
         try{
             //get cart data
             JSONObject transactions = api.getTransactions().getValue();
@@ -65,12 +71,13 @@ public class TicketsFragment extends Fragment {
 
             //get the transactions content array
             JSONArray transactionsContent = transactions.getJSONArray("transactionData");
-
+            int lengthJsonArr = transactionsContent.length();
             //here you are going to write your code for the tickets
             //the following is just an example how to iterate through the array
             //feel free to change variables
             //remember you had to add seats using the website if the seating plan is not done in the app
             String test = "";
+
             //iterate with a loop
             for(int i=0;i<count;i++){
                 //get the JSON Object
@@ -81,12 +88,20 @@ public class TicketsFragment extends Fragment {
                 String transactionDate = transaction.getString("transaction_date");
                 double orderTotal = Double.parseDouble(transaction.getString("order_total"));
 
-                test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f]\n",test,transactionNumber,transactionDate,orderTotal);
+                test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f\n",test,transactionNumber,transactionDate,orderTotal);
+                ticket = "Transaction Number: " + transactionNumber + " Transaction Date: " + transactionDate +  " Order Total: " + orderTotal;
+                outputDataList.add(ticket);
             }
 
             //example of setting content in the cart
-            temporal.setText(test);
+            //temporal.setText(test);
 
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,
+                    outputDataList );
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerTicket.setAdapter(adapter);
 
         } catch (JSONException e){
             e.printStackTrace();
