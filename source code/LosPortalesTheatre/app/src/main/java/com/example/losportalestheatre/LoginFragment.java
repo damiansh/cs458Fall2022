@@ -69,8 +69,8 @@ public class LoginFragment extends Fragment{
      */
     private void startLogin(){
         //Get the email and password edit text
-        EditText email = (EditText) loginView.findViewById(R.id.email);
-        EditText password = (EditText) loginView.findViewById(R.id.password);
+        EditText email = loginView.findViewById(R.id.email);
+        EditText password = loginView.findViewById(R.id.password);
 
         //Assign the values to local variables
         String emailString = email.getText().toString();

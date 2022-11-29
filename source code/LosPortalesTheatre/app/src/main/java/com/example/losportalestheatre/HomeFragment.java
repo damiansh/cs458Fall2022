@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment {
         CardView layout = (CardView) View.inflate(requireActivity(), R.layout.play_card, null);
         //Format date patterns
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm a");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         //Get date and start time
@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
         String playDate = dateTime.toLocalDate().format(dateFormat);
         startTime = dateTime.toLocalTime().format(timeFormat);
 
-        //Get date and start time
+        //Get date and end time
         dateTime = LocalDateTime.parse(endTime, formatter);
         endTime = dateTime.toLocalTime().format(timeFormat);
 

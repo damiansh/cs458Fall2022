@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -21,14 +23,16 @@ import java.util.Locale;
  * Class (school): CS458
  * Class name: TicketFragment
  * Purpose: Fragment for the Tickets, where the customer can see their previous purchases
- * Date Modified: 11/16/2022 9:47 pm
+ * Date Modified: 11/29/2022
  */
 public class TicketsFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View ticketsView;
     private Spinner spinnerTicket;
-    private String ticket;
-    ArrayList<String> outputDataList  = new ArrayList<String>();
+    private final ArrayList<String> outputDataList  = new ArrayList<>(); //list of string for the spinner
+    private final ArrayList<Integer> transactionsID  = new ArrayList<>(); //list of the transactions ids
+    private  Button printButton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +43,30 @@ public class TicketsFragment extends Fragment {
         //get the ViewModel for the API
         api = new ViewModelProvider(requireActivity()).get(API.class);
 
+        //We get the print button and create a listener for it
+        printButton = ticketsView.findViewById(R.id.printButton);
+        printButton.setOnClickListener(printButtonListener);
+
+        //get the spinner
+        spinnerTicket = ticketsView.findViewById(R.id.spinnerTicket);
+
         //set cart view
         setUpTickets();
 
         // Inflate the layout for this fragment
         return ticketsView;
     }
+
+    /**
+     * printButtonListener(): button listener for print button
+     */
+    private final View.OnClickListener printButtonListener = v -> {
+        int pos = spinnerTicket.getSelectedItemPosition(); //position of selected item
+        int selectedTransactionID = transactionsID.get(pos); //get the selected transaction id
+        //call api method to show the tickets for current transaction
+        api.requestTickets(requireActivity(),selectedTransactionID);
+
+    };
 
     /**
      * setUpCart(): seats the views to show the cart content
@@ -54,29 +76,31 @@ public class TicketsFragment extends Fragment {
         TextView ticketsTitle = ticketsView.findViewById(R.id.textview_TicketsTitle);
         ticketsTitle.setText(String.format("%s's Tickets",api.getCustomerGivenName()));
 
-        //temporal view for example
-        //this is just an example, feel free to modify the layout and the variable name
-        TextView temporal = ticketsView.findViewById(R.id.temporalTicketContent);
-        this.spinnerTicket = (Spinner) ticketsView.findViewById(R.id.spinnerTicket);
         try{
             //get cart data
             JSONObject transactions = api.getTransactions().getValue();
 
             //get count and if 0 return
-            int count = transactions.getInt("count");
+            int count = 0;
+            if (transactions != null) {
+                count = transactions.getInt("count");
+            }
             if(count==0){
-                temporal.setText("You haven't bought tickets yet");
+                //SET SPINNER AND BUTTON AS INVISIBLE AND SHOW MESSAGE OF EMPTY
+                spinnerTicket.setVisibility(View.GONE);
+                TextView empty = ticketsView.findViewById(R.id.emptyTickets);
+                empty.setVisibility(View.VISIBLE);
+                printButton.setEnabled(false);
+                printButton.setVisibility(View.GONE);
                 return;
             }
 
             //get the transactions content array
             JSONArray transactionsContent = transactions.getJSONArray("transactionData");
-            int lengthJsonArr = transactionsContent.length();
             //here you are going to write your code for the tickets
             //the following is just an example how to iterate through the array
             //feel free to change variables
             //remember you had to add seats using the website if the seating plan is not done in the app
-            String test = "";
 
             //iterate with a loop
             for(int i=0;i<count;i++){
@@ -88,19 +112,27 @@ public class TicketsFragment extends Fragment {
                 String transactionDate = transaction.getString("transaction_date");
                 double orderTotal = Double.parseDouble(transaction.getString("order_total"));
 
-                test = String.format(Locale.getDefault(),"%sTransaction Number: %d, Transaction Date: %s  Order Total: %,.2f\n",test,transactionNumber,transactionDate,orderTotal);
-                ticket = "Transaction Number: " + transactionNumber + " Transaction Date: " + transactionDate +  " Order Total: " + orderTotal;
+                //format transaction date and time
+                //Format date patterns
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm a");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                //Get date and start time
+                LocalDateTime dateTime = LocalDateTime.parse(transactionDate, formatter);
+                transactionDate = dateTime.toLocalDate().format(dateFormat);
+                String transactionTime = dateTime.toLocalTime().format(timeFormat);
+
+                //create text view for spinner
+                String ticket = String.format(Locale.getDefault(), "Transaction #%d: $%.2f\n%s %s", transactionNumber, orderTotal, transactionDate, transactionTime);
                 outputDataList.add(ticket);
+                transactionsID.add(transactionNumber);
+
             }
 
-            //example of setting content in the cart
-            //temporal.setText(test);
-
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                    android.R.layout.simple_spinner_item,
-                    outputDataList );
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                    R.layout.tickets_spinner,
+                    outputDataList);
             spinnerTicket.setAdapter(adapter);
 
         } catch (JSONException e){
