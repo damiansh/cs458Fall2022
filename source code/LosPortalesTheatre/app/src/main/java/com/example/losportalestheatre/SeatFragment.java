@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -131,10 +133,15 @@ public class SeatFragment extends Fragment {
 
             //set the image for the play
             ImageView playImage = seatView.findViewById(R.id.seatPlayImage);
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .fallback(R.drawable.placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+
             Glide.with(this)
                     .load(playImageURL)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .error(R.drawable.placeholder)
+                    .apply(options)
                     .into(playImage);
 
             //get the seating array

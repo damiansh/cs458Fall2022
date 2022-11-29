@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -50,13 +51,15 @@ public class API extends ViewModel {
     private String lName;
     private MutableLiveData<JSONObject> cart; //data with cart
     private MutableLiveData<JSONObject> transactions; //data with the transactions
+    private MutableLiveData<JSONObject> selectedTransaction; // selected transaction to show
+
     //tmp data
     private String tmpKey; //a temporal and non verified key is stored here
     //current play id
     public int currentPlayID =0;
 
     /**
-     * getAPIUrl(): returns the customer given name
+     * getAPIUrl(): returns the url for the website
      * @return apiURL, the address where the api is hosted
      */
     public String getAPIUrl(){
@@ -70,7 +73,6 @@ public class API extends ViewModel {
     public String getCustomerGivenName(){
         return fName;
     }
-
 
     /**
      * isLogged(): returns the logged status
@@ -163,6 +165,27 @@ public class API extends ViewModel {
             }
         }
         return playSeatInfo;
+    }
+
+    /**
+     * getSelectedTransaction():gets the selected transaction json info
+     * @return JSONObject selectedTransaction: is the json object with the selected transaction
+     */
+    public MutableLiveData<JSONObject> getSelectedTransaction(){
+        if (selectedTransaction==null){
+            selectedTransaction = new MutableLiveData<>();
+            try{
+                //We create the JSON Object
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("status", -1);
+                jsonBody.put("transaction_id", 0);
+                selectedTransaction.setValue(jsonBody);
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return selectedTransaction;
     }
 
     /**
@@ -350,6 +373,54 @@ public class API extends ViewModel {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * checkOutCart(): checkouts the items in the car
+     * @param context is the current getActivity
+     * @param total cost of the order
+     */
+    public void checkOutCart(Activity context, double total){
+        String URL = apiURL + "/includes/api-checkout.php";
+        try{
+            //We create the JSON Object with the POST request
+            JSONObject jsonBody = new JSONObject();
+            JSONArray jsonArray = Objects.requireNonNull(getCart().getValue()).getJSONArray("cart");
+            jsonBody.put("key", getCustomerKey().getValue());
+            jsonBody.put("email", customerEmail);
+            jsonBody.put("first_name", fName);
+            jsonBody.put("last_name", lName);
+            jsonBody.put("total", total);
+            jsonBody.put("seats", jsonArray);
+            //get the loading bar from home
+            ProgressBar loading = context.findViewById(R.id.loadingBar);
+            apiPOST(URL, jsonBody, context, loading,7);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * requestTickets(): gets the info of a single transaction to view its tickets
+     * @param context is the current getActivity
+     * @param transactionID transaction id of the to be viewed transaction
+     */
+    public void requestTickets(Activity context, int transactionID){
+        String URL = apiURL + "/includes/api-transaction.php"; //do not confuse api-transactions with api-transaction
+        try{
+            //We create the JSON Object with the POST request
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("key", getCustomerKey().getValue());
+            jsonBody.put("transaction_id", transactionID);
+            //get the loading bar from home
+            ProgressBar loading = context.findViewById(R.id.loadingBar);
+            apiPOST(URL, jsonBody, context, loading,8);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * apiPOST(): sends a JSON through the post to an API
@@ -564,7 +635,7 @@ public class API extends ViewModel {
             //update the menu with the cart count
             NavigationView navigationView = current.findViewById(R.id.nav_view);
             MenuItem cartMenu = navigationView.getMenu().findItem(R.id.nav_cart);
-            cartMenu.setTitle(String.format(Locale.getDefault(),"Count (%d)",count));
+            cartMenu.setTitle(String.format(Locale.getDefault(),"Cart (%d)",count));
 
 
         }
@@ -639,8 +710,10 @@ public class API extends ViewModel {
             //assign the play info
             getPlaySeatInfo().postValue(response);
 
-            //open the seat fragment
-            current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SeatFragment(),"SeatPlan").commit();
+            //open the seat fragment, but before check if you are not in the cart fragment to avoid go back
+            Fragment cartFragment = current.getSupportFragmentManager().findFragmentByTag("CartFragment");
+            if(cartFragment == null)
+                current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SeatFragment(),"SeatPlan").commit();
 
         }
         catch(JSONException e){
@@ -687,10 +760,10 @@ public class API extends ViewModel {
             alertMessage.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
             alertMessage.setButton(DialogInterface.BUTTON_POSITIVE,"Go to your cart", (dialog, which) -> {
                 //reset bar title
-                ((AppCompatActivity)current).getSupportActionBar().setTitle(R.string.app_name);
+                Objects.requireNonNull(((AppCompatActivity) current).getSupportActionBar()).setTitle(R.string.app_name);
 
                 //go to the cart
-                ((FragmentActivity)current).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                ((FragmentActivity)current).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment(),"CartFragment").commit();
 
             });
             alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
@@ -705,8 +778,106 @@ public class API extends ViewModel {
         catch(JSONException e){
             e.printStackTrace();
         }
+    }
 
 
+    /**
+     * checkoutHandler(): handles the response from checkout request
+     * @param current  is the current getActivity
+     * @param postResponse is the response from the POST request
+     */
+    public void checkoutHandler(FragmentActivity current, String postResponse) {
+        try {
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+
+            //if status is not 1, the user is not authorized or there was a problem getting the data
+            int status = response.getInt("status");
+            if (status != 1) {
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(), current);
+                return;
+            }
+
+            //get the variables available and unavailable
+            String message = response.getString("message");
+            String success = response.getString("success");
+            int transactionID = Integer.parseInt(response.getString("transaction_id"));
+
+
+
+            //update cart
+            startCartRequest(current);
+
+            //update transactions
+            startTransactionsRequest(current);
+
+
+            //Create Alert
+            AlertDialog alertMessage = new AlertDialog.Builder(current)
+                    .create();
+            alertMessage.setCancelable(false);
+            alertMessage.setTitle("Alert");
+            alertMessage.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+
+            //set button for view your tickets if successful
+            if (success.equals("success"))
+                alertMessage.setButton(DialogInterface.BUTTON_POSITIVE, "View your tickets", (dialog, which) -> {
+                    //go to view tickets
+                    requestTickets(current,transactionID);
+
+                });
+
+            //button to close alert
+            alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
+                //open the seat fragment
+                current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment(),"Cart").commit();
+                alertMessage.cancel();
+
+            });
+            alertMessage.show();
+
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * requestTicketsHandler(): handles the response from view ticket request
+     * @param current  is the current getActivity
+     * @param postResponse is the response from the POST request
+     */
+    public void requestTicketsHandler(FragmentActivity current, String postResponse) {
+        try {
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+            //if status is not 1, the user is not authorized or there was a problem getting the data
+            int status = response.getInt("status");
+            if (status != 1) {
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(), current);
+                return;
+            }
+
+            //assign value to selected transaction/ticket
+            getSelectedTransaction().postValue(response);
+
+            String barTitle = "Transaction# " + response.getInt("transaction_id") + " tickets:";
+            //change the name of the app bar
+            Objects.requireNonNull(((AppCompatActivity) current).getSupportActionBar()).setTitle(barTitle);
+
+            //go to the fragment to view the tickets
+            current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewTicketsFragment(),"ViewTickets").commit();
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -764,6 +935,12 @@ public class API extends ViewModel {
                 break;
             case 6: //Transactions Mode
                 addToCartHandler(current, postResponse);
+                break;
+            case 7: //Transactions Mode
+                checkoutHandler((FragmentActivity)current, postResponse);
+                break;
+            case 8: //Transactions Mode
+                requestTicketsHandler((FragmentActivity)current, postResponse);
                 break;
         }
     }

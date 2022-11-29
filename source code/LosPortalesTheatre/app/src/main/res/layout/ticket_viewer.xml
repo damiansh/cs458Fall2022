@@ -14,7 +14,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <ImageView
             android:id="@+id/playCardImage"
             android:adjustViewBounds="true"
@@ -24,15 +23,41 @@
             android:src="@drawable/placeholder" />
 
         <TextView
-            android:id="@+id/playTitle"
+            android:id="@+id/ticketNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/playCardImage"
             android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:text="Ticket #"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/playTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ticketNumber"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="@string/play_name"
             android:textColor="@color/white"
             android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/seatNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/playTitle"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="place holder seat number"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -41,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:layout_below="@+id/playTitle"
+            android:layout_below="@+id/seatNumber"
             android:orientation="horizontal">
 
             <TextView
@@ -67,30 +92,13 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/playDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/playDateTime"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            android:text="@string/play_description"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            />
-
-        <Button
-            android:id="@+id/playButton"
+        <ImageView
+            android:id="@+id/qrCodeImage"
+            android:adjustViewBounds="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/playDesc"
-            android:background="@color/navyBlueVariant"
-            android:text="Login"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold">
-        </Button>
+            android:layout_height="250dp"
+            android:layout_below="@+id/playDateTime"
+            android:contentDescription="@string/app_name"/>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
