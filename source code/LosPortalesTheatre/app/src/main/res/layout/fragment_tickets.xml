@@ -50,12 +50,12 @@
 
 
             <Button
-                android:id="@+id/printButton"
+                android:id="@+id/showTicketsButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinnerTicket"
                 android:backgroundTint="@color/navyBlueVariant"
-                android:text="Print Tickets"
+                android:text="Show Tickets"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">

@@ -31,7 +31,7 @@ public class TicketsFragment extends Fragment {
     private Spinner spinnerTicket;
     private final ArrayList<String> outputDataList  = new ArrayList<>(); //list of string for the spinner
     private final ArrayList<Integer> transactionsID  = new ArrayList<>(); //list of the transactions ids
-    private  Button printButton;
+    private  Button showButton;
 
 
     @Override
@@ -43,9 +43,9 @@ public class TicketsFragment extends Fragment {
         //get the ViewModel for the API
         api = new ViewModelProvider(requireActivity()).get(API.class);
 
-        //We get the print button and create a listener for it
-        printButton = ticketsView.findViewById(R.id.printButton);
-        printButton.setOnClickListener(printButtonListener);
+        //We get the show button and create a listener for it
+        showButton = ticketsView.findViewById(R.id.showTicketsButton);
+        showButton.setOnClickListener(showButtonListener);
 
         //get the spinner
         spinnerTicket = ticketsView.findViewById(R.id.spinnerTicket);
@@ -58,9 +58,9 @@ public class TicketsFragment extends Fragment {
     }
 
     /**
-     * printButtonListener(): button listener for print button
+     * showButtonListener(): button listener for show button
      */
-    private final View.OnClickListener printButtonListener = v -> {
+    private final View.OnClickListener showButtonListener = v -> {
         int pos = spinnerTicket.getSelectedItemPosition(); //position of selected item
         int selectedTransactionID = transactionsID.get(pos); //get the selected transaction id
         //call api method to show the tickets for current transaction
@@ -90,8 +90,8 @@ public class TicketsFragment extends Fragment {
                 spinnerTicket.setVisibility(View.GONE);
                 TextView empty = ticketsView.findViewById(R.id.emptyTickets);
                 empty.setVisibility(View.VISIBLE);
-                printButton.setEnabled(false);
-                printButton.setVisibility(View.GONE);
+                showButton.setEnabled(false);
+                showButton.setVisibility(View.GONE);
                 return;
             }
 
