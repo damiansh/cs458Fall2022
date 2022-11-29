@@ -136,7 +136,7 @@ public class ViewTicketsFragment extends Fragment {
         CardView layout = (CardView) View.inflate(requireActivity(), R.layout.ticket_viewer, null);
         //Format date patterns
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm a");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm a");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         //Get date and start time

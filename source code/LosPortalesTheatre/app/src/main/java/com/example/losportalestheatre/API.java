@@ -876,7 +876,7 @@ public class API extends ViewModel {
             //assign value to selected transaction/ticket
             getSelectedTransaction().postValue(response);
 
-            String barTitle = "Transaction# " + response.getInt("transaction_id") + " tickets:";
+            String barTitle = "Transaction#" + response.getInt("transaction_id") + " tickets:";
             //change the name of the app bar
             Objects.requireNonNull(((AppCompatActivity) current).getSupportActionBar()).setTitle(barTitle);
 
