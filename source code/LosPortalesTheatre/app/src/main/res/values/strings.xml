@@ -21,7 +21,7 @@
     <string name="upcoming_plays">Upcoming Plays</string>
     <string name="play_name">Play Name</string>
     <string name="play_description">Play description</string>
-    <string name="select_play">Select play</string>
+    <string name="select_play">Select seats</string>
     <string name="PortalesKeyName">LosPortalesTheatreKey</string>
     <string name="PortalesKeyIdentifier">key</string>
     <string name="GuestNamePlaceHolder">Los Portales Theatre Guest</string>
@@ -35,8 +35,8 @@
     <string name="Total_Text">Total: </string>
     <string name="checkout_text">Checkout</string>
     <string name="tickets_fragment_Text">Tickets Fragment</string>
-    <item type="id" name="seatPrice" />
-    <item type="id" name="seatNumber" />
-    <item type="id" name="seatStatus" />
-    <item type="id" name="seatTicketID" />
+    <item name="seatPrice" type="id" />
+    <item name="seatNumber" type="id" />
+    <item name="seatStatus" type="id" />
+    <item name="seatTicketID" type="id" />
 </resources>

@@ -148,4 +148,11 @@
         android:textColor="@color/navyBlue"
         android:textSize="15sp" />
 
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>

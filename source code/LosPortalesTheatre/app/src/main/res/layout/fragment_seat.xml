@@ -27,8 +27,10 @@ Pedro Damian Marta Rubio
 
                 <ImageView
                     android:id="@+id/seatPlayImage"
+                    android:adjustViewBounds="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/placeholder"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
