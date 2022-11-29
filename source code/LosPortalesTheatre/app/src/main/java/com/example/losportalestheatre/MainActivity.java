@@ -182,11 +182,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+        //fragments to watch for
+        Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
+        Fragment ticketViewer = getSupportFragmentManager().findFragmentByTag("ViewTickets");
+
+
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) { //handles on back when drawer is open
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else if(!getSupportActionBar().getTitle().toString().equals(R.string.app_name)){
+        else if(seatPlan!=null && seatPlan.isVisible()){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            //reset the bar
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
+        else if(ticketViewer!=null && ticketViewer.isVisible()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
             //reset the bar
             getSupportActionBar().setTitle(R.string.app_name);
         }

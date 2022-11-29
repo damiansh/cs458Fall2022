@@ -582,15 +582,15 @@ public class API extends ViewModel {
                     //get the transactions for the user
                     startTransactionsRequest(current);
 
-                    //get the cart
-                    startCartRequest(current);
-
                     //Set login to true
                     isLogged().setValue(Boolean.TRUE);
                     //Toast to give the welcome to the customer
                     Toast.makeText(current, welcome, Toast.LENGTH_SHORT).show();
 
                 }
+
+                //get the cart or update the current cart
+                startCartRequest(current);
 
             }
             else{
@@ -858,9 +858,18 @@ public class API extends ViewModel {
 
             //if status is not 1, the user is not authorized or there was a problem getting the data
             int status = response.getInt("status");
-            if (status != 1) {
+            if (status != 1 && status!=2) {
                 //We initiate the verify key process
                 verifyKey(getCustomerKey().getValue(), current);
+                return;
+            }
+
+            int transactionID = response.getInt("transaction_id");
+
+            //status 2 means that transaction data is null
+            if(status==2) {
+                String toastMessage = "Transaction #" + transactionID + " doesn't exist, contact management";
+                Toast.makeText(current, toastMessage, Toast.LENGTH_SHORT).show();
                 return;
             }
 

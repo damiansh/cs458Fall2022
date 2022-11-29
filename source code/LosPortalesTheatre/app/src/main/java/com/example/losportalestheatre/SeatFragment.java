@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class SeatFragment extends Fragment {
@@ -95,7 +96,7 @@ public class SeatFragment extends Fragment {
     private void loadViews(){
         try{
             //get the info for the play
-            JSONObject playInfo = api.getPlaySeatInfo().getValue().getJSONObject("playInfo");
+            JSONObject playInfo = Objects.requireNonNull(api.getPlaySeatInfo().getValue()).getJSONObject("playInfo");
             api.currentPlayID = Integer.parseInt(playInfo.getString("play_id")); //assign the current play id
             String playTitle = playInfo.getString("play_title");
             String playImageURL = api.getAPIUrl() + "/images/plays/" + playInfo.getString("pURL");
