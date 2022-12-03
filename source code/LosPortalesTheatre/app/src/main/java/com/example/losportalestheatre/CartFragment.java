@@ -1,8 +1,13 @@
 package com.example.losportalestheatre;
 
 import android.graphics.Color;
+import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Gravity;
@@ -13,6 +18,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.text.Html;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +26,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Author(s): Preston Feagan and Pedro Damian Marta Rubio
@@ -33,9 +40,9 @@ public class CartFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View cartView;
 
-    Double tax=0.00;
-    Double beforeTax=0.00;
-    Double total=0.00;
+    double tax=0.00;
+    double beforeTax=0.00;
+    double total=0.00;
     String timer="";
 
 
@@ -53,9 +60,47 @@ public class CartFragment extends Fragment {
         setUpCart();
 
 
+        //We get the checkout button and create a listener for it
+        Button registerButton = cartView.findViewById(R.id.Button_Checkout);
+        registerButton.setOnClickListener(checkoutListener);
+
+
+
         // Inflate the layout for this fragment
         return cartView;
     }
+
+
+    /**
+     * checkoutListener(): button listener for checkout button
+     */
+    private final View.OnClickListener checkoutListener = v -> {
+        //disable button to avoid accidental second touch
+        v.setEnabled(false);
+
+        //Create Alert
+        AlertDialog alertMessage = new AlertDialog.Builder(requireActivity())
+                .create();
+        alertMessage.setCancelable(false);
+        alertMessage.setTitle("Confirm Purchase");
+        String message = "Are you you sure you want to purchase these tickets?<br><br>They will be charged to your google pay account.";
+        alertMessage.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+        alertMessage.setButton(DialogInterface.BUTTON_POSITIVE,"Yes", (dialog, which) -> {
+            //initiate the checkout process
+            api.checkOutCart(requireActivity(),total);
+            alertMessage.cancel();
+        });
+        alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"No", (dialog, which) -> {
+            //enable the button again
+            v.setEnabled(true);
+            //close
+            alertMessage.cancel();
+
+        });
+        alertMessage.show();
+
+
+    };
 
 
     /**
@@ -97,6 +142,9 @@ public class CartFragment extends Fragment {
                 tax=0.00;
                 total =0.00;
 
+                //disable the button if empty
+                cartView.findViewById(R.id.Button_Checkout).setEnabled(false);
+                String startTime = cart.getString("stime");
                 BeforeTaxText.setText(String.format("Total before tax: $ %.2f", beforeTax));
                 TaxText.setText(String.format("Estimated tax to be collected: $ %.2f", tax));
                 totalText.setText(String.format("Total: $ %.2f",total));

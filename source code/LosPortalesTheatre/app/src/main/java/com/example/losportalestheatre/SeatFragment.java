@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class SeatFragment extends Fragment {
@@ -93,7 +96,7 @@ public class SeatFragment extends Fragment {
     private void loadViews(){
         try{
             //get the info for the play
-            JSONObject playInfo = api.getPlaySeatInfo().getValue().getJSONObject("playInfo");
+            JSONObject playInfo = Objects.requireNonNull(api.getPlaySeatInfo().getValue()).getJSONObject("playInfo");
             api.currentPlayID = Integer.parseInt(playInfo.getString("play_id")); //assign the current play id
             String playTitle = playInfo.getString("play_title");
             String playImageURL = api.getAPIUrl() + "/images/plays/" + playInfo.getString("pURL");
@@ -131,10 +134,15 @@ public class SeatFragment extends Fragment {
 
             //set the image for the play
             ImageView playImage = seatView.findViewById(R.id.seatPlayImage);
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .fallback(R.drawable.placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+
             Glide.with(this)
                     .load(playImageURL)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .error(R.drawable.placeholder)
+                    .apply(options)
                     .into(playImage);
 
             //get the seating array

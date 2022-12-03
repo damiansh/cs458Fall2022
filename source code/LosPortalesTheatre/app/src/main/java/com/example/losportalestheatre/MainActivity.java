@@ -145,13 +145,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //reset bar title
-        Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
-
-        if (seatPlan != null && seatPlan.isVisible()) { //handles on back pressed when in seat plan
-            //Reset the action bar title to app name
+        if(!getSupportActionBar().getTitle().toString().equals(R.string.app_name))
             getSupportActionBar().setTitle(R.string.app_name);
-
-        }
         switch (item.getItemId()) {
             case R.id.nav_home:
                 if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);
@@ -187,16 +182,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+        //fragments to watch for
         Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
+        Fragment ticketViewer = getSupportFragmentManager().findFragmentByTag("ViewTickets");
+
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) { //handles on back when drawer is open
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else if (seatPlan != null && seatPlan.isVisible()) { //handles on back pressed when in seat plan
+        else if(seatPlan!=null && seatPlan.isVisible()){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            //Reset the action bar title to app name
+            //reset the bar
             getSupportActionBar().setTitle(R.string.app_name);
-
+        }
+        else if(ticketViewer!=null && ticketViewer.isVisible()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
+            //reset the bar
+            getSupportActionBar().setTitle(R.string.app_name);
         }
         else {
             super.onBackPressed();
