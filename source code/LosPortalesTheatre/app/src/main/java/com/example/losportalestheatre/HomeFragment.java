@@ -25,15 +25,14 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 /**
- * Author(s): Pedro Damian Marta (add your name if you modify and/or add to the code)
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: HomeFragment
  * Purpose: Fragment for the home page where the upcoming plays are displayed
  * Date Modified: 11/07/2022 9:47 pm
  */
-
 public class HomeFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View homeView; ///view of the login frame

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Layout by add your name here if you work on this
 -->
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,144 +13,136 @@
         android:id="@+id/textview_CartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:text="@string/shopping_cart"
         android:textColor="@color/navyBlue"
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/textView_Tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textview_CartTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center_horizontal"
+        android:text="@string/tickets"
+        android:textColor="@color/navyBlueVariant"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView_TimeLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textView_Tickets"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center_horizontal"
+        android:text="@string/timelimit_text"
+        android:textColor="@color/navyBlueVariant"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-
+    <TextView
+        android:id="@+id/emptyCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textView_TimeLimit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/orderSummaryLayout"
+        android:text="@string/empty_cart"
+        android:textColor="@color/navyBlueVariant"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/cartScrollView"
         android:layout_width="match_parent"
-        android:layout_below="@+id/textview_CartTitle"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        app:layout_constraintTop_toBottomOf="@id/textView_TimeLimit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/orderSummaryLayout"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        >
 
         <RelativeLayout
+            android:id="@+id/ticketsContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/textView_Tickets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="240dp"
-                android:gravity="center_horizontal"
-                android:text="@string/tickets"
-                android:textColor="@color/navyBlue"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_OrderSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="100dp"
-                android:text="@string/order_summary"
-                android:textColor="@color/navyBlue"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_TimeLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="0dp"
-                android:gravity="center_horizontal"
-                android:text="@string/timelimit_text"
-                android:textColor="@color/navyBlue"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_TotalBeforeTax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linear_layout"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/total_before_tax"
-                android:textColor="@color/navyBlue"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_Tax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_TotalBeforeTax"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="3dp"
-                android:text="@string/Tax_text"
-                android:textColor="@color/navyBlue"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_Total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_Tax"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="-2dp"
-                android:text="@string/Total_Text"
-                android:textColor="@color/design_default_color_error"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/Button_Checkout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_Total"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="240dp"
-                android:text="@string/checkout_text"
-                android:textSize="20sp" />
-            <LinearLayout
-                android:id="@+id/linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/textView_OrderSummary"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="-2dp"
-                android:orientation="vertical">
-
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
+            android:layout_height="wrap_content"/>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/orderSummaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/textView_OrderSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/order_summary"
+            android:textColor="@color/navyBlue"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/textView_TotalBeforeTax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_OrderSummary"
+            android:layout_marginStart="10dp"
+            android:text="@string/total_before_tax"
+            android:textColor="@color/navyBlueVariant"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_Tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_TotalBeforeTax"
+            android:layout_marginStart="10dp"
+            android:text="@string/Tax_text"
+            android:textColor="@color/navyBlueVariant"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_Total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_Tax"
+            android:layout_marginStart="10dp"
+            android:text="@string/Total_Text"
+            android:textColor="@color/errorColor"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/Button_Checkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_Total"
+            android:layout_marginStart="10dp"
+            android:text="@string/checkout_text"
+            android:backgroundTint="@color/navyBlueVariant"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 
 
@@ -158,7 +151,11 @@
         android:id="@+id/loadingBar"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

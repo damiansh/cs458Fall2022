@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * Author(s): Pedro Damian Marta Rubio (add your name if you modify and/or add to the code)
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: RegistrationFragment
  * Purpose: Fragment for the registration, where the customer can register into the system

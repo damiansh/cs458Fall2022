@@ -60,12 +60,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold">
             </Button>
-
         </RelativeLayout>
-
     </ScrollView>
-
-
-
-
 </RelativeLayout>

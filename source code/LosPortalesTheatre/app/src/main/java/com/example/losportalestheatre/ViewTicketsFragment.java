@@ -26,7 +26,8 @@ import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
 /**
- * Author(s): Pedro Damian Marta Rubio
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: ViewTicketsFragment
  * Purpose: Fragment see the tickets with its qr code
@@ -201,7 +202,7 @@ public class ViewTicketsFragment extends Fragment {
         String qrContent = "Ticket for " + ticketID;
         qrgEncoder = new QRGEncoder(qrContent, null, QRGContents.Type.TEXT, dimen);
 
-        //change black for the playcard color
+        //change black for the play card color
         qrgEncoder.setColorBlack(ContextCompat.getColor(requireActivity(),R.color.playCardColor));
         // getting our qrcode in the form of bitmap.
         bitmap = qrgEncoder.getBitmap();

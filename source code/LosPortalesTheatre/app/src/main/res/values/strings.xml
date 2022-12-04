@@ -30,11 +30,12 @@
     <string name="tickets">Tickets</string>
     <string name="order_summary">Order Summary:</string>
     <string name="timelimit_text">After adding a seat to your cart, you have 10 minutes to purchase it before the reservation expires.</string>
-    <string name="total_before_tax">Total before tax: </string>
-    <string name="Tax_text">Estimated tax to be collected: </string>
-    <string name="Total_Text">Total: </string>
+    <string name="total_before_tax">Total before tax: $0.00 </string>
+    <string name="Tax_text">Estimated tax to be collected: $0.00 </string>
+    <string name="Total_Text">Total: $0.00 </string>
     <string name="checkout_text">Checkout</string>
     <string name="tickets_fragment_Text">Tickets Fragment</string>
+    <string name="empty_cart">Empty cart</string>
     <item name="seatPrice" type="id" />
     <item name="seatNumber" type="id" />
     <item name="seatStatus" type="id" />

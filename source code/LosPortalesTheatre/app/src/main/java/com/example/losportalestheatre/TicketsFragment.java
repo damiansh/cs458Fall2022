@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Author(s): Brian Elder and Pedro Damian Marta Rubio
+ * @author: Brian Elder and Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: TicketFragment
  * Purpose: Fragment for the Tickets, where the customer can see their previous purchases

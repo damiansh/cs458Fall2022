@@ -30,13 +30,13 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Author(s): Pedro Damian Marta
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: API
  * Purpose: The API class handles all the operations related to the REST API
- * Date Modified: 11/18/2022 8:39 AM
+ * Date Modified: 12/3/2022 2:38 PM
  */
-
 public class API extends ViewModel {
     //Live Data Variables
     private MutableLiveData<Boolean> currentLogged; //variable to set if the user is logged
@@ -420,7 +420,25 @@ public class API extends ViewModel {
         }
     }
 
-
+    /**
+     * deleteFromCart(): deletes the given ticket id from the customer's cart
+     * @param context is the current getActivity
+     * @param ticketID the ticketID identifying the seat the user wants to remove
+     */
+    public void deleteFromCart(Activity context, int ticketID){
+        String URL = apiURL + "/includes/api-deleteFromCart.php";
+        try{
+            //We create the JSON Object with the POST request
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("key", getCustomerKey().getValue());
+            jsonBody.put("ticket_id", ticketID);
+            //get the loading bar from home
+            ProgressBar loading = context.findViewById(R.id.loadingBar);
+            apiPOST(URL, jsonBody, context, loading,9);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * apiPOST(): sends a JSON through the post to an API
@@ -831,7 +849,7 @@ public class API extends ViewModel {
 
             //button to close alert
             alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
-                //open the seat fragment
+                //open the cart fragment
                 current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment(),"Cart").commit();
                 alertMessage.cancel();
 
@@ -882,6 +900,52 @@ public class API extends ViewModel {
 
             //go to the fragment to view the tickets
             current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewTicketsFragment(),"ViewTickets").commit();
+
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * deleteFromCartHandler(): handles the response of the deletion of the cart
+     * @param current  is the current getActivity
+     * @param postResponse is the response from the POST request
+     */
+    public void deleteFromCartHandler(FragmentActivity current, String postResponse) {
+        try {
+            //Convert the response to JSON
+            JSONObject response = new JSONObject(postResponse);
+
+            //if status is not 1, the user is not authorized or there was a problem getting the data
+            int status = response.getInt("status");
+            if (status != 1) {
+                //We initiate the verify key process
+                verifyKey(getCustomerKey().getValue(), current);
+                return;
+            }
+
+            //update cart
+            startCartRequest(current);
+
+            //get message from result
+            String message = response.getString("message");
+
+            //Create Alert
+            AlertDialog alertMessage = new AlertDialog.Builder(current)
+                    .create();
+            alertMessage.setCancelable(false);
+            alertMessage.setTitle("Delete from Cart");
+            alertMessage.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+
+            //button to close alert
+            alertMessage.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", (dialog, which) -> {
+                //update the fragment
+                current.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment(),"Cart").commit();
+                alertMessage.cancel();
+
+            });
+            alertMessage.show();
 
         }
         catch(JSONException e){
@@ -950,6 +1014,9 @@ public class API extends ViewModel {
                 break;
             case 8: //Transactions Mode
                 requestTicketsHandler((FragmentActivity)current, postResponse);
+                break;
+            case 9: //Delete from cart mode
+                deleteFromCartHandler((FragmentActivity)current, postResponse);
                 break;
         }
     }

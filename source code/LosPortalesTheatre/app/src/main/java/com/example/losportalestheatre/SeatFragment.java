@@ -30,7 +30,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
-
+/**
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
+ * Class (school): CS458
+ * Class name: SeatFragment
+ * Purpose: Fragment for the seat plan, where available seats for selected play are shown
+ * Date Modified: 11/28/2022 3:20 pm
+ */
 public class SeatFragment extends Fragment {
     private API api; //we initialize the API class for API related operations
     private View seatView; ///view of the login frame
