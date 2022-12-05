@@ -29,17 +29,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/temporalTicketContent"
+                android:id="@+id/emptyTickets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tickets Fragment"
+                android:textSize="20sp"
+                android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:textSize="15sp"
-                android:textColor="@color/navyBlue"/>
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:text="You have not made any purchases"/>
+
+            <Spinner
+                android:id="@+id/spinnerTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Select Ticket"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:minHeight="48dp" />
+
+
+            <Button
+                android:id="@+id/showTicketsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerTicket"
+                android:backgroundTint="@color/navyBlueVariant"
+                android:text="Show Tickets"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold">
+            </Button>
         </RelativeLayout>
-
     </ScrollView>
-
-
 </RelativeLayout>

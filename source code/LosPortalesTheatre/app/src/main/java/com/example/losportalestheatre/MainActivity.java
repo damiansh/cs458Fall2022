@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
@@ -17,14 +18,14 @@ import android.view.MenuItem;
 
 
 /**
- * Author(s): Pedro Damian Marta Rubio(add your name if you modify and/or add to the code)
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Code build with the help of https://androidknowledge.com/navigation-drawer-android-studio/#stepbystep-implementation
  * Class (school): CS458
  * Class name: MainActivity
  * Purpose: It's the Main Activity, handles the NavigationView and the fragments.
- * Date Modified: 11/07/2022 9:47 pm
+ * Date Modified: 11/01/2022 9:47 pm
  */
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     private DrawerLayout drawerLayout;
     private API api; //we initialize the API class for API related operations
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().clear();
                 navigationView.inflateMenu(R.menu.nav_menu);
                 navigationView.setCheckedItem(R.id.nav_home);
-
             }
             else{
                 //The customer menu is cleared and the guest menu is loaded
@@ -144,9 +144,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //reset bar title
+        if(!getSupportActionBar().getTitle().toString().equals(R.string.app_name))
+            getSupportActionBar().setTitle(R.string.app_name);
         switch (item.getItemId()) {
             case R.id.nav_home:
-                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
+                if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_cart:
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
                 break;
             case R.id.nav_about:
-                if(Boolean.TRUE.equals(api.isLogged().getValue()) ==true)  api.verifyKey(api.getCustomerKey().getValue(),this);
+                if(Boolean.TRUE.equals(api.isLogged().getValue()))  api.verifyKey(api.getCustomerKey().getValue(),this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 break;
             case R.id.nav_login:
@@ -179,9 +182,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        //fragments to watch for
+        Fragment seatPlan = getSupportFragmentManager().findFragmentByTag("SeatPlan");
+        Fragment ticketViewer = getSupportFragmentManager().findFragmentByTag("ViewTickets");
+
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) { //handles on back when drawer is open
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(seatPlan!=null && seatPlan.isVisible()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            //reset the bar
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
+        else if(ticketViewer!=null && ticketViewer.isVisible()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TicketsFragment()).commit();
+            //reset the bar
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
+        else {
             super.onBackPressed();
         }
     }

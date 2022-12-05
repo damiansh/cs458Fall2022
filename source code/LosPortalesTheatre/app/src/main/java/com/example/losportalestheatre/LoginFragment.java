@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * Author(s): Pedro Damian Marta Rubio (add your name if you modify and/or add to the code)
+ * @author: Pedro Damian Marta Rubio
+ * @version 1.0
  * Class (school): CS458
  * Class name: LoginFragment
  * Purpose: Fragment for the login, where the customer can login with its credentials
@@ -69,8 +70,8 @@ public class LoginFragment extends Fragment{
      */
     private void startLogin(){
         //Get the email and password edit text
-        EditText email = (EditText) loginView.findViewById(R.id.email);
-        EditText password = (EditText) loginView.findViewById(R.id.password);
+        EditText email = loginView.findViewById(R.id.email);
+        EditText password = loginView.findViewById(R.id.password);
 
         //Assign the values to local variables
         String emailString = email.getText().toString();

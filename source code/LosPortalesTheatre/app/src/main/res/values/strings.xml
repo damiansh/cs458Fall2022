@@ -21,28 +21,23 @@
     <string name="upcoming_plays">Upcoming Plays</string>
     <string name="play_name">Play Name</string>
     <string name="play_description">Play description</string>
-    <string name="select_play">Select play</string>
+    <string name="select_play">Select seats</string>
     <string name="PortalesKeyName">LosPortalesTheatreKey</string>
     <string name="PortalesKeyIdentifier">key</string>
     <string name="GuestNamePlaceHolder">Los Portales Theatre Guest</string>
     <string name="losportales_email">losportalestheatre@gmail.com</string>
-
-    <!-- aboutus_fragment strings -->
-
-
-    <string name="ek_img_content">ExportKit Image</string>
-    <string name="phone__555_575_5555_string">Phone: 555.575.5555</string>
-    <string name="website__los_portales_theatre_string">Website: Los Portales Theatre</string>
-    <string name="email__losportalestheatre_gmail_com_string">Email: losportalestheatre@gmail.com</string>
-    <string name="___2022_copyright_string"> 2022 Copyright </string>
-    <string name="brian_is_a_computer_science_student_at_enmu__he_enjoys_learning_new_techniques_and_technologies_and_constantly_strives_to_improve_his_abilities__the_los_portales_theatre_app_has_been_a_significant_project_and_has_pushed_him_to_develop_new_skill_sets__string"> Brian is a Computer Science student at ENMU. He enjoys learning new techniques and technologies and constantly strives to improve his abilities. The Los Portales Theatre App has been a significant project and has pushed him to develop new skill sets".</string>
-    <string name="preston_is_a_computer_science_major_going_to_school_at_enmu__he_is_interested_in_cyber_security__he_is_always_looking_for_more_knowledge_and_information_on_it__the_los_portales_theater_app_is_the_first_app_he_has_helped_build_from_the_ground_up_with_his_team__string">Preston is a computer science major going to school at ENMU. He is interested in cyber security. He is always looking for more knowledge and information on it. The Los Portales Theater app is the first app he has helped build from the ground up with his team.</string>
-    <string name="skyler_landess_is_an_avid_computer_enthusiast_who_enjoys_creating_apps_and_web_applications__he_is_pursuing_a_computer_science_degree_at_eastern_new_mexico_university__skyler_plans_to_learn_more_about_hardening_api_vulnerabilities_by_studying_the_apis_developed_on_this_mobile_app___i_am_passionate_about_electronics_and_cybersecurity_through_technology__and_everyone_is_a_social_engineer___string">Skyler Landess is an avid computer enthusiast who enjoys creating apps and web applications. He is pursuing a Computer Science degree at Eastern New Mexico University. Skyler plans to learn more about hardening API vulnerabilities by studying the APIs developed on this mobile app. "I am passionate about electronics and cybersecurity through technology, and everyone is a Social Engineer". </string>
-    <string name="damian_marta_is_an_undergraduate_student_majoring_in_computer_science_at_eastern_new_mexico_university__he_is_interested_in_data_analysis_and_web_and_app_development__he_is_always_eager_to_learn_new_stuff_or_ways_to_do_what_he_already_knows_to_be_more_efficient__los_portales_theatre_app_is_the_first_app_he_has_had_the_opportunity_to_build_from_zero__therefore__he_values_the_great_experience_of_working_on_a_project_like_this_one__string">Damian Marta is an undergraduate student majoring in Computer Science at Eastern New Mexico University. He is interested in data analysis and web and app development. He is always eager to learn new stuff or ways to do what he already knows to be more efficient. Los Portales Theatre app is the first app he has had the opportunity to build from zero; therefore, he values the great experience of working on a project like this one.</string>
-    <string name="the_developement_team_string">The Developement Team</string>
-    <string name="maplosportales_string">Map</string>
-    <string name="directions_string">Directions</string>
-    <string name="founded_in_1942_by_bob_and_lounette_cox__a_theatrical_and_comedic_production_business_in_portales__new_mexico__performers_created_slapstick_stand_up__talent_shows__and_musical_comedies__the_portales_players_disbanded_after_world_war_ii_broke_out__but_many_of_its_former_members_regrouped_in_1947_to_create_the_los_portales_theatre_company__string">Founded in 1942 by Bob and Lounette Cox, a theatrical and comedic production business in Portales, New Mexico. Performers created slapstick stand-up, talent shows, and musical comedies. The Portales Players disbanded after World War II broke out, but many of its former members regrouped in 1947 to create the Los Portales Theatre Company.</string>
-
-
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="tickets">Tickets</string>
+    <string name="order_summary">Order Summary:</string>
+    <string name="timelimit_text">After adding a seat to your cart, you have 10 minutes to purchase it before the reservation expires.</string>
+    <string name="total_before_tax">Total before tax: $0.00 </string>
+    <string name="Tax_text">Estimated tax to be collected: $0.00 </string>
+    <string name="Total_Text">Total: $0.00 </string>
+    <string name="checkout_text">Checkout</string>
+    <string name="tickets_fragment_Text">Tickets Fragment</string>
+    <string name="empty_cart">Empty cart</string>
+    <item name="seatPrice" type="id" />
+    <item name="seatNumber" type="id" />
+    <item name="seatStatus" type="id" />
+    <item name="seatTicketID" type="id" />
 </resources>
