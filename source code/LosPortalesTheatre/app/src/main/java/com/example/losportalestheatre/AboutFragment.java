@@ -17,11 +17,15 @@ import android.view.ViewGroup;
 
 public class AboutFragment extends Fragment {
 
+private View aboutView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        aboutView = inflater.inflate(R.layout.fragment_about, container, false);
+        // add code here
+
+        return aboutView;
     }
 }
