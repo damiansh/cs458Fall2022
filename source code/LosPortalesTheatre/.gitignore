@@ -1,15 +1,15 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+source code\LosPortalesTheatre*.iml
+source code\LosPortalesTheatre.gradle
+source code\LosPortalesTheatre/local.properties
+source code\LosPortalesTheatre/.idea/caches
+source code\LosPortalesTheatre/.idea/libraries
+source code\LosPortalesTheatre/.idea/modules.xml
+source code\LosPortalesTheatre/.idea/workspace.xml
+source code\LosPortalesTheatre/.idea/navEditor.xml
+source code\LosPortalesTheatre/.idea/assetWizardSettings.xml
+source code\LosPortalesTheatre.DS_Store
+source code\LosPortalesTheatre/build
+source code\LosPortalesTheatre/captures
+source code\LosPortalesTheatre.externalNativeBuild
+source code\LosPortalesTheatre.cxx
+source code\LosPortalesTheatrelocal.properties

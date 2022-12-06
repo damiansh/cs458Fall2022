@@ -15,32 +15,5 @@
     <color name="seatSelected">#88B407</color>
     <color name="seatSold">#ff0000</color>
     <color name="seatReserved">#535353</color>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <color name="boxText">#d9d9d9</color>
 </resources>
