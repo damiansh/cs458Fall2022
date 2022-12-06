@@ -1,7 +1,6 @@
 package com.example.losportalestheatre;
 
 import android.os.Bundle;
-
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -18,19 +17,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** Fragment for the home page where the upcoming plays are displayed
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: HomeFragment
- * Purpose: Fragment for the home page where the upcoming plays are displayed
  * Date Modified: 11/07/2022 9:47 pm
  */
 public class HomeFragment extends Fragment {
@@ -81,7 +78,7 @@ public class HomeFragment extends Fragment {
      * createPlays(): starts the creation of the plays
      * @param upcoming string with the plays JSON
      */
-    private void createPlays(String upcoming){
+    protected void createPlays(String upcoming){
         //find the scroll view
         NestedScrollView scrollview = homeView.findViewById(R.id.scrollViewUpcoming);
         scrollview.removeAllViews(); //we reset it just in case to avoid crashes
@@ -214,7 +211,7 @@ public class HomeFragment extends Fragment {
     /**
      * playButtonListener: listener for the play button
      */
-    private final View.OnClickListener playButtonListener = playButton -> {
+    protected final View.OnClickListener playButtonListener = playButton -> {
         if(playButton.getTag()!=null){
             api.requestPlaySeatInfo(requireActivity(), Integer.parseInt(playButton.getTag().toString()));
             return;
@@ -228,7 +225,7 @@ public class HomeFragment extends Fragment {
     /**
      * playRefresh(): refresh the plays by asking again for upcoming plays
      */
-    private void playRefresh(){
+    protected void playRefresh(){
         //We ask again for the upcoming plays
         api.getUpcomingPlays(requireActivity());
 

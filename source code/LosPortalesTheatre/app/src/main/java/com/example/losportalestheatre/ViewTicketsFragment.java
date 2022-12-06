@@ -25,12 +25,11 @@ import java.time.format.DateTimeFormatter;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** Fragment to see the tickets of a particular transaction with its qr code
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: ViewTicketsFragment
- * Purpose: Fragment see the tickets with its qr code
  * Date Modified: 11/28/2022
  */
 public class ViewTicketsFragment extends Fragment {
@@ -55,7 +54,7 @@ public class ViewTicketsFragment extends Fragment {
     /**
      * showTickets(): method to show the tickets in the transaction
      */
-    private void showTickets(){
+    protected void showTickets(){
         //find the scroll view
         NestedScrollView scrollview = ticketViewerView.findViewById(R.id.scrollView);
         scrollview.removeAllViews(); //we reset it just in case to avoid crashes

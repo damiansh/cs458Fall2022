@@ -29,12 +29,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Objects;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** The API class handles all the operations related to the REST API for Los Portales Theatre
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: API
- * Purpose: The API class handles all the operations related to the REST API
  * Date Modified: 12/3/2022 2:38 PM
  */
 public class API extends ViewModel {
@@ -249,6 +248,7 @@ public class API extends ViewModel {
      * @param firstName first name of the customer
      * @param lastName last name of the customer
      * @param birth birthday of the customer
+     * @param tel the customer's phone number
      * @param context is the current getActivity
      */
     public void sendRegisterInfo(String email, String password, String pswR, String firstName, String lastName, String birth, String tel, Activity context){
@@ -985,6 +985,7 @@ public class API extends ViewModel {
      * handlerSelector(): assigns the correct handler depending on the mode
      * @param mode 0=login,
      * @param current is the current getActivity
+     * @param postResponse the response got from the api request
      */
     public void handlerSelector(int mode, Activity current, String postResponse) {
         switch (mode) {

@@ -12,13 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /** Shows information about the developer team and the website
- * @author: Skyler Landess and Pedro Damian Marta Rubio
+ * @author Skyler Landess and Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: AboutFragment
  * Date Modified: 12/5/2022
  */
-
 public class AboutFragment extends Fragment {
     private View aboutView;
 
@@ -39,7 +38,7 @@ public class AboutFragment extends Fragment {
     /**
      * openMapListener(): button listener for open map button
      */
-    private final View.OnClickListener openMapListener = v -> {
+    protected final View.OnClickListener openMapListener = v -> {
         //execute open map method
         openMap();
     };
@@ -48,7 +47,7 @@ public class AboutFragment extends Fragment {
     /**
      * openMap(): Starts an intent with google maps
      */
-    public void openMap(){
+    protected void openMap(){
         // Create a Uri from an intent string. Use the result to create an Intent.
         String address = getResources().getString(R.string.losportales_address);
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);

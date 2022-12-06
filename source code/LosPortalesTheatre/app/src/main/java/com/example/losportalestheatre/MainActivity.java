@@ -17,13 +17,12 @@ import androidx.security.crypto.MasterKeys;
 import android.view.MenuItem;
 
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** It's the Main Activity, handles the NavigationView, the fragments and sets up the mutable API class.
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Code build with the help of https://androidknowledge.com/navigation-drawer-android-studio/#stepbystep-implementation
  * Class (school): CS458
  * Class name: MainActivity
- * Purpose: It's the Main Activity, handles the NavigationView and the fragments.
  * Date Modified: 11/01/2022 9:47 pm
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * updateKey(): Method to store with encryption the key into the device
      * @param  key to be stored into the device
      */
-    private void updateKey(String key){
+    protected void updateKey(String key){
         //shared preferences with encryption for security
         try{
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * getLocalKey(): Access the encrypted key in the device and if found stores into the API class
      * @return currentKey the key found in the device or none if it wasn't found
      */
-    private String getLocalKey(){
+    protected String getLocalKey(){
         //get the local key
         try{
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);

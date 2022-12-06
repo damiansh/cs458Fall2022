@@ -20,12 +20,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-/**
- * @author: Preston Feagan and Pedro Damian Marta Rubio
+/** Fragment for the Cart where the customer can see the tickets they want to purchase
+ * @author Preston Feagan and Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: CartFragment
- * Purpose: Fragment for the Cart where the customer can see the tickets they want to purchase
  * Date Modified: 12/3/2022 5:37 pm
  */
 public class CartFragment extends Fragment {
@@ -64,7 +63,7 @@ public class CartFragment extends Fragment {
     /**
      * checkoutListener(): button listener for checkout button
      */
-    private final View.OnClickListener checkoutListener = v -> {
+    protected final View.OnClickListener checkoutListener = v -> {
         //disable button to avoid accidental second touch
         v.setEnabled(false);
 
@@ -96,7 +95,7 @@ public class CartFragment extends Fragment {
     /**
      * setUpCart(): seats the views to show the cart content
      */
-    private void setUpCart(){
+    protected void setUpCart(){
         //get the cart title and set it with the customer name
         TextView cartTitle = cartView.findViewById(R.id.textview_CartTitle);
         cartTitle.setText(String.format("%s's Cart",api.getCustomerGivenName()));
@@ -199,9 +198,11 @@ public class CartFragment extends Fragment {
      * @param playTitle title of the play
      * @param startTime start time of the play
      * @param endTime ending time of the play
+     * @param seat the seat number in the format ROW letter and col number
+     * @param cost the cost of that particular seat
      * @return CardView returns the layout with the tickets
      */
-    public CardView generateTicket(int ticketID, String playTitle, String startTime, String endTime, String seat, double cost){
+    protected CardView generateTicket(int ticketID, String playTitle, String startTime, String endTime, String seat, double cost){
         CardView layout = (CardView) View.inflate(requireActivity(), R.layout.cart_items, null);
         //Format date patterns
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -257,7 +258,7 @@ public class CartFragment extends Fragment {
     /**
      * deleteListener: listener for the delete button
      */
-    private final View.OnClickListener deleteListener = deleteButton -> {
+    protected final View.OnClickListener deleteListener = deleteButton -> {
         if(deleteButton.getTag()!=null){
             api.deleteFromCart(requireActivity(), Integer.parseInt(deleteButton.getTag().toString()));
         }

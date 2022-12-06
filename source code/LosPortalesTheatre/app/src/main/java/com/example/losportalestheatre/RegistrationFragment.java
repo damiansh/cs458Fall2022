@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** Fragment for the registration, where the customer can register into the system
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: RegistrationFragment
- * Purpose: Fragment for the registration, where the customer can register into the system
  * Date Modified: 11/07/2022 9:47 pm
  */
 public class RegistrationFragment extends Fragment{
@@ -46,7 +45,7 @@ public class RegistrationFragment extends Fragment{
     /**
      * registerButtonListener(): button listener for register button
      */
-    private final View.OnClickListener registerButtonListener = v -> {
+    protected final View.OnClickListener registerButtonListener = v -> {
         //disable button to avoid accidental second touch
         v.setEnabled(false);
         //start register
@@ -56,7 +55,7 @@ public class RegistrationFragment extends Fragment{
     /**
      * clearButtonListener(): button listener for clear button
      */
-    private final View.OnClickListener clearButtonListener = v -> {
+    protected final View.OnClickListener clearButtonListener = v -> {
         //This method clears all the views in the registration form
 
         //Get Edit Texts
@@ -83,7 +82,7 @@ public class RegistrationFragment extends Fragment{
      * startRegistration(): initiates the process to login the customer into their account
      *
      */
-    private void startRegistration(){
+    protected void startRegistration(){
         //Get the email and password edit text
         //Get Edit Texts
         EditText email = registrationView.findViewById(R.id.email);

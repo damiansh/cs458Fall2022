@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/**  Fragment for the login, where the customer can login with its credentials
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: LoginFragment
- * Purpose: Fragment for the login, where the customer can login with its credentials
  * Date Modified: 11/07/2022 9:47 pm
  */
 public class LoginFragment extends Fragment{
@@ -49,7 +48,7 @@ public class LoginFragment extends Fragment{
     /**
      * registerButtonListener(): button listener for register button
      */
-    private final View.OnClickListener registerButtonListener = v -> {
+    protected final View.OnClickListener registerButtonListener = v -> {
         //send the customer to the register fragment
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrationFragment()).commit();
     };
@@ -57,7 +56,7 @@ public class LoginFragment extends Fragment{
     /**
      * loginButtonListener(): button listener for login button
      */
-    private final View.OnClickListener loginButtonListener = v -> {
+    protected final View.OnClickListener loginButtonListener = v -> {
         //disable button to avoid accidental second touch
         v.setEnabled(false);
         //The startLogin is executed to initiate the login process
@@ -68,7 +67,7 @@ public class LoginFragment extends Fragment{
      * startLogin(): initiates the process to login the customer into their account
      *
      */
-    private void startLogin(){
+    protected void startLogin(){
         //Get the email and password edit text
         EditText email = loginView.findViewById(R.id.email);
         EditText password = loginView.findViewById(R.id.password);

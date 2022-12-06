@@ -30,12 +30,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
-/**
- * @author: Pedro Damian Marta Rubio
+/** Fragment for the seat plan, where available seats for selected play are shown
+ * @author Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: SeatFragment
- * Purpose: Fragment for the seat plan, where available seats for selected play are shown
  * Date Modified: 11/28/2022 3:20 pm
  */
 public class SeatFragment extends Fragment {
@@ -70,7 +69,7 @@ public class SeatFragment extends Fragment {
     /**
      * goBackHomeListener: listener for the go back button
      */
-    private final CheckBox.OnClickListener goBackHome = button -> {
+    protected final CheckBox.OnClickListener goBackHome = button -> {
         //reset the bar
         ((AppCompatActivity)requireActivity()).getSupportActionBar().setTitle(R.string.app_name);
         //go back to home
@@ -81,7 +80,7 @@ public class SeatFragment extends Fragment {
     /**
      * addToCartListener: listener for the add to cart button
      */
-    private final CheckBox.OnClickListener addToCart = button -> {
+    protected final CheckBox.OnClickListener addToCart = button -> {
         //cancel previous toast message
         if (seatMessage != null) {
             seatMessage.cancel();
@@ -100,7 +99,7 @@ public class SeatFragment extends Fragment {
     /**
      * loadViews(): loads the views for the SeatFragment
      */
-    private void loadViews(){
+    protected void loadViews(){
         try{
             //get the info for the play
             JSONObject playInfo = Objects.requireNonNull(api.getPlaySeatInfo().getValue()).getJSONObject("playInfo");
@@ -213,7 +212,7 @@ public class SeatFragment extends Fragment {
     /**
      * seatCheckedListener: listener for the play button
      */
-    private final CheckBox.OnClickListener seatCheckedListener = seat -> {
+    protected final CheckBox.OnClickListener seatCheckedListener = seat -> {
         //cancel previous toast message
         if (seatMessage!= null) {
             seatMessage.cancel();

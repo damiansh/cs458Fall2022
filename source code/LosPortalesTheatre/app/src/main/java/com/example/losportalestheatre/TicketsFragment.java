@@ -18,12 +18,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * @author: Brian Elder and Pedro Damian Marta Rubio
+/** Fragment for the Tickets, where the customer can see their previous purchases
+ * @author Brian Elder and Pedro Damian Marta Rubio
  * @version 1.0
  * Class (school): CS458
  * Class name: TicketFragment
- * Purpose: Fragment for the Tickets, where the customer can see their previous purchases
  * Date Modified: 11/29/2022
  */
 public class TicketsFragment extends Fragment {
@@ -61,7 +60,7 @@ public class TicketsFragment extends Fragment {
     /**
      * showButtonListener(): button listener for show button
      */
-    private final View.OnClickListener showButtonListener = v -> {
+    protected final View.OnClickListener showButtonListener = v -> {
         int pos = spinnerTicket.getSelectedItemPosition(); //position of selected item
         int selectedTransactionID = transactionsID.get(pos); //get the selected transaction id
         //call api method to show the tickets for current transaction
@@ -72,7 +71,7 @@ public class TicketsFragment extends Fragment {
     /**
      * setUpCart(): seats the views to show the cart content
      */
-    private void setUpTickets(){
+    protected void setUpTickets(){
         //get the cart title and set it with the customer name
         TextView ticketsTitle = ticketsView.findViewById(R.id.textview_TicketsTitle);
         ticketsTitle.setText(String.format("%s's Tickets",api.getCustomerGivenName()));
