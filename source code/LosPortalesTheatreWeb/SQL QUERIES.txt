@@ -1,0 +1,118 @@
+CREATE TABLE customers
+(
+    user_id int(11) auto_increment PRIMARY KEY not null,
+    user_email      varchar(255) NOT NULL UNIQUE,
+    user_psw        varchar(255) NOT NULL,
+    user_fname        varchar(255) NOT NULL,
+    user_lname        varchar(255) NOT NULL,
+    user_birthday    date NOT NULL,
+    user_phone       varchar(20) NOT NULL,
+    active          tinyint(1)  DEFAULT 0 not null,
+    activation_code   varchar(255) NOT NULL
+);
+
+CREATE TABLE admin
+(
+    user_id int(11) auto_increment PRIMARY KEY not null,
+    user_email      varchar(255) NOT NULL UNIQUE,
+    user_psw        varchar(255) NOT NULL,
+    active          tinyint(1)  DEFAULT 0 not null,
+    activation_code   varchar(255) 
+);
+
+
+CREATE TABLE payment (
+    user_id  int(11) PRIMARY KEY NOT NULL,
+    cnumber int(11) NOT NULL, 
+    ctitular varchar(255) NOT NULL,
+    cbilling varchar(255) NOT NULL,
+    czip int(5) NOT NULL,
+    cmonth tinyint (2) NOT NULL,
+    cyear tinyint (2) NOT NULL,
+    ccvc tinyint (4) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES customers(user_id)
+);
+
+
+CREATE TABLE plays
+(
+    play_id int(11) auto_increment PRIMARY KEY not null,
+    play_title varchar(37) NOT NULL,
+    long_desc varchar(1500) NOT NULL,
+    short_desc varchar(300) NOT NULL,
+    stime datetime NOT NULL,
+    etime datetime NOT NULL,
+    pURL varchar(255) NOT NULL,
+    published  tinyint(1)  DEFAULT 0 not null
+);
+
+CREATE VIEW latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
+
+CREATE TABLE seats (
+    ticket_id int(11) auto_increment PRIMARY KEY not null, 
+    play_id int(11) NOT NULL,
+    seat_number tinyint (2) NOT NULL,
+    cost decimal(19,4) NOT NULL,
+    user_id  int(11) DEFAULT 0 NOT NULL,
+    status tinyint (1) DEFAULT 0 NOT NULL,
+    reserved datetime,
+    transaction_id int(11) DEFAULT NULL,
+    FOREIGN KEY (play_id) REFERENCES plays(play_id),
+    FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id)
+);
+
+
+
+
+
+
+CREATE VIEW cart AS SELECT 
+seats.ticket_id,
+seats.play_id,
+seats.seat_number,
+seats.cost,
+seats.user_id,
+seats.status,
+seats.reserved,
+plays.play_title,
+plays.long_desc,
+plays.stime,
+plays.etime,
+plays.pURL
+FROM seats INNER JOIN plays ON seats.play_id=plays.play_id WHERE seats.status = 1 ORDER BY reserved ASC;
+
+
+
+CREATE TABLE transactions (
+    transaction_id int(11) auto_increment PRIMARY KEY not null,
+    transaction_date datetime NOT NULL,
+    user_id  int(11) NOT NULL,
+    order_total decimal(19,4) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES customers(user_id)
+);
+
+SELECT * FROM transactions WHERE user_id = 2 ORDER BY transaction_id DESC LIMIT 1;
+
+
+CREATE VIEW purchases AS SELECT 
+seats.ticket_id,
+seats.transaction_id,
+seats.play_id,
+seats.seat_number,
+seats.cost,
+seats.user_id,
+customers.user_fname,
+customers.user_lname,
+customers.user_email,
+transactions.transaction_date,
+plays.play_title,
+plays.long_desc,
+plays.stime,
+plays.etime,
+plays.pURL
+FROM seats 
+INNER JOIN plays ON seats.play_id=plays.play_id  
+INNER JOIN transactions ON seats.transaction_id=transactions.transaction_id 
+INNER JOIN customers ON seats.user_id=customers.user_id 
+ORDER BY ticket_id ASC;
+

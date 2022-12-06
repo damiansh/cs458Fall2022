@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class SeatView</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class SeatView</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129922"></a>
+<p>SeatView is the view class for the Seat class. Handles displaying/outputting information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class SeatView extends <a href="class129794.html#ref4_129794"><b>Seat</b></a> </li></ul><p>Artifact : seat-view.class</p>
+<div class="sub">
+<a name="ref1_131970"></a>
+<table><tr><td><div class="element">Attribute <b>seats</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - seats : </li><li>Php : private $seats</li></ul><a name="ref2_135938"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param int $play_id is the id for the play that is requesting the seats <br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in play_id : int) : </li><li>Php : public function __construct($play_id) </li></ul><a name="ref2_136066"></a>
+<table><tr><td><div class="element">Operation <b>setCart</b></div></td></tr></table><p>getCartContent(): request and returns the object with the seats in the customer's cart <br /><br />@return object $seats: object with the plays info gets returned <br /><br /></p><p>Declaration :</p><ul><li>Uml : + setCart() : object</li><li>Php : public function setCart(): object </li></ul><a name="ref2_136194"></a>
+<table><tr><td><div class="element">Operation <b>getCount</b></div></td></tr></table><p>getCount(): gets the count of items in the customer's cart <br /><br />@return int $count: number of the items in the customer's cart <br /><br /></p><p>Declaration :</p><ul><li>Uml : + getCount() : int</li><li>Php : public function getCount(): int </li></ul><a name="ref2_136322"></a>
+<table><tr><td><div class="element">Operation <b>showSeats</b></div></td></tr></table><p>showSeats(): generates in the page the graphic seat plan <br /><br />@param int modal = 0 then customer area, modal 1 then managementa area. <br />@return object $seats: objects with the seats information<br /><br /></p><p>Declaration :</p><ul><li>Uml : + showSeats(in modal : int) : object</li><li>Php : public function showSeats($modal): object </li></ul><a name="ref2_136450"></a>
+<table><tr><td><div class="element">Operation <b>showCart</b></div></td></tr></table><p>showCart(): shows in the page the tickets in the cart<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + showCart() : void</li><li>Php : public function showCart(): void </li></ul><a name="ref2_136578"></a>
+<table><tr><td><div class="element">Operation <b>cartHTML</b></div></td></tr></table><p>cartHTML(): generates the html for the tickets <br /><br />@return HTML $accordionItem contains the accordeon for the ticket <br /><br /></p><p>Declaration :</p><ul><li>Uml : - cartHTML(in seat : , in dom : ) : HTML</li><li>Php : private function cartHTML($seat, $dom): HTML </li></ul><a name="ref2_136706"></a>
+<table><tr><td><div class="element">Operation <b>getRemainder</b></div></td></tr></table><p>getRemainder(): generates the html for the tickets <br /><br />@param string $reservedTime <br />@return string $remainder, time limit to checkout the ticket <br /><br /></p><p>Declaration :</p><ul><li>Uml : - getRemainder(in reservedTime : string) : string</li><li>Php : private function getRemainder($reservedTime): string </li></ul><a name="ref2_136834"></a>
+<table><tr><td><div class="element">Operation <b>removeReservation</b></div></td></tr></table><p>removeReservation(): checks if reservation has expired<br /><br />@param int $i the index of the seat array <br />@return int number 0 means that it has expired, 1 means is still reserved<br /><br /></p><p>Declaration :</p><ul><li>Uml : - removeReservation(in i : int) : int</li><li>Php : private function removeReservation($i): int </li></ul></div>
+<p>All public operations : <a href="class129922.html#ref2_135938"><b>__construct</b></a> , <a href="class129794.html#ref2_137474"><b>getCartContent</b></a> , <a href="class129922.html#ref2_136194"><b>getCount</b></a> , <a href="class129922.html#ref2_136066"><b>setCart</b></a> , <a href="class129922.html#ref2_136450"><b>showCart</b></a> , <a href="class129922.html#ref2_136322"><b>showSeats</b></a> </p>
+</body>
+</html>

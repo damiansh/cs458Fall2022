@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class LoginContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class LoginContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128386"></a>
+<p>LoginContr is the controller class for the Login class. Handles and receives the login information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class LoginContr extends <a href="class128514.html#ref4_128514"><b>Login</b></a> </li></ul><p>Artifact : login-contr.class</p>
+<div class="sub">
+<a name="ref1_128258"></a>
+<table><tr><td><div class="element">Attribute <b>email</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - email : </li><li>Php : private $email</li></ul><a name="ref1_128386"></a>
+<table><tr><td><div class="element">Attribute <b>psw</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - psw : </li><li>Php : private $psw</li></ul><a name="ref1_128514"></a>
+<table><tr><td><div class="element">Attribute <b>m</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - m : </li><li>Php : private $m</li></ul><a name="ref1_128642"></a>
+<table><tr><td><div class="element">Attribute <b>destination</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - destination : </li><li>Php : private $destination</li></ul><a name="ref2_128770"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param string $email the email of the customer<br />@param string $psw code to confirm that confirmation of the email is valid <br />@param boolean $m stands for manager mode, false=customer, true=admin <br />@param ??? $destination for the error handlers (customer area or management area)<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in email : string, in psw : string, in m : boolean) : </li><li>Php : public function __construct($email, $psw, $m) </li></ul><a name="ref2_128898"></a>
+<table><tr><td><div class="element">Operation <b>loginUser</b></div></td></tr></table><p>loginUser(): executes error handling for login and then calls the database<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + loginUser() : void</li><li>Php : public function loginUser(): void </li></ul><a name="ref2_129026"></a>
+<table><tr><td><div class="element">Operation <b>missingInput</b></div></td></tr></table><p>missingInput(): error handler that checks if input is missing <br /><br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - missingInput() : boolean</li><li>Php : private function missingInput(): boolean </li></ul></div>
+<p>All public operations : <a href="class128386.html#ref2_128770"><b>__construct</b></a> , <a href="class128386.html#ref2_128898"><b>loginUser</b></a> </p>
+</body>
+</html>

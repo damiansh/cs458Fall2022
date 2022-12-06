@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>I</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">I</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<table>
+<tr bgcolor="#f0f0f0"><td align="center"><b>Name</b></td><td align="center"><b>Kind</b></td><td align="center"><b>Description</b></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref1_130562" target = "projectFrame"><b>image_base64</b></a></td><td>attribute</td><td></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_130562" target = "projectFrame"><b>insertPaymentInfo</b></a></td><td>operation</td><td><br />insertPaymentInfo(): inserts the payment information received to the database<br /><br />&#64;global int $_SESSION["userid"] customer id <br />&#64;param ${t0} ${p0} credit/debit card last four digits <br />&#64;param ${t1} ${p1} the name on the card<br />&#64;param ${t2} ${p2} expiration's month<br />&#64;param ${t3} ${p3} expiration's year<br />&#64;param ${t4} ${p4} the cvc of the card<br />&#64;param ${t5} ${p5} billing address associated to the card<br />&#64;param ${t6} ${p6} zip code of the billing address<br />&#64;return ${type}<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_132866" target = "projectFrame"><b>insertPlay</b></a></td><td>operation</td><td><br />insertPlay(): inserts given information to the play table in the database<br /><br />&#64;param ${t0} ${p0} title of the given play <br />&#64;param ${t1} ${p1} short synopsis of the given play <br />&#64;param ${t2} ${p2} longer synopsis of the given play <br />&#64;param ${t3} ${p3} start date time of the given play <br />&#64;param ${t4} ${p4} end date time of the given play. Date must be the same, time can differ<br />&#64;return ${type}<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_134530" target = "projectFrame"><b>invalidEmail</b></a></td><td>operation</td><td><br />invalidEmail(): checks if the given has an invalid format <br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_131586" target = "projectFrame"><b>isEndDateLess</b></a></td><td>operation</td><td><br />isEndDateLess(): checks if end date time is lesser than start date time<br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_129922" target = "projectFrame"><b>isExpired</b></a></td><td>operation</td><td><br />isExpired(): checks if card is already expired <br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_131970" target = "projectFrame"><b>isShortLonger</b></a></td><td>operation</td><td><br />isShortLonger(): throws error if short description is longer than 300 characters<br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_131842" target = "projectFrame"><b>isTitleLonger</b></a></td><td>operation</td><td><br />isTitleLonger(): throws error if title is longer than 36 characters<br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_130050" target = "projectFrame"><b>isValid</b></a></td><td>operation</td><td><br />isValid(): checks if the card is valid by cvc length<br />&#64;return ${type} true==error, false==OK<br /></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>G</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">G</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<table>
+<tr bgcolor="#f0f0f0"><td align="center"><b>Name</b></td><td align="center"><b>Kind</b></td><td align="center"><b>Description</b></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_138626" target = "projectFrame"><b>generateReport</b></a></td><td>operation</td><td><br />generateReport(): generates report for current transactions<br /><br />&#64;return ${type}<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_138882" target = "projectFrame"><b>generateTicket</b></a></td><td>operation</td><td><br />generateTicket(): generates the HTML elements for the given ticket <br /><br />&#64;param ${t1} $ticket, contains the ticket information <br />&#64;return ${type}<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_133634" target = "projectFrame"><b>getAllPlays</b></a></td><td>operation</td><td><br />getAllPlays(): executes a select query for ALL the plays in the system <br /><br />&#64;return ${type} $plays, play object data with all the play information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_139266" target = "projectFrame"><b>getAllUTransaction</b></a></td><td>operation</td><td><br />getAllUTransaction(): selects from the database all the transactions by user id <br /><br />&#64;global $_SESSION["userid"] object containing the seats to be updated <br />&#64;return ${type} $transactions object with the transaction information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_137474" target = "projectFrame"><b>getCartContent</b></a></td><td>operation</td><td><br />getCartContent(): gets the cart of the customer by its user id <br /><br />&#64;global int $_SESSION["userid"] the customer's user id <br />&#64;return ${type} $seats object that contains the seats in the cart<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_136194" target = "projectFrame"><b>getCount</b></a></td><td>operation</td><td><br />getCount(): gets the count of items in the customer's cart <br /><br />&#64;return ${type} $count: number of the items in the customer's cart <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_138498" target = "projectFrame"><b>getInfo</b></a></td><td>operation</td><td><br />getInfo(): returns the object with the transactions info <br /><br />&#64;return ${type} $transactions, it contains transaction information<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_130306" target = "projectFrame"><b>getPayInfo</b></a></td><td>operation</td><td><br />getPayInfo(): returns the paymentInfo object <br /><br />&#64;return ${type} paymentInfo: object with the payment info gets returned <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_133762" target = "projectFrame"><b>getPlay</b></a></td><td>operation</td><td><br />getPlay(): executes a select query for an individual play by modal<br />&#64;param ${t0} ${p0} id of the play to be selected<br />&#64;param ${t1} ${p1} MODAL = 0 no criteria, MODAL = 1 then only published and upcoming plays<br />&#64;return ${type} $plays, play object data with all the play information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_133378" target = "projectFrame"><b>getPlayID</b></a></td><td>operation</td><td><br />getPlayID(): executes a select query to a view called latestplay to get the latest play id <br /><br />&#64;return ${type} $playID, returns the play ID of the latest play <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_132610" target = "projectFrame"><b>getPlayInfo</b></a></td><td>operation</td><td><br />getPlayInfo(): returns the Play object <br /><br />&#64;return ${type} $plays: object with the play information<br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_139138" target = "projectFrame"><b>getPlayTransactions</b></a></td><td>operation</td><td><br />getPlayTransactions(): selects from the database  transactions by play id <br /><br />&#64;param ${t0} play id<br />&#64;return ${type} $transactions object with the transaction information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_136706" target = "projectFrame"><b>getRemainder</b></a></td><td>operation</td><td><br />getRemainder(): generates the html for the tickets <br /><br />&#64;param ${t0} ${p0} <br />&#64;return ${type} $remainder, time limit to checkout the ticket <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_137346" target = "projectFrame"><b>getSeats</b></a></td><td>operation</td><td><br />getSeats(): gets seat information by play id <br /><br />&#64;param ${t0} ${p0} the id of the play<br />&#64;return ${type} $seats object with the seats information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_139010" target = "projectFrame"><b>getTransaction</b></a></td><td>operation</td><td><br />getTransaction(): selects from the database a transaction by user and transaction id <br /><br />&#64;param ${t0} transaction id of the current transaction<br />&#64;global $_SESSION["userid"] object containing the seats to be updated <br />&#64;return ${type} $transactions object with the transaction information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_133506" target = "projectFrame"><b>getUpcomingPlays</b></a></td><td>operation</td><td><br />getUpcomingPlays(): executes a select query for the plays to get all the upcoming and published plays <br /><br />&#64;return ${type} $plays, play object data with the play information <br /></td></tr>
+<tr bgcolor="#f0f0f0"><td><a href="index.html#ref2_129154" target = "projectFrame"><b>getUser</b></a></td><td>operation</td><td><br />getUser(): selects the users from the database by given email and if psw hash is true then logs the user<br /><br />&#64;param ${t0} ${p0} the email of the customer<br />&#64;param ${t1} ${p1} customer password<br />&#64;param ${t2} ${p2} manager modal, if true then admin, else customer<br />&#64;param ${t4} $destination, the destination if any error arises <br />&#64;return ${type}<br /></td></tr>
+</table>
+</body>
+</html>

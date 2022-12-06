@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Seat</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Seat</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129794"></a>
+<p>Seat class handles the queries executions to the database with data from the controller and view<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Seat extends <a href="class128258.html#ref4_128258"><b>PortalesDB</b></a> </li></ul><p>Directly inherited by : <a href="class129666.html#ref4_129666"><b>SeatContr</b></a> <a href="class129922.html#ref4_129922"><b>SeatView</b></a> </p>
+<p>Artifact : seat.class</p>
+<div class="sub">
+<a name="ref2_136962"></a>
+<table><tr><td><div class="element">Operation <b>updatePrice</b></div></td></tr></table><p>updatePrice(): updates the prices of the given seats <br /><br />@param object $seats object containing the seats to be updated <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # updatePrice(in seats : object) : void</li><li>Php : protected function updatePrice($seats): void </li></ul><a name="ref2_137090"></a>
+<table><tr><td><div class="element">Operation <b>updateReservation</b></div></td></tr></table><p>updateReservation(): updates the a seat by the given id <br /><br />@param int $ticket id of the seat to be updated <br />@param int $status the new status of the seat<br />@param string $reservedDate the new reserved date for the seat<br />@param int $userID the new user id for the seat<br />@param int $transactionID the new transaction id for the seat <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # updateReservation(in ticket : int, in status : int, in reservedDate : string, in userID : int, in transactionID : int) : void</li><li>Php : protected function updateReservation($ticket, $status, $reservedDate, $userID, $transactionID): void </li></ul><a name="ref2_137218"></a>
+<table><tr><td><div class="element">Operation <b>confirmAvailability</b></div></td></tr></table><p>confirmAvailability(): confirms the availaibility of the given seats<br /><br />@param object $seats object containing the seats to be updated <br />@return object $seats object updated <br /><br /></p><p>Declaration :</p><ul><li>Uml : # confirmAvailability(in seats : object) : object</li><li>Php : protected function confirmAvailability($seats): object </li></ul><a name="ref2_137346"></a>
+<table><tr><td><div class="element">Operation <b>getSeats</b></div></td></tr></table><p>getSeats(): gets seat information by play id <br /><br />@param int $play_id the id of the play<br />@return object|null $seats object with the seats information <br /><br /></p><p>Declaration :</p><ul><li>Uml : # getSeats(in play_id : int) : object|null</li><li>Php : protected function getSeats($play_id): object|null </li></ul><a name="ref2_137474"></a>
+<table><tr><td><div class="element">Operation <b>getCartContent</b></div></td></tr></table><p>getCartContent(): gets the cart of the customer by its user id <br /><br />@global int $_SESSION["userid"] the customer's user id <br />@return object|null $seats object that contains the seats in the cart<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getCartContent() : object|null</li><li>Php : public function getCartContent(): object|null </li></ul><a name="ref2_137602"></a>
+<table><tr><td><div class="element">Operation <b>confirmCart</b></div></td></tr></table><p>confirmCart(): confirms the given seat by its id is still in the user's cart <br /><br />@global int $_SESSION["userid"] the customer's user id <br />@return boolean true|false <br /><br /></p><p>Declaration :</p><ul><li>Uml : # confirmCart(in ticket : ) : boolean</li><li>Php : protected function confirmCart($ticket): boolean </li></ul><a name="ref2_137730"></a>
+<table><tr><td><div class="element">Operation <b>startTransaction</b></div></td></tr></table><p>startTransaction(): confirms the given seat by its id is still in the user's cart <br /><br />@param float $orderTotal the total of the transaction <br />@return int transaction[0]["transaction_id"], the id of the transaction <br /><br /></p><p>Declaration :</p><ul><li>Uml : # startTransaction(in orderTotal : float) : int</li><li>Php : protected function startTransaction($orderTotal): int </li></ul><a name="ref2_137858"></a>
+<table><tr><td><div class="element">Operation <b>confirmationEmail</b></div></td></tr></table><p>confirmationEmail(): sends an confirmation email for the customer's purchase <br /><br />@param int $transactionID the id of the current transaction <br />@param float $total the total of the transaction <br /><br /></p><p>Declaration :</p><ul><li>Uml : # confirmationEmail(in transactionID : int, in total : float) : </li><li>Php : protected function confirmationEmail($transactionID, $total) </li></ul><a name="ref2_137986"></a>
+<table><tr><td><div class="element">Operation <b>emailBody</b></div></td></tr></table><p>emailBody(): generates the body of the email to be send <br /><br />@param string $fname first name of the new customer <br />@param string $lname last name of the new customer<br />@param int $transactionID id of the current transaction <br />@param float $total for the current transaction <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : - emailBody(in fname : string, in lname : string, in transactionID : int, in total : float) : void</li><li>Php : private function emailBody($fname, $lname, $transactionID, $total): void </li></ul></div>
+<p>All public operations : <a href="class129794.html#ref2_137474"><b>getCartContent</b></a> </p>
+</body>
+</html>

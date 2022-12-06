@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class PortalesDB</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class PortalesDB</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128258"></a>
+<p>PortalesDB class handles the connection to the database and is the parent of all classes connecting to the Database<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class PortalesDB </li></ul><p>Directly inherited by : <a href="class128130.html#ref4_128130"><b>Auth</b></a> <a href="class128514.html#ref4_128514"><b>Login</b></a> <a href="class128770.html#ref4_128770"><b>Payment</b></a> <a href="class129154.html#ref4_129154"><b>Play</b></a> <a href="class129538.html#ref4_129538"><b>Register</b></a> <a href="class129794.html#ref4_129794"><b>Seat</b></a> <a href="class130178.html#ref4_130178"><b>Transaction</b></a> </p>
+<p>Artifact : db.class</p>
+<div class="sub">
+<a name="ref2_128514"></a>
+<table><tr><td><div class="element">Operation <b>connect</b></div></td></tr></table><p>connect(): connects to the database<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # connect() : void</li><li>Php : protected function connect(): void </li></ul><a name="ref2_128642"></a>
+<table><tr><td><div class="element">Operation <b>seatRowCol</b></div></td></tr></table><p>seatRowCol(): converts the seatNumber to the format Row Letter Col Number {A1,B2,ETC.}<br /><br />@param int $number the seat number <br />@param ??? the row letter and col number <br /><br /></p><p>Declaration :</p><ul><li>Uml : # seatRowCol(in number : int) : </li><li>Php : protected function seatRowCol($number) </li></ul></div>
+</body>
+</html>

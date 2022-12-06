@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Payment</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Payment</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128770"></a>
+<p>Payment class handles the queries executions to the database with data from the controller and view<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Payment extends <a href="class128258.html#ref4_128258"><b>PortalesDB</b></a> </li></ul><p>Directly inherited by : <a href="class128642.html#ref4_128642"><b>PaymentContr</b></a> <a href="class128898.html#ref4_128898"><b>PaymentView</b></a> </p>
+<p>Artifact : payment.class</p>
+<div class="sub">
+<a name="ref2_130434"></a>
+<table><tr><td><div class="element">Operation <b>requestPaymentInfo</b></div></td></tr></table><p>requestPaymentInfo(): selects payment information by user_id<br /><br />@global int $_SESSION["userid"] customer id <br />@return object|null with the payment information found in the query <br /><br /></p><p>Declaration :</p><ul><li>Uml : # requestPaymentInfo() : object|null</li><li>Php : protected function requestPaymentInfo(): object|null </li></ul><a name="ref2_130562"></a>
+<table><tr><td><div class="element">Operation <b>insertPaymentInfo</b></div></td></tr></table><p>insertPaymentInfo(): inserts the payment information received to the database<br /><br />@global int $_SESSION["userid"] customer id <br />@param int $cnumber credit/debit card last four digits <br />@param string $ctitular the name on the card<br />@param int $cmonth expiration's month<br />@param int $cyear expiration's year<br />@param int $ccvc the cvc of the card<br />@param string $cbilling billing address associated to the card<br />@param int $czip zip code of the billing address<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # insertPaymentInfo(in cnumber : int, in ctitular : string, in cmonth : int, in cyear : int, in ccvc : int, in cbilling : string, in czip : int) : void</li><li>Php : protected function insertPaymentInfo($cnumber, $ctitular, $cmonth, $cyear, $ccvc, $cbilling, $czip): void </li></ul><a name="ref2_130690"></a>
+<table><tr><td><div class="element">Operation <b>deletePayment</b></div></td></tr></table><p>deletePayment(): deletes payment information by user_id<br /><br />@global int $_SESSION["userid"] customer id <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deletePayment() : void</li><li>Php : public function deletePayment(): void </li></ul></div>
+<p>All public operations : <a href="class128770.html#ref2_130690"><b>deletePayment</b></a> </p>
+</body>
+</html>

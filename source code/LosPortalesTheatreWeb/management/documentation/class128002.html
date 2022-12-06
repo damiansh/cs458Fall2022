@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class AuthContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class AuthContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128002"></a>
+<p>AuthContr is the controller class for the Auth class that confirms the email of the customer<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class AuthContr extends <a href="class128130.html#ref4_128130"><b>Auth</b></a> </li></ul><p>Artifact : auth-contr.class</p>
+<div class="sub">
+<a name="ref1_128002"></a>
+<table><tr><td><div class="element">Attribute <b>email</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - email : </li><li>Php : private $email</li></ul><a name="ref1_128130"></a>
+<table><tr><td><div class="element">Attribute <b>code</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - code : </li><li>Php : private $code</li></ul><a name="ref2_128002"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param string $email the email of the customer<br />@param string $code code to confirm that confirmation of the email is valid <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in email : string, in code : string) : void</li><li>Php : public function __construct($email, $code): void </li></ul><a name="ref2_128130"></a>
+<table><tr><td><div class="element">Operation <b>authUser</b></div></td></tr></table><p>authUser(): executes error handlers and if passes, sends the necessary information to confirm a customer's email. <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + authUser() : void</li><li>Php : public function authUser(): void </li></ul><a name="ref2_128258"></a>
+<table><tr><td><div class="element">Operation <b>missingInput</b></div></td></tr></table><p>missingInput(): error handler that checks if input is missing <br /><br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - missingInput() : boolean</li><li>Php : private function missingInput(): boolean </li></ul></div>
+<p>All public operations : <a href="class128002.html#ref2_128002"><b>__construct</b></a> , <a href="class128002.html#ref2_128130"><b>authUser</b></a> </p>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class PlayContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class PlayContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129026"></a>
+<p>PlayContr is the controller class for the Play class. Handles and receives the play information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class PlayContr extends <a href="class129154.html#ref4_129154"><b>Play</b></a> </li></ul><p>Artifact : play-contr.class</p>
+<div class="sub">
+<a name="ref1_129794"></a>
+<table><tr><td><div class="element">Attribute <b>playTitle</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - playTitle : </li><li>Php : private $playTitle</li></ul><a name="ref1_129922"></a>
+<table><tr><td><div class="element">Attribute <b>shortDesc</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - shortDesc : </li><li>Php : private $shortDesc</li></ul><a name="ref1_130050"></a>
+<table><tr><td><div class="element">Attribute <b>longDesc</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - longDesc : </li><li>Php : private $longDesc</li></ul><a name="ref1_130178"></a>
+<table><tr><td><div class="element">Attribute <b>sDate</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - sDate : </li><li>Php : private $sDate</li></ul><a name="ref1_130306"></a>
+<table><tr><td><div class="element">Attribute <b>eDate</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - eDate : </li><li>Php : private $eDate</li></ul><a name="ref1_130434"></a>
+<table><tr><td><div class="element">Attribute <b>cost</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - cost : </li><li>Php : private $cost</li></ul><a name="ref1_130562"></a>
+<table><tr><td><div class="element">Attribute <b>image_base64</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - image_base64 :  = null</li><li>Php : private $image_base64</li></ul><a name="ref1_130690"></a>
+<table><tr><td><div class="element">Attribute <b>folderPath</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - folderPath :  = null</li><li>Php : private $folderPath</li></ul><a name="ref2_130818"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param string $playTitle title of the given play <br />@param string $shortDesc short synopsis of the given play <br />@param string $longDesc longer synopsis of the given play <br />@param string $sDate start date time of the given play <br />@param string $eDate end date time of the given play. Date must be the same, time can differ<br />@param float $cost default cost for the seats in the given play <br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in playTitle : string, in shortDesc : string, in longDesc : string, in sDate : string, in eDate : string, in cost : float) : </li><li>Php : public function __construct($playTitle, $shortDesc, $longDesc, $sDate, $eDate, $cost) </li></ul><a name="ref2_130946"></a>
+<table><tr><td><div class="element">Operation <b>addPlay</b></div></td></tr></table><p>addPlay(): executes error handling for PlayContr and prepares the process to create play <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + addPlay() : void</li><li>Php : public function addPlay(): void </li></ul><a name="ref2_131074"></a>
+<table><tr><td><div class="element">Operation <b>prepareChanges</b></div></td></tr></table><p>prepareChanges(): executes error handling for PlayContr and then prepares to update the changes in the play <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + prepareChanges(in playID : ) : void</li><li>Php : public function prepareChanges($playID): void </li></ul><a name="ref2_131202"></a>
+<table><tr><td><div class="element">Operation <b>setImage</b></div></td></tr></table><p>setImage(): method to set the image to be added to the server for the given play <br /><br />@param string $image image information<br />@param string $folderPath folder path where the image is going to be uploaded<br />@param int $playID the id for the play <br />@param string $page destination for the errors <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + setImage(in image : string, in folderPath : string, in playID : int, in page : string) : void</li><li>Php : public function setImage($image, $folderPath, $playID, $page): void </li></ul><a name="ref2_131330"></a>
+<table><tr><td><div class="element">Operation <b>errorHandlers</b></div></td></tr></table><p>errorHandlers(): executes all the error handling methods for the class <br />@param string $page destination for the errors <br />@param int $playID the id for the play <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : - errorHandlers(in page : string, in playID : int) : void</li><li>Php : private function errorHandlers($page, $playID): void </li></ul><a name="ref2_131458"></a>
+<table><tr><td><div class="element">Operation <b>missingInput</b></div></td></tr></table><p>missingInput(): checks for missing inputs<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - missingInput() : boolean</li><li>Php : private function missingInput(): boolean </li></ul><a name="ref2_131586"></a>
+<table><tr><td><div class="element">Operation <b>isEndDateLess</b></div></td></tr></table><p>isEndDateLess(): checks if end date time is lesser than start date time<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - isEndDateLess() : boolean</li><li>Php : private function isEndDateLess(): boolean </li></ul><a name="ref2_131714"></a>
+<table><tr><td><div class="element">Operation <b>areDatesDifferent</b></div></td></tr></table><p>areDatesDifferent(): checks if the dates (not the time) are different<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - areDatesDifferent() : boolean</li><li>Php : private function areDatesDifferent(): boolean </li></ul><a name="ref2_131842"></a>
+<table><tr><td><div class="element">Operation <b>isTitleLonger</b></div></td></tr></table><p>isTitleLonger(): throws error if title is longer than 36 characters<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - isTitleLonger() : boolean</li><li>Php : private function isTitleLonger(): boolean </li></ul><a name="ref2_131970"></a>
+<table><tr><td><div class="element">Operation <b>isShortLonger</b></div></td></tr></table><p>isShortLonger(): throws error if short description is longer than 300 characters<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - isShortLonger() : boolean</li><li>Php : private function isShortLonger(): boolean </li></ul></div>
+<p>All public operations : <a href="class129026.html#ref2_130818"><b>__construct</b></a> , <a href="class129026.html#ref2_130946"><b>addPlay</b></a> , <a href="class129154.html#ref2_134018"><b>deletePlay</b></a> , <a href="class129026.html#ref2_131074"><b>prepareChanges</b></a> , <a href="class129154.html#ref2_133890"><b>publishPlay</b></a> , <a href="class129026.html#ref2_131202"><b>setImage</b></a> </p>
+</body>
+</html>

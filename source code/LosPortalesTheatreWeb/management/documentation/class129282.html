@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class PlayView</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class PlayView</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129282"></a>
+<p>PlayView is the view class for the Play class. Handles displaying/outputting information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class PlayView extends <a href="class129154.html#ref4_129154"><b>Play</b></a> </li></ul><p>Artifact : play-view.class</p>
+<div class="sub">
+<a name="ref1_130818"></a>
+<table><tr><td><div class="element">Attribute <b>plays</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - plays : </li><li>Php : private $plays</li></ul><a name="ref2_132098"></a>
+<table><tr><td><div class="element">Operation <b>requestPublished</b></div></td></tr></table><p>requestPublished(): request to the database all the upcoming and published plays <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestPublished() : void</li><li>Php : public function requestPublished(): void </li></ul><a name="ref2_132226"></a>
+<table><tr><td><div class="element">Operation <b>requestAllPlays</b></div></td></tr></table><p>requestAllPlays(): request to the database all the plays in the system  <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestAllPlays() : void</li><li>Php : public function requestAllPlays(): void </li></ul><a name="ref2_132354"></a>
+<table><tr><td><div class="element">Operation <b>requestPlay</b></div></td></tr></table><p>requestAllPlays(): request to the database for the play with the given id <br /><br />@param int $playID id of the play <br />@param int $modal MODAL = 0 no criteria, MODAL = 1 then only published and upcoming plays<br />@return void <br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestPlay(in playID : int, in modal : int) : void</li><li>Php : public function requestPlay($playID, $modal): void </li></ul><a name="ref2_132482"></a>
+<table><tr><td><div class="element">Operation <b>printPlays</b></div></td></tr></table><p>printPlays(): method to print the play information to html <br /><br />@param string $column contains the class information for the div parent generated<br />@param int $modal MODAL = 0 (purchase card), 1 (long desc card), 2 (modify card)<br />@return void <br /><br /></p><p>Declaration :</p><ul><li>Uml : + printPlays(in column : string, in modal : int) : void</li><li>Php : public function printPlays($column, $modal): void </li></ul><a name="ref2_132610"></a>
+<table><tr><td><div class="element">Operation <b>getPlayInfo</b></div></td></tr></table><p>getPlayInfo(): returns the Play object <br /><br />@return object $plays: object with the play information<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getPlayInfo() : object</li><li>Php : public function getPlayInfo(): object </li></ul><a name="ref2_132738"></a>
+<table><tr><td><div class="element">Operation <b>playCard</b></div></td></tr></table><p>printPlays(): method to print the play information to html <br /><br />@param int    $playID  ID of the play to be printed <br />@param string $playTitle title of the play to be printed<br />@param string $desc synopsis for the play to be printed <br />@param string $sTimeR the start date time for the play to be printed <br />@param string $eTimeR the end date time for the div parent generated<br />@param int    $published the published status for the play, 0==unpublished, 1== published <br />@param string $pURL the url for the imagen of the play to be printed <br />@param string $column  the class information for the div parent generated<br />@param int $modal MODAL = 0 (purchase card), 1 (long desc card), 2 (modify card)<br />@return HTML $dom, the html createad gets returne to the printPlays <br /><br /></p><p>Declaration :</p><ul><li>Uml : + playCard(in playID : int, in playTitle : string, in desc : string, in sTimeR : string, in eTimeR : string, in published : int, in pURL : string, in column : string, in modal : int) : HTML</li><li>Php : public function playCard($playID, $playTitle, $desc, $sTimeR, $eTimeR, $published, $pURL, $column, $modal): HTML </li></ul></div>
+<p>All public operations : <a href="class129154.html#ref2_134018"><b>deletePlay</b></a> , <a href="class129282.html#ref2_132610"><b>getPlayInfo</b></a> , <a href="class129282.html#ref2_132738"><b>playCard</b></a> , <a href="class129282.html#ref2_132482"><b>printPlays</b></a> , <a href="class129154.html#ref2_133890"><b>publishPlay</b></a> , <a href="class129282.html#ref2_132226"><b>requestAllPlays</b></a> , <a href="class129282.html#ref2_132354"><b>requestPlay</b></a> , <a href="class129282.html#ref2_132098"><b>requestPublished</b></a> </p>
+</body>
+</html>

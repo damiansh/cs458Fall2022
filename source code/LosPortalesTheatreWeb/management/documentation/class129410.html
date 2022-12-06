@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class RegisterContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class RegisterContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129410"></a>
+<p>RegisterContr is the controller class for the Register class. Handles and receives the registration info<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class RegisterContr extends <a href="class129538.html#ref4_129538"><b>Register</b></a> </li></ul><p>Artifact : register-contr.class</p>
+<div class="sub">
+<a name="ref1_130946"></a>
+<table><tr><td><div class="element">Attribute <b>email</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - email : </li><li>Php : private $email</li></ul><a name="ref1_131074"></a>
+<table><tr><td><div class="element">Attribute <b>psw</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - psw : </li><li>Php : private $psw</li></ul><a name="ref1_131202"></a>
+<table><tr><td><div class="element">Attribute <b>pswRepeat</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - pswRepeat : </li><li>Php : private $pswRepeat</li></ul><a name="ref1_131330"></a>
+<table><tr><td><div class="element">Attribute <b>fname</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - fname : </li><li>Php : private $fname</li></ul><a name="ref1_131458"></a>
+<table><tr><td><div class="element">Attribute <b>lname</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - lname : </li><li>Php : private $lname</li></ul><a name="ref1_131586"></a>
+<table><tr><td><div class="element">Attribute <b>birthday</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - birthday : </li><li>Php : private $birthday</li></ul><a name="ref1_131714"></a>
+<table><tr><td><div class="element">Attribute <b>phone</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - phone : </li><li>Php : private $phone</li></ul><a name="ref2_134146"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param string $email of the new customer <br />@param string $psw password of the new customer <br />@param string $pswRepeat confirmation of the password<br />@param string $fname first name of the new customer <br />@param string $lname last name of the new customer <br />@param string $birthday the birthday of the new customer <br />@param string $phone the phone number of the new customer <br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in email : string, in psw : string, in pswRepeat : string, in fname : string, in lname : string, in birthday : string, in phone : string) : </li><li>Php : public function __construct($email, $psw, $pswRepeat, $fname, $lname, $birthday, $phone) </li></ul><a name="ref2_134274"></a>
+<table><tr><td><div class="element">Operation <b>registerUser</b></div></td></tr></table><p>registerUser(): executes error handling for registration and calls the database to add the information<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + registerUser() : void</li><li>Php : public function registerUser(): void </li></ul><a name="ref2_134402"></a>
+<table><tr><td><div class="element">Operation <b>missingInput</b></div></td></tr></table><p>missingInput(): checks for missing inputs<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - missingInput() : boolean</li><li>Php : private function missingInput(): boolean </li></ul><a name="ref2_134530"></a>
+<table><tr><td><div class="element">Operation <b>invalidEmail</b></div></td></tr></table><p>invalidEmail(): checks if the given has an invalid format <br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - invalidEmail() : boolean</li><li>Php : private function invalidEmail(): boolean </li></ul><a name="ref2_134658"></a>
+<table><tr><td><div class="element">Operation <b>pswMatch</b></div></td></tr></table><p>pswMatch(): checks if the given passwords match <br />@return boolean true==match, false==error, no match <br /><br /></p><p>Declaration :</p><ul><li>Uml : - pswMatch() : boolean</li><li>Php : private function pswMatch(): boolean </li></ul><a name="ref2_134786"></a>
+<table><tr><td><div class="element">Operation <b>emailUsed</b></div></td></tr></table><p>emailUsed(): checks if the given email already exists <br />@return boolean true==error, it exists. false==ok, doesn't exist <br /><br /></p><p>Declaration :</p><ul><li>Uml : - emailUsed() : boolean</li><li>Php : private function emailUsed(): boolean </li></ul></div>
+<p>All public operations : <a href="class129410.html#ref2_134146"><b>__construct</b></a> , <a href="class129410.html#ref2_134274"><b>registerUser</b></a> </p>
+</body>
+</html>

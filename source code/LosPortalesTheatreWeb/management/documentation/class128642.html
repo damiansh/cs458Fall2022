@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class PaymentContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class PaymentContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128642"></a>
+<p>PaymentContr is the controller class for the Payment class. Handles and receives the payment information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class PaymentContr extends <a href="class128770.html#ref4_128770"><b>Payment</b></a> </li></ul><p>Artifact : payment-contr.class</p>
+<div class="sub">
+<a name="ref1_128770"></a>
+<table><tr><td><div class="element">Attribute <b>cnumber</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - cnumber : </li><li>Php : private $cnumber</li></ul><a name="ref1_128898"></a>
+<table><tr><td><div class="element">Attribute <b>ctitular</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - ctitular : </li><li>Php : private $ctitular</li></ul><a name="ref1_129026"></a>
+<table><tr><td><div class="element">Attribute <b>cmonth</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - cmonth : </li><li>Php : private $cmonth</li></ul><a name="ref1_129154"></a>
+<table><tr><td><div class="element">Attribute <b>cyear</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - cyear : </li><li>Php : private $cyear</li></ul><a name="ref1_129282"></a>
+<table><tr><td><div class="element">Attribute <b>ccvc</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - ccvc : </li><li>Php : private $ccvc</li></ul><a name="ref1_129410"></a>
+<table><tr><td><div class="element">Attribute <b>cbilling</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - cbilling : </li><li>Php : private $cbilling</li></ul><a name="ref1_129538"></a>
+<table><tr><td><div class="element">Attribute <b>czip</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - czip : </li><li>Php : private $czip</li></ul><a name="ref2_129282"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param int $cnumber credit/debit card last four digits <br />@param string $ctitular the name on the card<br />@param int $cmonth expiration's month<br />@param int $cyear expiration's year<br />@param int $ccvc the cvc of the card<br />@param string $cbilling billing address associated to the card<br />@param int $czip zip code of the billing address<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in cnumber : int, in ctitular : string, in cmonth : int, in cyear : int, in ccvc : int, in cbilling : string, in czip : int) : </li><li>Php : public function __construct($cnumber, $ctitular, $cmonth, $cyear, $ccvc, $cbilling, $czip) </li></ul><a name="ref2_129410"></a>
+<table><tr><td><div class="element">Operation <b>addPaymentInfo</b></div></td></tr></table><p>addPaymentInfo(): executes error handling for payment and then calls to insert info to database<br /><br />@return void<br /><br />Method to generate Graphic Seat Plan <br /></p><p>Declaration :</p><ul><li>Uml : + addPaymentInfo() : void</li><li>Php : public function addPaymentInfo(): void </li></ul><a name="ref2_129538"></a>
+<table><tr><td><div class="element">Operation <b>errorHandlers</b></div></td></tr></table><p>errorHandlers(): executes all the error handling methods for the class <br />@param string $page destination for the errors <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : - errorHandlers(in page : string) : void</li><li>Php : private function errorHandlers($page): void </li></ul><a name="ref2_129666"></a>
+<table><tr><td><div class="element">Operation <b>missingInput</b></div></td></tr></table><p>missingInput(): checks for missing inputs<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - missingInput() : boolean</li><li>Php : private function missingInput(): boolean </li></ul><a name="ref2_129794"></a>
+<table><tr><td><div class="element">Operation <b>checkMonth</b></div></td></tr></table><p>checkMonth(): checks if the month is invalid (>12)<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - checkMonth() : boolean</li><li>Php : private function checkMonth(): boolean </li></ul><a name="ref2_129922"></a>
+<table><tr><td><div class="element">Operation <b>isExpired</b></div></td></tr></table><p>isExpired(): checks if card is already expired <br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - isExpired() : boolean</li><li>Php : private function isExpired(): boolean </li></ul><a name="ref2_130050"></a>
+<table><tr><td><div class="element">Operation <b>isValid</b></div></td></tr></table><p>isValid(): checks if the card is valid by cvc length<br />@return boolean true==error, false==OK<br /><br /></p><p>Declaration :</p><ul><li>Uml : - isValid() : boolean</li><li>Php : private function isValid(): boolean </li></ul></div>
+<p>All public operations : <a href="class128642.html#ref2_129282"><b>__construct</b></a> , <a href="class128642.html#ref2_129410"><b>addPaymentInfo</b></a> , <a href="class128770.html#ref2_130690"><b>deletePayment</b></a> </p>
+</body>
+</html>

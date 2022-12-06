@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Register</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Register</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129538"></a>
+<p>Register class handles the queries executions to the database with data from the controller and view<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Register extends <a href="class128258.html#ref4_128258"><b>PortalesDB</b></a> </li></ul><p>Directly inherited by : <a href="class129410.html#ref4_129410"><b>RegisterContr</b></a> </p>
+<p>Artifact : register.class</p>
+<div class="sub">
+<a name="ref2_134914"></a>
+<table><tr><td><div class="element">Operation <b>setUser</b></div></td></tr></table><p>setUser(): inserts the new customer into the database <br /><br />@param string $email of the new customer <br />@param string $psw password of the new customer <br />@param string $fname first name of the new customer <br />@param string $lname last name of the new customer <br />@param string $birthday the birthday of the new customer <br />@param string $phone the phone number of the new customer <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setUser(in email : string, in psw : string, in fname : string, in lname : string, in birthday : string, in phone : string) : void</li><li>Php : protected function setUser($email, $psw, $fname, $lname, $birthday, $phone): void </li></ul><a name="ref2_135042"></a>
+<table><tr><td><div class="element">Operation <b>checkEmail</b></div></td></tr></table><p>checkEmail(): queries the database and checks if the given email already exists <br /><br />@param string $email of the new customer <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # checkEmail(in email : string) : void</li><li>Php : protected function checkEmail($email): void </li></ul><a name="ref2_135170"></a>
+<table><tr><td><div class="element">Operation <b>emailBody</b></div></td></tr></table><p>emailBody(): generates the body of the email to be send <br /><br />@param string $activation code for the new customer <br />@param string $email email of the new customer <br />@param string $fname first name of the new customer <br />@param string $lname last name of the new customer<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # emailBody(in activation : string, in email : string, in fname : string, in lname : string) : void</li><li>Php : protected function emailBody($activation, $email, $fname, $lname): void </li></ul></div>
+</body>
+</html>

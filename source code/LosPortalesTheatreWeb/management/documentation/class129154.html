@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Play</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Play</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129154"></a>
+<p>Play class handles the queries executions to the database with data from the controller and view<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Play extends <a href="class128258.html#ref4_128258"><b>PortalesDB</b></a> </li></ul><p>Directly inherited by : <a href="class129026.html#ref4_129026"><b>PlayContr</b></a> <a href="class129282.html#ref4_129282"><b>PlayView</b></a> </p>
+<p>Artifact : play.class</p>
+<div class="sub">
+<a name="ref2_132866"></a>
+<table><tr><td><div class="element">Operation <b>insertPlay</b></div></td></tr></table><p>insertPlay(): inserts given information to the play table in the database<br /><br />@param string $playTitle title of the given play <br />@param string $shortDesc short synopsis of the given play <br />@param string $longDesc longer synopsis of the given play <br />@param string $sDate start date time of the given play <br />@param string $eDate end date time of the given play. Date must be the same, time can differ<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # insertPlay(in playTitle : string, in shortDesc : string, in longDesc : string, in sDate : string, in eDate : string) : void</li><li>Php : protected function insertPlay($playTitle, $shortDesc, $longDesc, $sDate, $eDate): void </li></ul><a name="ref2_132994"></a>
+<table><tr><td><div class="element">Operation <b>addSeats</b></div></td></tr></table><p>addSeats(): creates the seats (96) for the play with the given playID<br /><br />@param int $playID id to the play to which the seat belongs to <br />@param float $defaultCost default cost for the seats in the given play      <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # addSeats(in playID : int, in defaultCost : float) : void</li><li>Php : protected function addSeats($playID, $defaultCost): void </li></ul><a name="ref2_133122"></a>
+<table><tr><td><div class="element">Operation <b>updatePlay</b></div></td></tr></table><p>updatePlay(): updates a play information by a given id <br /><br />@param int $playID id of the play that is going to be updated<br />@param string $playTitle title of the given play <br />@param string $shortDesc short synopsis of the given play <br />@param string $longDesc longer synopsis of the given play <br />@param string $sDate start date time of the given play <br />@param string $eDate end date time of the given play. Date must be the same, time can differ<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # updatePlay(in playID : int, in playTitle : string, in shortDesc : string, in longDesc : string, in sDate : string, in eDate : string) : void</li><li>Php : protected function updatePlay($playID, $playTitle, $shortDesc, $longDesc, $sDate, $eDate): void </li></ul><a name="ref2_133250"></a>
+<table><tr><td><div class="element">Operation <b>uploadImage</b></div></td></tr></table><p>updatePlay(): updates a image to the server <br /><br />@param string $path folder path where the image is going to be uploaded<br />@param string $base64 base64 code of the image to be uploaded <br />@param int $playID the id that ties the image to the play being uploaded <br />@param string $page destination for the errors <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # uploadImage(in path : string, in base64 : string, in playID : int, in page : string) : void</li><li>Php : protected function uploadImage($path, $base64, $playID, $page): void </li></ul><a name="ref2_133378"></a>
+<table><tr><td><div class="element">Operation <b>getPlayID</b></div></td></tr></table><p>getPlayID(): executes a select query to a view called latestplay to get the latest play id <br /><br />@return int $playID, returns the play ID of the latest play <br /><br /></p><p>Declaration :</p><ul><li>Uml : # getPlayID() : int</li><li>Php : protected function getPlayID(): int </li></ul><a name="ref2_133506"></a>
+<table><tr><td><div class="element">Operation <b>getUpcomingPlays</b></div></td></tr></table><p>getUpcomingPlays(): executes a select query for the plays to get all the upcoming and published plays <br /><br />@return object|null $plays, play object data with the play information <br /><br /></p><p>Declaration :</p><ul><li>Uml : # getUpcomingPlays() : object|null</li><li>Php : protected function getUpcomingPlays(): object|null </li></ul><a name="ref2_133634"></a>
+<table><tr><td><div class="element">Operation <b>getAllPlays</b></div></td></tr></table><p>getAllPlays(): executes a select query for ALL the plays in the system <br /><br />@return object|null $plays, play object data with all the play information <br /><br /></p><p>Declaration :</p><ul><li>Uml : # getAllPlays() : object|null</li><li>Php : protected function getAllPlays(): object|null </li></ul><a name="ref2_133762"></a>
+<table><tr><td><div class="element">Operation <b>getPlay</b></div></td></tr></table><p>getPlay(): executes a select query for an individual play by modal<br />@param int $playID id of the play to be selected<br />@param int $modal MODAL = 0 no criteria, MODAL = 1 then only published and upcoming plays<br />@return object|null $plays, play object data with all the play information <br /><br /></p><p>Declaration :</p><ul><li>Uml : # getPlay(in playID : int, in modal : int) : object|null</li><li>Php : protected function getPlay($playID, $modal): object|null </li></ul><a name="ref2_133890"></a>
+<table><tr><td><div class="element">Operation <b>publishPlay</b></div></td></tr></table><p>publishPlay(): updates the published status of a given play ID to the received status <br />@param int $playID id of the play to be selected<br />@param int $published 0==unpublished, 1==published <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + publishPlay(in playID : int, in published : int) : void</li><li>Php : public function publishPlay($playID, $published): void </li></ul><a name="ref2_134018"></a>
+<table><tr><td><div class="element">Operation <b>deletePlay</b></div></td></tr></table><p>deletePlay(): deletes a play by the given id and its seats <br />@param int $playID id of the play to be selected<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deletePlay(in playID : int) : void</li><li>Php : public function deletePlay($playID): void </li></ul></div>
+<p>All public operations : <a href="class129154.html#ref2_134018"><b>deletePlay</b></a> , <a href="class129154.html#ref2_133890"><b>publishPlay</b></a> </p>
+</body>
+</html>

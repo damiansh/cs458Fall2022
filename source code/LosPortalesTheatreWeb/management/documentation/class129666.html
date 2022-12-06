@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class SeatContr</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class SeatContr</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_129666"></a>
+<p>SeatContr is the controller class for the Seat class. Handles and receives the seat information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class SeatContr extends <a href="class129794.html#ref4_129794"><b>Seat</b></a> </li></ul><p>Artifact : seat-contr.class</p>
+<div class="sub">
+<a name="ref1_131842"></a>
+<table><tr><td><div class="element">Attribute <b>seats</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - seats : </li><li>Php : private $seats</li></ul><a name="ref2_135298"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Initializes this class with the given options.<br /><br />@param object $seats object with the seat information <br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in seats : object) : </li><li>Php : public function __construct($seats) </li></ul><a name="ref2_135426"></a>
+<table><tr><td><div class="element">Operation <b>setPrice</b></div></td></tr></table><p>setPrice(): sends the seat data to the Seat Class to update the price of the seats in the object<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + setPrice() : void</li><li>Php : public function setPrice(): void </li></ul><a name="ref2_135554"></a>
+<table><tr><td><div class="element">Operation <b>prepareCheckout</b></div></td></tr></table><p>prepareCheckout(): prepares the checkout for the seats in the object <br /><br />@param float $orderTotal total of the cart with tax <br />@return int $transactionID it returns the new transaction id generated for the purchase <br /><br /></p><p>Declaration :</p><ul><li>Uml : + prepareCheckout(in orderTotal : float) : int</li><li>Php : public function prepareCheckout($orderTotal): int </li></ul><a name="ref2_135682"></a>
+<table><tr><td><div class="element">Operation <b>removeFromCart</b></div></td></tr></table><p>removeFromCart(): calls the method in the parent class to remove a ticket from the cart <br /><br />@param int $ticket the id of the ticket to be removed <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + removeFromCart(in ticket : int) : void</li><li>Php : public function removeFromCart($ticket): void </li></ul><a name="ref2_135810"></a>
+<table><tr><td><div class="element">Operation <b>addtoCart</b></div></td></tr></table><p>addtoCart(): executes methods to add seats to the shopping cart<br />Shopping cart is defined sd where seats have an user id and its status are 1 <br />@return object $seatStatus returns the available and unavailable seats<br /><br /></p><p>Declaration :</p><ul><li>Uml : + addtoCart() : object</li><li>Php : public function addtoCart(): object </li></ul></div>
+<p>All public operations : <a href="class129666.html#ref2_135298"><b>__construct</b></a> , <a href="class129666.html#ref2_135810"><b>addtoCart</b></a> , <a href="class129794.html#ref2_137474"><b>getCartContent</b></a> , <a href="class129666.html#ref2_135554"><b>prepareCheckout</b></a> , <a href="class129666.html#ref2_135682"><b>removeFromCart</b></a> , <a href="class129666.html#ref2_135426"><b>setPrice</b></a> </p>
+</body>
+</html>

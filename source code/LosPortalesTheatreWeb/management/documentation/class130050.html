@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class TransactionView</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class TransactionView</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_130050"></a>
+<p>TransactionView is the view class for the Transaction class. Handles displaying/outputting information<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class TransactionView extends <a href="class130178.html#ref4_130178"><b>Transaction</b></a> </li></ul><p>Artifact : transaction-view.class</p>
+<div class="sub">
+<a name="ref1_132098"></a>
+<table><tr><td><div class="element">Attribute <b>transactions</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - transactions : </li><li>Php : private $transactions</li></ul><a name="ref2_138114"></a>
+<table><tr><td><div class="element">Operation <b>requestTransaction</b></div></td></tr></table><p>requestTransaction(): sends info to request to the database a transaction by its id <br /><br />@param int $id the id of the transaction to be requested<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestTransaction(in id : int) : void</li><li>Php : public function requestTransaction($id): void </li></ul><a name="ref2_138242"></a>
+<table><tr><td><div class="element">Operation <b>requestAllUserTransactions</b></div></td></tr></table><p>requestAllUserTransactions(): request all the transactions for the current user <br /><br />@param int $id the id of the transaction to be requested<br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestAllUserTransactions() : void</li><li>Php : public function requestAllUserTransactions(): void </li></ul><a name="ref2_138370"></a>
+<table><tr><td><div class="element">Operation <b>requestPlayTransactions</b></div></td></tr></table><p>requestPlayTransactions(): request to the database all the transactions for the given play id<br /><br />@param int $playID the id of the play <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + requestPlayTransactions(in playID : int) : void</li><li>Php : public function requestPlayTransactions($playID): void </li></ul><a name="ref2_138498"></a>
+<table><tr><td><div class="element">Operation <b>getInfo</b></div></td></tr></table><p>getInfo(): returns the object with the transactions info <br /><br />@return object $transactions, it contains transaction information<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getInfo() : object</li><li>Php : public function getInfo(): object </li></ul><a name="ref2_138626"></a>
+<table><tr><td><div class="element">Operation <b>generateReport</b></div></td></tr></table><p>generateReport(): generates report for current transactions<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + generateReport() : void</li><li>Php : public function generateReport(): void </li></ul><a name="ref2_138754"></a>
+<table><tr><td><div class="element">Operation <b>printTickets</b></div></td></tr></table><p>printTickets(): method that prints to the page the tickets for the current transactions <br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + printTickets() : void</li><li>Php : public function printTickets(): void </li></ul><a name="ref2_138882"></a>
+<table><tr><td><div class="element">Operation <b>generateTicket</b></div></td></tr></table><p>generateTicket(): generates the HTML elements for the given ticket <br /><br />@param ??? $ticket, contains the ticket information <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + generateTicket(in ticket : ) : void</li><li>Php : public function generateTicket($ticket): void </li></ul></div>
+<p>All public operations : <a href="class130050.html#ref2_138626"><b>generateReport</b></a> , <a href="class130050.html#ref2_138882"><b>generateTicket</b></a> , <a href="class130050.html#ref2_138498"><b>getInfo</b></a> , <a href="class130050.html#ref2_138754"><b>printTickets</b></a> , <a href="class130050.html#ref2_138242"><b>requestAllUserTransactions</b></a> , <a href="class130050.html#ref2_138370"><b>requestPlayTransactions</b></a> , <a href="class130050.html#ref2_138114"><b>requestTransaction</b></a> </p>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Login</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Login</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128514"></a>
+<p>Login class handles the queries executions to the database with data from the controller and view<br />@author Pedro Damian Marta Rubio https://github.com/damiansh<br />@copyright Copyright (c) 2022, Pedro Damian Marta Rubio <br />@version 1.0<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Login extends <a href="class128258.html#ref4_128258"><b>PortalesDB</b></a> </li></ul><p>Directly inherited by : <a href="class128386.html#ref4_128386"><b>LoginContr</b></a> </p>
+<p>Artifact : login.class</p>
+<div class="sub">
+<a name="ref2_129154"></a>
+<table><tr><td><div class="element">Operation <b>getUser</b></div></td></tr></table><p>getUser(): selects the users from the database by given email and if psw hash is true then logs the user<br /><br />@param string $email the email of the customer<br />@param string $psw customer password<br />@param boolean $m manager modal, if true then admin, else customer<br />@param ??? $destination, the destination if any error arises <br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # getUser(in email : string, in psw : string, in m : boolean, in destination : ) : void</li><li>Php : protected function getUser($email, $psw, $m, $destination): void </li></ul></div>
+</body>
+</html>
