@@ -40,4 +40,6 @@
     <item name="seatNumber" type="id" />
     <item name="seatStatus" type="id" />
     <item name="seatTicketID" type="id" />
+    <string name="theatreAddress">Eastern New Mexico University, Portales</string>
+    <string name="losportales_address">1500 S Avenue K, Portales, NM 88130</string>
 </resources>
