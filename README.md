@@ -1,7 +1,7 @@
 # cs458Fall2022 - Los Portales Theatre App
 Team Project for Mobile Application Development.
 
-For this semester, we have build an app from scratch based on a website we did for CS472. 
+For this semester, we have built an app from scratch based on a website we did for CS472. 
 
 The repository for that project can be found here [Los Portales Theatre web](https://github.com/damiansh/Project-Theater).
 
